@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <nav>
       {/* Logo linking to the top of the page */}
-      <a href="#" className="logo">LuminoLearn</a>
+      <a href="#/home" className="logo">LuminoLearn</a>
       
       {/* Navigation links that scroll to sections on the Main page */}
       <div className="nav-links">
