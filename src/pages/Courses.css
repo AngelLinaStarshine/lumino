@@ -1,0 +1,296 @@
+/* ============================= */
+/*         Global Styles         */
+/* ============================= */
+
+/* Header Image Styling */
+.header-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Fallback background color for images */
+  .header-image,
+  .about-image,
+  .course-image {
+    background-color: #f0f0f0;
+  }
+  
+  /* Body Styling */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    color: #0b2a68;
+    background-color: #fdfaf0;
+
+  }
+  .course-page {
+    padding-bottom: 70px; /* Adjust value based on your footer height */
+  }
+  /* General Welcome Section */
+  .welcome-section {
+    text-align: center;
+    padding: 40px 20px;
+    color: #0b2a68;
+  }
+  
+  /* Learn More Button */
+  .learn-more-button {
+    margin-left: 15px;
+    padding: 8px 20px;
+    background-color: #e457e4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  /* ============================= */
+  /*        Navbar Styles          */
+  /* ============================= */
+  
+  nav {
+    background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    color: #003366;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003366;
+    text-decoration: none;
+  }
+  
+  nav .logo:hover {
+    color: #61dafb;
+  }
+  
+  nav .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav .nav-links a {
+    text-decoration: none;
+    color: #003366;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  nav .nav-links a:hover {
+    color: #61dafb;
+  }
+  
+  nav .burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  nav .burger div {
+    width: 25px;
+    height: 3px;
+    background: #003366;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    nav .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+    }
+    nav .burger {
+      display: flex;
+    }
+    nav.active .nav-links {
+      display: flex;
+    }
+    nav.active .burger div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    nav.active .burger div:nth-child(2) {
+      opacity: 0;
+    }
+    nav.active .burger div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+  }
+  
+  /* ============================= */
+  /*         Footer Styles         */
+  /* ============================= */
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    color: #003366;
+    font-family: "Lobster Two", serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .social-media-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .social-media-links a {
+    color: #003366;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+  }
+  
+  .social-media-links a:hover {
+    color: #61dafb;
+  }
+  
+  .footer p {
+    font-size: 0.9rem;
+  }
+  
+  /* ============================= */
+  /*       Keyframes Animation     */
+  /* ============================= */
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  /* ============================= */
+  /*        Courses Section        */
+  /* ============================= */
+  
+  /* Container for courses (if used on any page) */
+  .courses-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+    align-items: flex-start;
+  }
+  
+  /* Individual Course Block */
+  .course {
+    position: relative;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Course Image Styling */
+  .course-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  
+  /* Enroll Button Styling */
+  .enroll-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 46%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Swiper Slide Styling (if applicable) */
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  /* Full-width images (for skills, beyond, etc.) */
+  .full-width-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Skills Section */
+  .skills-section {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  /* Beyond Section */
+  .beyond-section {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  /* ============================= */
+  /*     Custom Course Elements    */
+  /* ============================= */
+  
+
+
+/* Decorative Rectangle Container */
+.decorative-rectangle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+    gap: 10px;  
+  }
+  
+  /* Styling for each decorative image */
+  .decorative-rectangle img {
+    width: 100%;         /* Make the image fill the width of its grid cell */
+    height: 150px;       /* Set a fixed height to enforce uniformity */
+    object-fit: cover;
+  }
+  
