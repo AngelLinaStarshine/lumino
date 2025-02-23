@@ -1,0 +1,56 @@
+.personal-account {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  h1, h2 {
+    color: #003366;
+    text-align: center;
+  }
+  
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  
+  .payment-info, .courses-details, .student-success {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  th {
+    background: #FFDE59;
+    color: black;
+  }
+  
+  .logout-btn {
+    display: block;
+  
+    color: black;
+    padding: 8px;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+
+  }
+  
+  .logout-btn:hover {
+    background: rgba(255, 222, 89, 0.8);
+  }
+  

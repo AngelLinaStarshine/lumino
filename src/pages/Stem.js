@@ -3,15 +3,16 @@ import rectangleShape from '../assets/rectangle-design1.jpg';
 import rectangleShape1 from '../assets/rectangle-design2.jpg'; 
 import rectangleShape2 from '../assets/rectangle-design3.jpg'; 
 import '../pages/Courses.css';
-import Navbar from '../components/Navbar';
+
 
 import RegisterForm from '../pages/RegisterForm';
+import Footer from '../components/Footer';
 
 function Stem() {
 
   return (
     <div className="course-page">
-      <Navbar />
+     
       <h1>STEM Registration</h1>
       <p>
         Welcome to our STEM course where you can explore science, technology, engineering,
@@ -34,6 +35,7 @@ function Stem() {
       </div>
 
       <RegisterForm />
+      <Footer />
 
  
     </div>

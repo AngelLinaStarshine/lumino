@@ -15,7 +15,7 @@ import Courses2Image from '../assets/courses2.jpg';
 import Courses3Image from '../assets/courses3.jpg';
 import Courses4Image from '../assets/courses4.jpg';
 import PricelistImage from '../assets/Pricelist.svg';
-import Navbar from '../components/Navbar';
+
 
 // Example arrays for background colors and headings:
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
@@ -31,7 +31,7 @@ const headings = [
 function Main() {
   return (
     <div className="App">
-      <Navbar />
+  
 
       {/* Header Image Section */}
       <header>
@@ -52,28 +52,28 @@ function Main() {
           <div className="course">
             <img src={Courses1Image} alt="Course1" className="course-image" />
             <div className="course-content">
-              <a href="/stem" className="enroll-btn">REGISTER ONLINE</a>
+              <a href="/stem" className="enroll">REGISTER ONLINE</a>
             </div>
           </div>
 
           <div className="course">
             <img src={Courses2Image} alt="Course2" className="course-image" />
             <div className="course-content">
-              <a href="/art-and-craft" className="enroll-btn">REGISTER ONLINE</a>
+              <a href="/art-and-craft" className="enroll">REGISTER ONLINE</a>
             </div>
           </div>
 
           <div className="course">
             <img src={Courses3Image} alt="Course3" className="course-image" />
             <div className="course-content">
-              <a href="/language-and-literature" className="enroll-btn">REGISTER ONLINE</a>
+              <a href="/language-and-literature" className="enroll">REGISTER ONLINE</a>
             </div>
           </div>
 
           <div className="course">
             <img src={Courses4Image} alt="Course4" className="course-image" />
             <div className="course-content">
-              <a href="/science" className="enroll-btn">REGISTER ONLINE</a>
+              <a href="/science" className="enroll">REGISTER ONLINE</a>
             </div>
           </div>
         </div>
@@ -128,6 +128,7 @@ function Main() {
         <h2>Contact Us</h2>
         <p>Please contact us at info@luminolearn.com or call 123-456-7890.</p>
       </section>
+  
     </div>
   );
 }

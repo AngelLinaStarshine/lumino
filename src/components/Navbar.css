@@ -1,0 +1,102 @@
+/* Navbar Styles */
+.navbar {
+    position: fixed;  /* ✅ Keeps navbar fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100vw;  /* ✅ Ensures navbar fits within viewport */
+    max-width: 100%; /* ✅ Prevents horizontal scrolling */
+    background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    color: #000 !important;
+    padding: 15px 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* ✅ Keeps navbar above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;  /* ✅ Prevents extra content from extending */
+  }
+  
+  /* Fix content overlap */
+  body {
+    padding-top: 80px; /* ✅ Prevents navbar from covering content */
+  }
+  
+  /* Navbar Logo */
+  .navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s ease-in-out;
+  }
+  
+  .navbar .logo:hover {
+    color: #FFDE59; /* ✅ Changes to yellow */
+    transform: scale(1.1); /* ✅ Zoom effect */
+  }
+  
+  /* Navbar Links */
+  .navbar .nav-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap; /* ✅ Prevents wrapping */
+  }
+  
+  .navbar .nav-item {
+    text-decoration: none;
+    color: #000 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap; /* ✅ Prevents line breaks */
+  }
+  
+  /* ✅ Hover effect: Changes text color & zooms slightly */
+  .navbar .nav-item:hover {
+    color: #FFDE59 !important; /* ✅ Changes text color to yellow */
+    transform: scale(1.1); /* ✅ Slight zoom */
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  /* ✅ Hover effect for Logout */
+  .logout-btn:hover {
+    color: #FFDE59 !important; /* ✅ Changes text color to yellow */
+    transform: scale(1.1); /* ✅ Slight zoom */
+  }
+  
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 15px;
+    }
+  
+    .navbar .nav-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+  
+    .navbar .nav-item {
+      width: 100%; /* ✅ Ensures full width for better spacing */
+      text-align: center;
+    }
+  }
+  

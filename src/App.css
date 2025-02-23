@@ -6,19 +6,39 @@
 .header-image, .about-image, .course-image {
   background-color: #f0f0f0; /* Fallback background color */
 }
+::selection {
+  background: #FFDE59;
+  color: #000;  /* Optional: Change text color for better contrast */
+}
+
+/* For Firefox */
+::-moz-selection {
+  background: #FFDE59;
+  color: #0b2a68;
+}
 /* Body Styling */
 body {
   margin: 0;
   padding: 0;
+  padding-top: 70px;
   font-family: Arial, sans-serif;
   background-size: 400% 400%;
   animation: gradientShift 10s ease infinite;
-  color: #0b2a68;
+  color: #000 !important;
   background-color: #fdfaf0;
 }
-html, body, #root {
-  height: 100%;
+html, body {
+ max-width: 100%;
+  width: 100vw;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  color: #000 !important;
+  overflow-x: hidden; 
+}
+body {
+  padding-top: 80px; /* ✅ Push content down to avoid navbar overlap */
 }
 .App {
   display: flex;
@@ -29,25 +49,31 @@ html, body, #root {
 /* Main content area that grows to fill available space */
 .main-content {
   flex: 1;
-  padding-bottom: 60px;
+  padding-bottom: 160px;
+}
+.border-yellow {
+  border: 2px solid #FFDE59 !important;
 }
 
+/* Backgrounds */
+.bg-yellow {
+  background-color: #FFDE59 !important;
+  color: #000 !important;
+}
 /* Footer styles (make sure it is not fixed) */
 .footer {
   width: 100%;
   background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
   animation: gradientShift 5s ease infinite;
-  color: #003366;
+  color: #000 !important;
   font-family: "Lobster Two", serif;
   font-weight: 400;
   font-style: normal;
-  padding: 10px 0;
+  padding: 15px;
   text-align: center;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  /* Remove any fixed positioning */
   position: relative;
-  /* Optionally add margin-top for spacing above the footer */
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 /* Example keyframes for gradient animation if needed */
@@ -60,7 +86,7 @@ html, body, #root {
 .welcome-section {
   text-align: center;
   padding: 40px 20px;
-  color: #0b2a68;
+  color: #000 !important;
 }
 
 /* Learn More Button */
@@ -76,106 +102,7 @@ html, body, #root {
   transition: background-color 0.3s;
 }
 
-/* Navbar Styles */
-nav {
-  background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
-  background-size: 200% 200%;
-  animation: gradientShift 5s ease infinite;
-  color: #003366;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-/* Navbar Logo */
-nav .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #003366;
-  text-decoration: none;
-}
-
-nav .logo:hover {
-  color: #61dafb;
-}
-
-/* Navbar Links */
-nav .nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-nav .nav-links a {
-  text-decoration: none;
-  color: #003366;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-nav .nav-links a:hover {
-  color: #61dafb;
-}
-
-/* Burger Icon */
-nav .burger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-nav .burger div {
-  width: 25px;
-  height: 3px;
-  background: #003366;
-  margin: 3px 0;
-  transition: all 0.3s ease;
-}
-
-/* Navbar Responsive */
-@media (max-width: 768px) {
-  /* Hide navigation links by default */
-  nav .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-
-  /* Show burger icon */
-  nav .burger {
-    display: flex;
-  }
-
-  /* Show menu when active */
-  nav.active .nav-links {
-    display: flex;
-  }
-
-  /* Animate burger icon */
-  nav.active .burger div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  nav.active .burger div:nth-child(2) {
-    opacity: 0;
-  }
-
-  nav.active .burger div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-}
 
 /* Header Image Styling */
 .header-image {
@@ -211,6 +138,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Social Media Links Container */
 .social-media-links {
   display: flex;
   justify-content: center;
@@ -218,15 +146,22 @@ html {
   margin-bottom: 10px;
 }
 
-.social-media-links a {
-  color: #003366;
-  font-size: 1.5rem;
-  transition: color 0.3s;
+/* Social Media Icons Styling */
+.social-media-links img {
+  width: 40px; /* Adjust size */
+  height: 40px;
+  transition: filter 0.3s ease-in-out;
+  border-radius: 50%; /* Optional: makes icons circular */
 }
 
-.social-media-links a:hover {
-  color: #61dafb;
+/* Hover Effect: Change color to yellow (#ffde59) */
+.social-media-links a:hover img {
+  filter: brightness(0) saturate(100%) invert(88%) sepia(56%) saturate(422%) hue-rotate(1deg) brightness(106%) contrast(103%);
+  opacity: 0.8; /* Adjust transparency (0.8 = 20% transparent) */
+  transform: scale(1.1); /* Slight zoom effect */
+  mix-blend-mode: multiply;
 }
+
 
 
 
@@ -259,18 +194,19 @@ html {
 }
 
 /* Enroll Button Styling */
-.enroll-btn {
+.enroll {
   position: absolute;
-  bottom: 40px; /* Adjusts the button's position from the bottom */
-  left: 46%;
+  bottom: 30px; /* Adjusts the button's position from the bottom */
+  left: 44%;
   transform: translateX(-50%);
-  padding: 15px 25px; /* Increased padding for a larger button */
+  padding: 10px 5px; /* Increased padding for a larger button */
   background-color: transparent; /* Transparent background */
   border: none; /* Removes the border */
- 
-  font-size: 1.1rem; /* Slightly larger text for the button */
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+  font-size: 15px;
+  color: #000 !important;
 }
 
 
@@ -309,3 +245,25 @@ html {
   margin: 20px 0;
 }
 
+/* Mobile Menu Adjustments */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.mobile-menu a {
+  padding: 10px;
+  color: #000 !important;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.mobile-menu a:hover {
+  color: #61dafb;
+}
