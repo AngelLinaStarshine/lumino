@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "nodemon server.js",
-    "build": "CI false react-scripts build"
+    "build": "set CI=false && react-scripts build"
   },
   "eslintConfig": {
     "extends": [
