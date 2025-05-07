@@ -3,7 +3,7 @@ import rectangleShape from '../assets/rectangle-design1.jpg';
 import rectangleShape1 from '../assets/rectangle-design2.jpg'; 
 import rectangleShape2 from '../assets/rectangle-design3.jpg'; 
 import '../pages/Courses.css';
-import RegisterForm from '../pages/RegisterForm';
+
 
 
 function Stem() {
@@ -32,7 +32,7 @@ function Stem() {
       <img src={rectangleShape2} alt="Decorative rectangle" />
       </div>
 
-      <RegisterForm />
+    
     
 
  

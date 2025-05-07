@@ -53,4 +53,28 @@
   .logout-btn:hover {
     background: rgba(255, 222, 89, 0.8);
   }
+  .personal-account-page {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .personal-account-page h2 {
+    color: #4a4a4a;
+  }
+  
+  .personal-account-page section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 6px;
+  }
+  
+  .personal-account-page ul {
+    padding-left: 1.5rem;
+  }
+  
+  .personal-account-page li {
+    margin-bottom: 0.5rem;
+  }
   

@@ -156,8 +156,7 @@ html {
 
 /* Hover Effect: Change color to yellow (#ffde59) */
 .social-media-links a:hover img {
-  filter: brightness(0) saturate(100%) invert(88%) sepia(56%) saturate(422%) hue-rotate(1deg) brightness(106%) contrast(103%);
-  opacity: 0.8; /* Adjust transparency (0.8 = 20% transparent) */
+
   transform: scale(1.1); /* Slight zoom effect */
   mix-blend-mode: multiply;
 }
@@ -196,10 +195,10 @@ html {
 /* Enroll Button Styling */
 .enroll {
   position: absolute;
-  bottom: 30px; /* Adjusts the button's position from the bottom */
+  bottom: 20px; /* Adjusts the button's position from the bottom */
   left: 44%;
   transform: translateX(-50%);
-  padding: 10px 5px; /* Increased padding for a larger button */
+  padding: 2px 45px; /* Increased padding for a larger button */
   background-color: transparent; /* Transparent background */
   border: none; /* Removes the border */
   text-decoration: none;
@@ -245,25 +244,94 @@ html {
   margin: 20px 0;
 }
 
-/* Mobile Menu Adjustments */
-.mobile-menu {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+@media (max-width: 1024px) {
+  .courses-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+
+  .enroll {
+    left: 50%;
+  }
+
+  .header-image,
+  .about-image,
+  .pricelist-image,
+  .course-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .learn-more-button {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .social-media-links img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
-.mobile-menu a {
-  padding: 10px;
-  color: #000 !important;
-  text-decoration: none;
-  transition: color 0.3s;
+@media (max-width: 768px) {
+  .mobile-menu {
+    width: 90%;
+    right: 5%;
+  }
+
+  .learn-more-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .social-media-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .swiper-slide {
+    font-size: 1.2rem;
+    height: 150px;
+  }
+
+  .welcome-section {
+    padding: 30px 10px;
+  }
 }
 
-.mobile-menu a:hover {
-  color: #61dafb;
+@media (max-width: 480px) {
+  .course {
+    width: 100%;
+  }
+
+  .enroll {
+    font-size: 14px;
+    padding: 5px 20px;
+  }
+
+  .social-media-links img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .footer {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .learn-more-button {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .swiper-slide {
+    font-size: 1rem;
+    height: 120px;
+  }
 }

@@ -9,6 +9,7 @@ import LanguageAndLiterature from './pages/LanguageAndLiterature';
 import Science from './pages/Science';
 import PersonalAccount from './pages/PersonalAccount';
 import Footer from './components/Footer';
+import RequireAuth from './utils/RequireAuth'; // ✅ Import guard
 import './App.css';
 
 function App() {
@@ -27,7 +28,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* ✅ Navbar appears only ONCE here */}
         <Navbar setLoggedInUser={setLoggedInUser} />
 
         <div className="main-content">
@@ -37,7 +37,12 @@ function App() {
             <Route path="/art-and-craft" element={<ArtAndCraft />} />
             <Route path="/language-and-literature" element={<LanguageAndLiterature />} />
             <Route path="/science" element={<Science />} />
-            <Route path="/account" element={<PersonalAccount />} /> {/* ✅ Redirects after login */}
+            <Route path="/account" element={
+  <RequireAuth>
+    <PersonalAccount />
+  </RequireAuth>
+} />
+
           </Routes>
         </div>
 

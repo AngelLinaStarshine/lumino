@@ -1,74 +1,53 @@
-// src/pages/PersonalAccount.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PersonalAccount.css';
 
 function PersonalAccount() {
-  const user = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    subscription: "Premium Plan",
-    paymentMethod: "Credit Card (**** 1234)",
-    enrolledCourses: ["STEM", "Art & Craft", "Language & Literature"],
-    achievements: ["Completed STEM Basics", "Top Performer in Literature"],
-    paymentHistory: [
-      { date: "Jan 1, 2025", amount: "$50", status: "Paid" },
-      { date: "Feb 1, 2025", amount: "$50", status: "Paid" }
-    ]
-  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    setUser(storedUser);
+  }, []);
+
+  if (!user) return <p style={{ padding: '2rem' }}>Loading your account...</p>;
 
   return (
-    <>
-    
+    <div className="personal-account-page" style={{ padding: '2rem' }}>
+      <h2>Welcome, {user.firstName} {user.lastName}</h2>
 
-      <div className="personal-account">
-        <h1>Welcome, {user.name}!</h1>
+      <section className="account-info">
+        <h3>Account Info</h3>
         <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Phone:</strong> {user.phone}</p>
         <p><strong>Subscription:</strong> {user.subscription}</p>
-        <p><strong>Payment Method:</strong> {user.paymentMethod}</p>
+      </section>
 
-        <section className="payment-info">
-          <h2>Payment Information</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {user.paymentHistory.map((payment, index) => (
-                <tr key={index}>
-                  <td>{payment.date}</td>
-                  <td>{payment.amount}</td>
-                  <td>{payment.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-        <section className="courses-details">
-          <h2>Your Courses</h2>
+      <section className="courses">
+        <h3>Enrolled Courses</h3>
+        {user.enrolledCourses && user.enrolledCourses.length > 0 ? (
           <ul>
-            {user.enrolledCourses.map((course, index) => (
-              <li key={index}>{course}</li>
+            {user.enrolledCourses.map((course, i) => (
+              <li key={i}>{typeof course === 'string' ? course : course.name || 'Unnamed Course'}</li>
             ))}
           </ul>
-        </section>
+        ) : (
+          <p>No enrolled courses yet.</p>
+        )}
+      </section>
 
-        <section className="student-success">
-          <h2>Student Success</h2>
+      <section className="payments">
+        <h3>Payment History</h3>
+        {user.paymentHistory && user.paymentHistory.length > 0 ? (
           <ul>
-            {user.achievements.map((achievement, index) => (
-              <li key={index}>{achievement}</li>
+            {user.paymentHistory.map((payment, i) => (
+              <li key={i}>{payment.date} - {payment.amount} - {payment.status}</li>
             ))}
           </ul>
-        </section>
-      </div>
-
-   
-    </>
+        ) : (
+          <p>No payment history found.</p>
+        )}
+      </section>
+    </div>
   );
 }
 

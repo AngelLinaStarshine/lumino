@@ -126,7 +126,7 @@ function Main() {
       {/* Contact Section */}
       <section id="contact">
         <h2>Contact Us</h2>
-        <p>Please contact us at info@luminolearn.com or call 123-456-7890.</p>
+        <p>Please contact us at lumino@luminolearn.org or cal us at +1 (437) 424-1380.</p>
       </section>
   
     </div>
