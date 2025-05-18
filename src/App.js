@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // ✅ HashRouter for GitHub Pages
 import Navbar from './components/Navbar';
 import Main from './utils/Main';
 import Stem from './pages/Stem';
@@ -9,7 +9,7 @@ import LanguageAndLiterature from './pages/LanguageAndLiterature';
 import Science from './pages/Science';
 import PersonalAccount from './pages/PersonalAccount';
 import Footer from './components/Footer';
-import RequireAuth from './utils/RequireAuth'; // ✅ Import guard
+import RequireAuth from './utils/RequireAuth';
 import './App.css';
 
 function App() {
@@ -37,12 +37,14 @@ function App() {
             <Route path="/art-and-craft" element={<ArtAndCraft />} />
             <Route path="/language-and-literature" element={<LanguageAndLiterature />} />
             <Route path="/science" element={<Science />} />
-            <Route path="/account" element={
-  <RequireAuth>
-    <PersonalAccount />
-  </RequireAuth>
-} />
-
+            <Route
+              path="/account"
+              element={
+                <RequireAuth>
+                  <PersonalAccount />
+                </RequireAuth>
+              }
+            />
           </Routes>
         </div>
 

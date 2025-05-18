@@ -176,19 +176,17 @@ html {
 
 /* Each Course Block */
 .course {
-  position: relative;
-  width: 80%; /* Ensures that all 3 course blocks fit within the row */
+  width: 100%;
+  max-width: 300px; /* or any max width you prefer */
   display: flex;
-  flex-direction: column; /* Stack content vertically (image + button) */
-  align-items: center; /* Centers content horizontally */
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
 }
 
-/* Course Image Styling */
 .course-image {
-  width: 100%; /* Makes each image fill its course block */
+  width: 100%;
   height: auto;
-  display: block;
   border-radius: 8px;
 }
 

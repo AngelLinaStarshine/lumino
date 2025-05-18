@@ -1,7 +1,8 @@
 // src/utils/Main.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // ✅ Needed for internal routing
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // Updated import path
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,8 +17,6 @@ import Courses3Image from '../assets/courses3.jpg';
 import Courses4Image from '../assets/courses4.jpg';
 import PricelistImage from '../assets/Pricelist.svg';
 
-
-// Example arrays for background colors and headings:
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
 const headings = [
   'Class syllabus',
@@ -31,7 +30,6 @@ const headings = [
 function Main() {
   return (
     <div className="App">
-  
 
       {/* Header Image Section */}
       <header>
@@ -49,33 +47,35 @@ function Main() {
       <section id="courses">
         <h2>Our Courses</h2>
         <div className="courses-container">
+
           <div className="course">
-            <img src={Courses1Image} alt="Course1" className="course-image" />
-            <div className="course-content">
-              <a href="/stem" className="enroll">REGISTER ONLINE</a>
+            <div className="course-wrapper">
+              <img src={Courses1Image} alt="Course1" className="course-image" />
+              <Link to="/stem" className="enroll">REGISTER ONLINE</Link>
             </div>
           </div>
 
           <div className="course">
-            <img src={Courses2Image} alt="Course2" className="course-image" />
-            <div className="course-content">
-              <a href="/art-and-craft" className="enroll">REGISTER ONLINE</a>
+            <div className="course-wrapper">
+              <img src={Courses2Image} alt="Course2" className="course-image" />
+              <Link to="/art-and-craft" className="enroll">REGISTER ONLINE</Link>
             </div>
           </div>
 
           <div className="course">
-            <img src={Courses3Image} alt="Course3" className="course-image" />
-            <div className="course-content">
-              <a href="/language-and-literature" className="enroll">REGISTER ONLINE</a>
+            <div className="course-wrapper">
+              <img src={Courses3Image} alt="Course3" className="course-image" />
+              <Link to="/language-and-literature" className="enroll">REGISTER ONLINE</Link>
             </div>
           </div>
 
           <div className="course">
-            <img src={Courses4Image} alt="Course4" className="course-image" />
-            <div className="course-content">
-              <a href="/science" className="enroll">REGISTER ONLINE</a>
+            <div className="course-wrapper">
+              <img src={Courses4Image} alt="Course4" className="course-image" />
+              <Link to="/science" className="enroll">REGISTER ONLINE</Link>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -84,7 +84,6 @@ function Main() {
         <h2>Classroom Essentials</h2>
         <div className="essentials-carousel">
           <Swiper
-            // We still list the modules here if desired, though it's optional now:
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={10}
             slidesPerView={1}
@@ -126,9 +125,9 @@ function Main() {
       {/* Contact Section */}
       <section id="contact">
         <h2>Contact Us</h2>
-        <p>Please contact us at lumino@luminolearn.org or cal us at +1 (437) 424-1380.</p>
+        <p>Please contact us at lumino@luminolearn.org or call us at +1 (437) 424-1380.</p>
       </section>
-  
+
     </div>
   );
 }
