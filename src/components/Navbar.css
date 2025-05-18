@@ -1,10 +1,9 @@
-/* Navbar Styles */
 .navbar {
-    position: fixed;  /* ✅ Keeps navbar fixed at the top */
+    position: fixed;  
     top: 0;
     left: 0;
-    width: 100vw;  /* ✅ Ensures navbar fits within viewport */
-    max-width: 100%; /* ✅ Prevents horizontal scrolling */
+    width: 100vw;  
+    max-width: 100%; 
     background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
     background-size: 200% 200%;
     animation: gradientShift 5s ease infinite;
@@ -13,17 +12,33 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000; /* ✅ Keeps navbar above other elements */
+    z-index: 1000; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;  /* ✅ Prevents extra content from extending */
+    overflow: hidden;  
+  }
+
+
+
+  .register-oval-btn {
+    background-color: #e8dc81 !important;
+    color: black !important;
+    padding: 10px 60px;        /* Increased size */
+    border-radius: 6px;
+    border: none;
+    font-size: 18px;           /* Larger text */
+
   }
   
-  /* Fix content overlap */
+  .register-label {
+    padding: 6px 20px;
+    border-radius: 999px;
+    border: 2px solid white;
+  }
+ 
   body {
-    padding-top: 80px; /* ✅ Prevents navbar from covering content */
+    padding-top: 80px; 
   }
   
-  /* Navbar Logo */
   .navbar .logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -33,15 +48,15 @@
   }
   
   .navbar .logo:hover {
-    color: #FFDE59; /* ✅ Changes to yellow */
-    transform: scale(1.1); /* ✅ Zoom effect */
+    color: #FFDE59;
+    transform: scale(1.1); 
   }
   
-  /* Navbar Links */
+
   .navbar .nav-links {
     display: flex;
     gap: 20px;
-    flex-wrap: nowrap; /* ✅ Prevents wrapping */
+    flex-wrap: nowrap; 
   }
   
   .navbar .nav-item {
@@ -52,16 +67,15 @@
     transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
     padding: 5px 10px;
     border-radius: 5px;
-    white-space: nowrap; /* ✅ Prevents line breaks */
+    white-space: nowrap; 
   }
   
-  /* ✅ Hover effect: Changes text color & zooms slightly */
   .navbar .nav-item:hover {
-    color: #FFDE59 !important; /* ✅ Changes text color to yellow */
-    transform: scale(1.1); /* ✅ Slight zoom */
+    color: #FFDE59 !important;
+    transform: scale(1.1); 
   }
   
-  /* Logout Button */
+
   .logout-btn {
     background-color: transparent;
     border: none;
@@ -73,13 +87,13 @@
     border-radius: 5px;
   }
   
-  /* ✅ Hover effect for Logout */
+ 
   .logout-btn:hover {
-    color: #FFDE59 !important; /* ✅ Changes text color to yellow */
-    transform: scale(1.1); /* ✅ Slight zoom */
+    color: #FFDE59 !important; 
+    transform: scale(1.1); 
   }
   
-  /* Responsive Navbar */
+
   @media (max-width: 768px) {
     .navbar {
       flex-direction: column;
@@ -95,7 +109,7 @@
     }
   
     .navbar .nav-item {
-      width: 100%; /* ✅ Ensures full width for better spacing */
+      width: 100%; 
       text-align: center;
     }
   }

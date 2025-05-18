@@ -3,6 +3,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
 import '../components/Navbar.css';
+import CreateAccountImage from '../assets/create_account.jpg';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -80,18 +82,61 @@ const Navbar = () => {
 
   const handleRegister = () => {
     Swal.fire({
-      title: 'Register',
+   
+      width: '750px',
       html: `
-        <input type="text" id="firstName" class="swal2-input" placeholder="First Name">
-        <input type="text" id="lastName" class="swal2-input" placeholder="Last Name">
-        <input type="email" id="email" class="swal2-input" placeholder="Email">
-        <input type="email" id="confirmEmail" class="swal2-input" placeholder="Confirm Email">
-        <input type="tel" id="phone" class="swal2-input" placeholder="Phone Number">
-        <input type="password" id="password" class="swal2-input" placeholder="Password">
-        <input type="password" id="confirmPassword" class="swal2-input" placeholder="Confirm Password">
+        <div style="
+          display: flex;
+          width: 100%;
+          height: 500px;               /* Sets fixed vertical height */
+          border-radius: 10px;
+          overflow: hidden;
+        ">
+          <!-- Left: Image -->
+          <div style="
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            background: #f0f0f0;
+          ">
+            <img src="${CreateAccountImage}" alt="Register"
+              style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+    
+          <!-- Right: Form -->
+          <div style="
+            flex: 1.3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1px 5px;
+            gap: 0,3px;
+            background-color: #fff;
+          ">
+                <h2 style="color: black; font-size: 38px; margin: 0 0 10px;">Create an Account</h2>
+            <input type="text" id="firstName" class="swal2-input" placeholder="First Name"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="text" id="lastName" class="swal2-input" placeholder="Last Name"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="email" id="email" class="swal2-input" placeholder="Email"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="email" id="confirmEmail" class="swal2-input" placeholder="Confirm Email"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="tel" id="phone" class="swal2-input" placeholder="Phone Number"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="password" id="password" class="swal2-input" placeholder="Password"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+            <input type="password" id="confirmPassword" class="swal2-input" placeholder="Confirm Password"
+              style="background-color:hsl(188, 76.8%, 86.5%); border-radius: 999px; width: 90%;">
+          </div>
+        </div>
       `,
-      confirmButtonText: 'Register',
+      confirmButtonText: 'Sign Up',
       showCancelButton: true,
+      customClass: {
+        confirmButton:  'register-oval-btn'
+      },
       preConfirm: () => {
         const firstName = Swal.getPopup().querySelector('#firstName').value.trim();
         const lastName = Swal.getPopup().querySelector('#lastName').value.trim();
@@ -179,17 +224,17 @@ const Navbar = () => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     localStorage.setItem('users', JSON.stringify([...users, confirmedUser]));
 
-    // Clear temporary data
+   
     sessionStorage.removeItem('otpCode');
     sessionStorage.removeItem('otpTimestamp');
     sessionStorage.removeItem('pendingUser');
 
-    // Log in the user
+    
     sessionStorage.setItem('loggedInUser', JSON.stringify(confirmedUser));
     setLoggedInUser(confirmedUser);
     navigate('/account');
 
-    // Show success message
+ 
     Swal.fire('Verified!', 'Your account has been confirmed and you are now logged in.', 'success');
 
 

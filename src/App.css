@@ -215,7 +215,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;  /* Set a fixed height for the slides */
+  height: 250px;  /* Set a fixed height for the slides */
   color: white;  /* Make the text white */
   font-size: 1.5rem;
   text-align: center;

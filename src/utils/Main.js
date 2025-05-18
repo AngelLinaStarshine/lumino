@@ -33,19 +33,19 @@ function Main() {
 
       {/* Header Image Section */}
       <header>
-        <h1>Home</h1>
+      
         <img src={HomeImage} alt="Home" className="header-image" />
       </header>
 
       {/* About Section */}
       <section id="about">
-        <h2>About</h2>
+     
         <img src={AboutImage} alt="About section" className="about-image" />
       </section>
 
       {/* Courses Section */}
       <section id="courses">
-        <h2>Our Courses</h2>
+     
         <div className="courses-container">
 
           <div className="course">
@@ -81,7 +81,7 @@ function Main() {
 
       {/* Classroom Essentials Section */}
       <div className="section essentials-section" id="essentials">
-        <h2>Classroom Essentials</h2>
+      <br></br> <br></br> <br></br>
         <div className="essentials-carousel">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
@@ -106,19 +106,19 @@ function Main() {
 
       {/* Skills Section */}
       <div className="skills-section">
-        <h3>Our Skills</h3>
+      <br></br> <br></br>
         <img src={SkillsImage} alt="Skills" className="skills-image" />
       </div>
 
       {/* Beyond Section */}
       <div className="beyond-section">
-        <h3>Go Beyond</h3>
+      
         <img src={BeyondImage} alt="Beyond" className="beyond-image" />
       </div>
 
       {/* Pricelist Section */}
       <div className="pricelist-section">
-        <h3>Price List</h3>
+      <br></br> <br></br>
         <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
       </div>
 
