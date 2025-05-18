@@ -160,6 +160,12 @@ html {
   transform: scale(1.1); /* Slight zoom effect */
   mix-blend-mode: multiply;
 }
+.linkedin-icon {
+  width: 70px;
+  height: 70px;
+  padding: 1px; /* Optional: balances visual appearance */
+}
+
 
 
 
