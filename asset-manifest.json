@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/lumino/static/css/main.04c2b3e2.css",
-    "main.js": "/lumino/static/js/main.c7ea5ff1.js",
-    "static/js/488.25a8cf58.chunk.js": "/lumino/static/js/488.25a8cf58.chunk.js",
-    "static/media/About.svg": "/lumino/static/media/About.21760f7073c60ec73e1ba6c5c9812d9c.svg",
-    "static/media/Beyond.svg": "/lumino/static/media/Beyond.250d9dd97527a4a78f5c3ca06e29a17c.svg",
-    "static/media/Skills.svg": "/lumino/static/media/Skills.c3364b6a1049e29108ab9e6975ba83f9.svg",
-    "static/media/Home.svg": "/lumino/static/media/Home.19eb461a3f4be6232f347f148733b9e5.svg",
-    "static/media/Pricelist.svg": "/lumino/static/media/Pricelist.a0983a5eafd745135a06e386a54659c5.svg",
-    "static/media/courses3.jpg": "/lumino/static/media/courses3.cb08ea40c273f91c89ad.jpg",
-    "static/media/courses4.jpg": "/lumino/static/media/courses4.c8917df0691a4a589b33.jpg",
-    "static/media/courses1.jpg": "/lumino/static/media/courses1.5c692a8ec3fe47e92fa3.jpg",
-    "static/media/courses2.jpg": "/lumino/static/media/courses2.b0b6900080236a5f9c53.jpg",
-    "static/media/phone.png": "/lumino/static/media/phone.8f0b321429547daebe48.png",
-    "static/media/fb.png": "/lumino/static/media/fb.53ce9bd3141d49add80f.png",
-    "static/media/insta.png": "/lumino/static/media/insta.847fabd003b26f1ffb5f.png",
-    "index.html": "/lumino/index.html",
-    "main.04c2b3e2.css.map": "/lumino/static/css/main.04c2b3e2.css.map",
-    "main.c7ea5ff1.js.map": "/lumino/static/js/main.c7ea5ff1.js.map",
-    "488.25a8cf58.chunk.js.map": "/lumino/static/js/488.25a8cf58.chunk.js.map"
+    "main.css": "/static/css/main.04c2b3e2.css",
+    "main.js": "/static/js/main.d88c6013.js",
+    "static/js/488.25a8cf58.chunk.js": "/static/js/488.25a8cf58.chunk.js",
+    "static/media/About.svg": "/static/media/About.21760f7073c60ec73e1ba6c5c9812d9c.svg",
+    "static/media/Beyond.svg": "/static/media/Beyond.250d9dd97527a4a78f5c3ca06e29a17c.svg",
+    "static/media/Skills.svg": "/static/media/Skills.c3364b6a1049e29108ab9e6975ba83f9.svg",
+    "static/media/Home.svg": "/static/media/Home.19eb461a3f4be6232f347f148733b9e5.svg",
+    "static/media/Pricelist.svg": "/static/media/Pricelist.a0983a5eafd745135a06e386a54659c5.svg",
+    "static/media/courses3.jpg": "/static/media/courses3.cb08ea40c273f91c89ad.jpg",
+    "static/media/courses4.jpg": "/static/media/courses4.c8917df0691a4a589b33.jpg",
+    "static/media/courses1.jpg": "/static/media/courses1.5c692a8ec3fe47e92fa3.jpg",
+    "static/media/courses2.jpg": "/static/media/courses2.b0b6900080236a5f9c53.jpg",
+    "static/media/phone.png": "/static/media/phone.8f0b321429547daebe48.png",
+    "static/media/fb.png": "/static/media/fb.53ce9bd3141d49add80f.png",
+    "static/media/insta.png": "/static/media/insta.847fabd003b26f1ffb5f.png",
+    "index.html": "/index.html",
+    "main.04c2b3e2.css.map": "/static/css/main.04c2b3e2.css.map",
+    "main.d88c6013.js.map": "/static/js/main.d88c6013.js.map",
+    "488.25a8cf58.chunk.js.map": "/static/js/488.25a8cf58.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.04c2b3e2.css",
-    "static/js/main.c7ea5ff1.js"
+    "static/js/main.d88c6013.js"
   ]
 }
