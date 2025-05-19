@@ -424,12 +424,35 @@ html {
   .signin-btn,
   .signup-btn {
     font-size: 12px;
-    padding: 7px 2px;
+    padding: 7px 4px;
   }
 }
 @media (max-width: 400px) {
   .header-buttons {
     flex-direction: column;
     align-items: flex-end;
+  }
+}
+@media (max-width: 768px) {
+  .skills-section,
+  .beyond-section {
+    margin: 30px 0;
+  }
+
+  .skills-image,
+  .beyond-image {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section,
+  .beyond-section {
+    margin: 20px 0;
+  }
+
+  .skills-image,
+  .beyond-image {
+    width: 100%;
   }
 }
