@@ -65,10 +65,10 @@
 /* Hamburger */
 .hamburger {
   display: none;
-  font-size: 38px;
+  font-size: 34px;
   background: none;
   border: none;
-  color: #000;
+  color: #4f4747;
   cursor: pointer;
 }
 
