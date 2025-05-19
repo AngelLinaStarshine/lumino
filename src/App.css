@@ -417,14 +417,14 @@ html {
 @media (max-width: 1024px) {
   .header-buttons {
     top: 84%;
-    right: 40px;
+    right: 37px;
     gap: 2px;
   }
 
   .signin-btn,
   .signup-btn {
     font-size: 12px;
-    padding: 8px 8px;
+    padding: 7px 2px;
   }
 }
 @media (max-width: 400px) {
