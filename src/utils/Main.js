@@ -32,9 +32,14 @@ function Main() {
     <div className="App">
 
       {/* Header Image Section */}
-      <header>
+      <header className="header">
       
         <img src={HomeImage} alt="Home" className="header-image" />
+        <div className="header-buttons">
+    <button className="signin-btn">Sign In</button>
+    
+    <button className="signup-btn">Sign Up</button>
+  </div>
       </header>
 
       {/* About Section */}

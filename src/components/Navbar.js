@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loggedInUser, setLoggedInUser] = useState(null);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // ✅ Mobile menu toggle
   useEffect(() => {
     emailjs.init('P7BJMiXc8d3y4XOha');
     const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
@@ -24,7 +24,9 @@ const Navbar = () => {
     navigate('/');
   };
 
+
   const navigateAndScroll = (id) => {
+    setIsMenuOpen(false); // ✅ Close menu on nav
     if (location.pathname === '/') {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     } else {
@@ -243,10 +245,20 @@ const Navbar = () => {
     });
   };
 
+ 
   return (
     <nav className="navbar">
       <Link to="/" className="logo">LuminoLearn</Link>
-      <div className="nav-links">
+
+      <button
+        className="hamburger"
+        onClick={() => setIsMenuOpen(prev => !prev)}
+        aria-label="Toggle menu"
+      >
+        {isMenuOpen ? '✖' : '☰'}
+      </button>
+
+      <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
         <span onClick={() => navigateAndScroll('about')} className="nav-item">About</span>
         <span onClick={() => navigateAndScroll('courses')} className="nav-item">Courses</span>
         <span onClick={() => navigateAndScroll('contact')} className="nav-item">Contact</span>
@@ -264,3 +276,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
