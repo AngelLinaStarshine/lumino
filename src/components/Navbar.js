@@ -5,12 +5,12 @@ import emailjs from 'emailjs-com';
 import '../components/Navbar.css';
 import CreateAccountImage from '../assets/create_account.jpg';
 
-
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // ✅ Mobile menu toggle
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     emailjs.init('P7BJMiXc8d3y4XOha');
     const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
@@ -24,9 +24,8 @@ const Navbar = () => {
     navigate('/');
   };
 
-
   const navigateAndScroll = (id) => {
-    setIsMenuOpen(false); // ✅ Close menu on nav
+    setIsMenuOpen(false);
     if (location.pathname === '/') {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     } else {
@@ -51,15 +50,59 @@ const Navbar = () => {
     });
   };
 
+  const handleForgotPassword = () => {
+    Swal.fire({
+      title: 'Forgot Password',
+      input: 'email',
+      inputLabel: 'Enter your registered email',
+      inputPlaceholder: 'email@example.com',
+      confirmButtonText: 'Send Reset Link',
+      showCancelButton: true,
+      preConfirm: (email) => {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email);
+        if (!user) return Swal.showValidationMessage('No account with this email');
+        return email;
+      }
+    }).then(result => {
+      if (!result.isConfirmed) return;
+
+      const resetLink = `https://luminolearn.ca/reset-password?email=${encodeURIComponent(result.value)}`;
+
+      const templateParams = {
+        email: result.value,
+        reset_link: resetLink,
+      };
+
+      emailjs.send('service_ly54gs7', 'template_reset_link', templateParams)
+        .then(() => {
+          Swal.fire('Link Sent', 'Check your email for a reset link.', 'success');
+        })
+        .catch(() => {
+          Swal.fire('Error', 'Failed to send email. Try again later.', 'error');
+        });
+    });
+  };
+
   const handleLogin = () => {
     Swal.fire({
       title: 'Login',
       html: `
         <input type="email" id="email" class="swal2-input" placeholder="Email">
         <input type="password" id="password" class="swal2-input" placeholder="Password">
+        <p style="text-align:right; font-size: 0.9rem; margin-top: 5px;">
+          <a href="#" id="forgotLink" style="color: #007bff;">Forgot Password?</a>
+        </p>
       `,
       confirmButtonText: 'Login',
       showCancelButton: true,
+      didOpen: () => {
+        document.getElementById('forgotLink').addEventListener('click', (e) => {
+          e.preventDefault();
+          Swal.close();
+          handleForgotPassword();
+        });
+      },
       preConfirm: () => {
         const email = Swal.getPopup().querySelector('#email').value;
         const password = Swal.getPopup().querySelector('#password').value;
@@ -245,20 +288,17 @@ const Navbar = () => {
     });
   };
 
- 
   return (
     <nav className="navbar">
       <Link to="/" className="logo">LuminoLearn</Link>
 
-      <button
-        className="hamburger"
-        onClick={() => setIsMenuOpen(prev => !prev)}
-        aria-label="Toggle menu"
-      >
-        {isMenuOpen ? '✖' : '☰'}
+      {/* Hamburger icon for mobile */}
+      <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        &#9776;
       </button>
 
       <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+
         <span onClick={() => navigateAndScroll('about')} className="nav-item">About</span>
         <span onClick={() => navigateAndScroll('courses')} className="nav-item">Courses</span>
         <span onClick={() => navigateAndScroll('contact')} className="nav-item">Contact</span>
@@ -276,5 +316,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 
