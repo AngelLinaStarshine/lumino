@@ -15,9 +15,14 @@ const Footer = () => {
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
           <img src={fbIcon} alt="Facebook" className="social-icon" />
         </a>
-        <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
-          <img src={whatsappIcon} alt="Whatsapp" className="social-icon" />
-        </a>
+        <a
+  href="https://wa.me/14374241380"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <img src={whatsappIcon} alt="Whatsapp" className="social-icon" />
+</a>
+
         <a href="https://www.instagram.com/luminolearn.academy?igsh=b2w5MGdiaHZuemNn&utm_source=qr" target="_blank" rel="noopener noreferrer">
           <img src={instagramIcon} alt="Instagram" className="social-icon" />
         </a>

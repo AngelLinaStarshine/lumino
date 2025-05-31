@@ -149,8 +149,12 @@ function Main() {
     <div className="App">
 
       {/* Header Image Section */}
+      <h1>Welcome to LuminoLearn Academy</h1>
+<p>Innovative STEM, Arts & Literature, and Language Programs for Every Age.</p>
+
 <header className="header">
   <img src={HomeImage} alt="Home" className="header-image" />
+  
   <div className="header-buttons">
     <button onClick={handleMainLogin} className="login_btn signin">Sign In</button>
     <button onClick={handleRegister} className="login_btn signup">Sign Up</button>
