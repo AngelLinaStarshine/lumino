@@ -12,7 +12,7 @@ const Footer = () => {
       <a href="https://www.linkedin.com/company/lumino-learn-academy/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
           <img src={linkedinIcon} alt="LinkedIn" className="social-icon linkedin-icon" />
         </a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.facebook.com/luminolearn.academy" target="_blank" rel="noopener noreferrer">
           <img src={fbIcon} alt="Facebook" className="social-icon" />
         </a>
         <a
