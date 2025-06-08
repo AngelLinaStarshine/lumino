@@ -1,0 +1,572 @@
+.header-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.header {
+  position: relative;
+  width: 100%;
+}
+.header-image, .about-image, .course-image {
+  background-color: #f0f0f0; /* Fallback background color */
+}
+::selection {
+  background: #FFDE59;
+  color: #000;  /* Optional: Change text color for better contrast */
+}
+
+/* For Firefox */
+::-moz-selection {
+  background: #FFDE59;
+  color: #0b2a68;
+}
+/* Body Styling */
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 70px;
+  font-family: Arial, sans-serif;
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+  color: #000 !important;
+  background-color: #fdfaf0;
+}
+html, body {
+ max-width: 100%;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  color: #000 !important;
+  overflow-x: hidden; 
+}
+body {
+  padding-top: 80px; /* ✅ Push content down to avoid navbar overlap */
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* Main content area that grows to fill available space */
+.main-content {
+  flex: 1;
+  padding-bottom: 160px;
+}
+.border-yellow {
+  border: 2px solid #FFDE59 !important;
+}
+
+/* Backgrounds */
+.bg-yellow {
+  background-color: #FFDE59 !important;
+  color: #000 !important;
+}
+/* Footer styles (make sure it is not fixed) */
+.footer {
+  width: 100%;
+  background: linear-gradient(145deg, #a7f5ed, #f3a7f3);
+  animation: gradientShift 5s ease infinite;
+  color: #000 !important;
+  font-family: "Lobster Two", serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin-top: 50px;
+}
+
+/* Example keyframes for gradient animation if needed */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* General Welcome Section */
+.welcome-section {
+  text-align: center;
+  padding: 40px 20px;
+  color: #000 !important;
+}
+
+/* Learn More Button */
+.learn-more-button {
+  margin-left: 15px;
+  padding: 8px 20px;
+  background-color: #e457e4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+
+.about-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Pricelist Image Styling */
+.pricelist-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Social Media Links Container */
+.social-media-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+/* Social Media Icons Styling */
+.social-media-links img {
+  width: 40px; /* Adjust size */
+  height: 40px;
+  transition: filter 0.3s ease-in-out;
+  border-radius: 50%; /* Optional: makes icons circular */
+}
+
+/* Hover Effect: Change color to yellow (#ffde59) */
+.social-media-links a:hover img {
+
+  transform: scale(1.1); /* Slight zoom effect */
+  mix-blend-mode: multiply;
+}
+.linkedin-icon {
+  width: 70px;
+  height: 70px;
+  padding: 1px; /* Optional: balances visual appearance */
+}
+
+
+/* Container for all courses */
+.courses-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+  align-items: flex-start; /* Ensures that items align at the top */
+}
+
+/* Each Course Block */
+.course {
+  width: 100%;
+  max-width: 300px; /* or any max width you prefer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.course-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Enroll Button Styling */
+.enroll {
+  position: absolute;
+  bottom: 20px; /* Adjusts the button's position from the bottom */
+  left: 44%;
+  transform: translateX(-50%);
+  padding: 2px 45px; /* Increased padding for a larger button */
+  background-color: transparent; /* Transparent background */
+  border: none; /* Removes the border */
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+  font-size: 15px;
+  color: #000 !important;
+}
+
+
+
+/* Swiper Slide Styling */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;  /* Set a fixed height for the slides */
+  color: rgb(0, 0, 0);  /* Make the text white */
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 10px;
+}
+.slide-content {
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slide-content h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.slide-content p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+@media (max-width: 768px) {
+  .slide-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .slide-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .slide-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Full width image styling for skills.svg and beyond.svg */
+.full-width-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Skills Section */
+.skills-section {
+  text-align: center;
+  margin: 50px 0;
+ 
+}
+
+/* Beyond Section */
+.beyond-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.beyond-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.beyond-image {
+  max-width: 680px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.beyond-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.beyond-thumb {
+  max-width: 460px;
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.beyond-grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.beyond-image {
+  width: 790px;
+  height: auto;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+
+
+.beyond-thumb:hover {
+  transform: scale(1.03);
+}
+@media (max-width: 768px) {
+  .beyond-image {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+@media (max-width: 1024px) {
+  .courses-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+
+  .enroll {
+    left: 50%;
+  }
+
+  .header-image,
+  .about-image,
+  .pricelist-image,
+  .course-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .learn-more-button {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .social-media-links img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu {
+    width: 90%;
+    right: 5%;
+  }
+
+  .learn-more-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .social-media-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .swiper-slide {
+    font-size: 1.2rem;
+    height: 150px;
+  }
+
+  .welcome-section {
+    padding: 30px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .course {
+    width: 100%;
+  }
+
+  .enroll {
+    font-size: 14px;
+    padding: 5px 20px;
+  }
+
+  .social-media-links img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .footer {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .learn-more-button {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .swiper-slide {
+    font-size: 1rem;
+    height: 120px;
+  }
+}
+
+.skills-grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.skills-image {
+  width: 400px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.skills-image:hover {
+  transform: scale(1.03);
+}
+
+/* Mobile layout: stack images vertically */
+@media (max-width: 768px) {
+  .skills-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .skills-image {
+    width: 90%;
+    max-width: 350px;
+  }
+}
+
+.header-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* This controls the position of the buttons on top of the image */
+/* BUTTON CONTAINER */
+.header-buttons {
+  position: absolute;
+  top: 85%;
+  right: 110px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: row;
+  z-index: 15;
+}
+
+/* BUTTONS: SHARED STYLE */
+.login_btn {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  font-size: 2.5vw; /* responsive text size */
+  padding: 1.2vw 2.5vw; /* responsive padding */
+  border-radius: 50px;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+  z-index: 15;
+  white-space: nowrap; /* prevent text wrap */
+}
+
+/* INDIVIDUAL BACKGROUNDS IF NEEDED */
+.signin, .signup {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 !important;
+}
+
+/* HOVER EFFECT */
+.login_btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+/* Tablet screens */
+/* Tablet screens */
+@media (max-width: 1024px) {
+  .header-buttons {
+    top: 85%;
+    right: 40px;
+    flex-direction: row;
+    gap: 1vw;                  /* Smaller gap between buttons */
+    transform: translateY(-50%);
+    align-items: center;
+  }
+
+  .login_btn {
+    font-size: 2.5vw;
+    padding: 1.8vw 3.5vw;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .header-buttons {
+    top: 85%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    flex-direction: row;         /* Side-by-side */
+    justify-content: center;
+    gap: 1vw;                    /* Closer spacing */
+  }
+
+  .login_btn {
+    font-size: 2.5vw;
+    padding: 2vw 2vw;
+  }
+  .signin,
+.signup {
+  margin: 0 !important;
+}
+
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .header-buttons {
+    top: 85%;
+    right: 20%;
+    transform: translate(50%, -50%);
+    flex-direction: row;         /* Keep side-by-side */
+    justify-content: center;
+    gap: 0.2px;                   /* Very small gap */
+  }
+
+  .login_btn {
+    font-size: 2.5vw;
+    padding: 1.5vw 2vw;
+  }
+  .signin,
+.signup {
+  margin: 0 !important;
+}
+
+}
+
