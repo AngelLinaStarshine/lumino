@@ -1,4 +1,3 @@
-// src/pages/SignInPage.js
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import bcrypt from 'bcryptjs';
@@ -48,7 +47,7 @@ const SignInPage = () => {
       return;
     }
 
-    // Set session and notify other components
+
     sessionStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
     sessionStorage.setItem('accountConfirmed', 'true');
     window.dispatchEvent(new Event('storageUpdate'));

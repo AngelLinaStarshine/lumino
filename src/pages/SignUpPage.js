@@ -1,10 +1,33 @@
-// src/pages/SignUpPage.js
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
 import '../firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
+const countryCodes = [
+  { code: '+1', name: '🇨🇦 CAN' },
+  { code: '+1', name: '🇺🇸 USA' },
+  { code: '+44', name: '🇬🇧 UK' },
+  { code: '+61', name: '🇦🇺 AUS' },
+  { code: '+91', name: '🇮🇳 IND' },
+  { code: '+49', name: '🇩🇪 GER' },
+  { code: '+81', name: '🇯🇵 JPN' },
+  { code: '+86', name: '🇨🇳 CHN' },
+  { code: '+33', name: '🇫🇷 FRA' },
+  { code: '+39', name: '🇮🇹 ITA' },
+  { code: '+7', name: '🇷🇺 RUS' },
+  { code: '+52', name: '🇲🇽 MEX' },
+  { code: '+55', name: '🇧🇷 BRA' },
+  { code: '+34', name: '🇪🇸 ESP' },
+  { code: '+27', name: '🇿🇦 RSA' },
+  { code: '+82', name: '🇰🇷 KOR' },
+  { code: '+62', name: '🇮🇩 IDN' },
+  { code: '+234', name: '🇳🇬 NGA' },
+  { code: '+31', name: '🇳🇱 NLD' },
+  { code: '+46', name: '🇸🇪 SWE' },
+  { code: '+63', name: '🇵🇭 PHI' }
+];
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -13,32 +36,38 @@ const SignUpPage = () => {
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [countryCode, setCountryCode] = useState('+1');
+  const [phone, setPhone] = useState('');
 
   const navigate = useNavigate();
   const auth = getAuth();
 
-  const validatePassword = (pwd) => {
-    return (
-      pwd.length >= 16 &&
-      /[A-Z]/.test(pwd) &&
-      /[!@#$%^&*(),.?":{}|<>]/.test(pwd)
-    );
-  };
+  const validatePassword = (pwd) =>
+    pwd.length >= 16 && /[A-Z]/.test(pwd) && /[!@#$%^&*(),.?":{}|<>]/.test(pwd);
 
   const validateEmailFormat = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  const validatePhoneNumber = (num) => /^\d{6,15}$/.test(num);
+
+  const sanitize = (str) => str.replace(/[<>"'/]/g, '').trim();
+
   const handleCreateAccount = () => {
-    if (!firstName || !lastName || !email || !confirmEmail || !password || !confirmPassword) {
+    const sanitizedFirstName = sanitize(firstName);
+    const sanitizedLastName = sanitize(lastName);
+    const sanitizedEmail = email.toLowerCase().trim();
+    const sanitizedPhone = phone.replace(/\D/g, '').trim();
+
+    if (!sanitizedFirstName || !sanitizedLastName || !sanitizedEmail || !confirmEmail || !password || !confirmPassword || !sanitizedPhone) {
       Swal.fire('Error', 'All fields are required', 'error');
       return;
     }
 
-    if (!validateEmailFormat(email)) {
+    if (!validateEmailFormat(sanitizedEmail)) {
       Swal.fire('Error', 'Invalid email format', 'error');
       return;
     }
 
-    if (email !== confirmEmail) {
+    if (sanitizedEmail !== confirmEmail.toLowerCase().trim()) {
       Swal.fire('Error', 'Emails do not match', 'error');
       return;
     }
@@ -49,27 +78,30 @@ const SignUpPage = () => {
     }
 
     if (!validatePassword(password)) {
-      Swal.fire(
-        'Error',
-        'Password must be at least 16 characters long, include one uppercase letter and one special character.',
-        'error'
-      );
+      Swal.fire('Error', 'Password must be at least 16 characters long, include one uppercase letter and one special character.', 'error');
+      return;
+    }
+
+    if (!validatePhoneNumber(sanitizedPhone)) {
+      Swal.fire('Error', 'Phone number must contain 6 to 15 digits', 'error');
       return;
     }
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const existing = users.find((u) => u.email === email);
+    const fullPhone = `${countryCode} ${sanitizedPhone}`;
+    const existing = users.find((u) => u.email === sanitizedEmail || u.phone === fullPhone);
 
     if (existing) {
-      Swal.fire('Error', 'User already exists', 'error');
+      Swal.fire('Error', 'A user with this email or phone number already exists.', 'error');
       return;
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
     const newUser = {
-      firstName,
-      lastName,
-      email,
+      firstName: sanitizedFirstName,
+      lastName: sanitizedLastName,
+      email: sanitizedEmail,
+      phone: fullPhone,
       password: hashedPassword
     };
 
@@ -115,6 +147,22 @@ const SignUpPage = () => {
         <input type="text" placeholder="Last Name" className="auth-input" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         <input type="email" placeholder="Email" className="auth-input" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="email" placeholder="Confirm Email" className="auth-input" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+
+        <div className="auth-phone-container">
+          <select className="auth-phone-select" value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+            {countryCodes.map((c, i) => (
+              <option key={i} value={c.code}>{c.name} ({c.code})</option>
+            ))}
+          </select>
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            className="auth-input"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+
         <input type="password" placeholder="Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} />
         <input type="password" placeholder="Confirm Password" className="auth-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 

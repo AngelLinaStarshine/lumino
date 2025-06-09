@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -11,9 +10,9 @@ import PersonalAccount from './pages/PersonalAccount';
 import Footer from './components/Footer';
 import RequireAuth from './utils/RequireAuth';
 import './App.css';
-import SignInPage from './pages/SignInPage';      // ✅ Ensure file is correct
-import SignUpPage from './pages/SignUpPage';        // ✅ Ensure file is correct
-import ForgotPassword from './pages/ForgotPassword';// ✅ Forgot password page
+import SignInPage from './pages/SignInPage';      
+import SignUpPage from './pages/SignUpPage';       
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(() => {

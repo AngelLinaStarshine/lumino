@@ -61,7 +61,6 @@ const ForgotPassword = () => {
     );
     localStorage.setItem('users', JSON.stringify(updatedUsers));
 
-    // ✅ Confirm password reset via EmailJS
 const recipientEmail = (user?.email || email || "").trim();
 const recipientName = user?.firstName?.trim() || recipientEmail.split('@')[0] || 'User';
 
