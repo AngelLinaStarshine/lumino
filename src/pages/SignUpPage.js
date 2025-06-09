@@ -167,7 +167,7 @@ const SignUpPage = () => {
         <input type="password" placeholder="Confirm Password" className="auth-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
         <small className="password-hint">
-          🔐 Password must be at least 16 characters, with an uppercase letter and a special character.
+          🔐 Minimum 16 characters, including UPPERCASE and special symbol ((!@#$%)).
         </small>
 
         <button onClick={handleCreateAccount} className="auth-button gradient-button">📨 Create Account</button>
