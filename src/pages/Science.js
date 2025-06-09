@@ -8,8 +8,8 @@ function Science() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isConfirmed = sessionStorage.getItem('accountConfirmed');
-    if (isConfirmed === 'true') {
+    const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    if (user) {
       setAccountConfirmed(true);
     }
   }, []);
@@ -68,9 +68,13 @@ function Science() {
         Welcome to our Science and Geography courses. Engage in curiosity-driven experiments,
         geography explorations, and real-world environmental problem-solving!
         <br /><br />
-        <strong>To register and take the assessment test, please create an account first.</strong>
-        <br />
-        <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
+        {!accountConfirmed && (
+          <>
+            <strong>To register and take the assessment test, please create an account first.</strong>
+            <br />
+            <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
+          </>
+        )}
       </p>
       <h2>Select a Course Below</h2>
 

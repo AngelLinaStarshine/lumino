@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import '../components/Navbar.css';
 
 const Navbar = () => {

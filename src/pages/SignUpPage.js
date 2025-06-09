@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
-import '../firebase'; // Make sure this is correct relative to your folder
+import bcrypt from 'bcryptjs';
+import '../firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,23 +12,23 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
   const auth = getAuth();
 
   const validatePassword = (pwd) => {
-    const minLength = pwd.length >= 16;
-    const hasUppercase = /[A-Z]/.test(pwd);
-    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(pwd);
-    return minLength && hasUppercase && hasSymbol;
+    return (
+      pwd.length >= 16 &&
+      /[A-Z]/.test(pwd) &&
+      /[!@#$%^&*(),.?":{}|<>]/.test(pwd)
+    );
   };
 
-  const validateEmailFormat = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  const validateEmailFormat = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleCreateAccount = () => {
-    if (!firstName || !lastName || !email || !confirmEmail || !password) {
+    if (!firstName || !lastName || !email || !confirmEmail || !password || !confirmPassword) {
       Swal.fire('Error', 'All fields are required', 'error');
       return;
     }
@@ -43,10 +43,15 @@ const SignUpPage = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      Swal.fire('Error', 'Passwords do not match', 'error');
+      return;
+    }
+
     if (!validatePassword(password)) {
       Swal.fire(
         'Error',
-        'Password must be at least 16 characters long, include at least one uppercase letter and one special character.',
+        'Password must be at least 16 characters long, include one uppercase letter and one special character.',
         'error'
       );
       return;
@@ -60,11 +65,12 @@ const SignUpPage = () => {
       return;
     }
 
+    const hashedPassword = bcrypt.hashSync(password, 10);
     const newUser = {
       firstName,
       lastName,
       email,
-      password: btoa(password),
+      password: hashedPassword
     };
 
     users.push(newUser);
@@ -80,6 +86,19 @@ const SignUpPage = () => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
+      const userData = {
+        firstName: user.displayName?.split(' ')[0] || '',
+        lastName: user.displayName?.split(' ')[1] || '',
+        email: user.email || '',
+        phone: user.phoneNumber || '',
+        subscription: 'Free',
+        enrolledCourses: [],
+        paymentHistory: []
+      };
+
+      sessionStorage.setItem('loggedInUser', JSON.stringify(userData));
+      window.dispatchEvent(new Event('storageUpdate'));
 
       Swal.fire('Success', `Welcome ${user.displayName || user.email}`, 'success');
       navigate('/account');
@@ -97,8 +116,10 @@ const SignUpPage = () => {
         <input type="email" placeholder="Email" className="auth-input" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="email" placeholder="Confirm Email" className="auth-input" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
         <input type="password" placeholder="Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="Confirm Password" className="auth-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+
         <small className="password-hint">
-          🔐 Your password must be at least 16 characters long and include an uppercase letter and a special character.
+          🔐 Password must be at least 16 characters, with an uppercase letter and a special character.
         </small>
 
         <button onClick={handleCreateAccount} className="auth-button gradient-button">📨 Create Account</button>

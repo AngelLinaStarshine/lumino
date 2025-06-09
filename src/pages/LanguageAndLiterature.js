@@ -8,8 +8,8 @@ function LanguageAndLiterature() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isConfirmed = sessionStorage.getItem('accountConfirmed');
-    if (isConfirmed === 'true') {
+    const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    if (user) {
       setAccountConfirmed(true);
     }
   }, []);
@@ -70,7 +70,9 @@ function LanguageAndLiterature() {
         <br /><br />
         <strong>To register and take the assessment test, please create an account first.</strong>
         <br />
-        <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
+        {!accountConfirmed && (
+          <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
+        )}
       </p>
       <h2>Select a Course Below</h2>
 
