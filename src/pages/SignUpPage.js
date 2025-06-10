@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
 import '../firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import emailjs from '@emailjs/browser';
+
 
 const countryCodes = [
   { code: '+1', name: '🇨🇦 CAN' },
@@ -112,6 +114,23 @@ const SignUpPage = () => {
       navigate('/login');
     });
   };
+emailjs
+  .send(
+    'your_service_id',
+    'template_signup_success', // your EmailJS template ID
+    {
+      to_email: email,
+      user_name: `${firstName} ${lastName}`,
+      subject: 'Welcome to LuminoLearn Academy!',
+    },
+    'your_public_key'
+  )
+  .then(() => {
+    console.log('🎉 Welcome email sent!');
+  })
+  .catch((error) => {
+    console.warn('⚠️ Welcome email failed:', error);
+  });
 
   const handleGoogleSignIn = async () => {
     try {
