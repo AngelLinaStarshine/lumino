@@ -14,6 +14,9 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';       
 import ForgotPassword from './pages/ForgotPassword';
 
+import FlameChatBot from './components/LuminoFlameBot';
+
+
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(() => {
     return JSON.parse(sessionStorage.getItem('loggedInUser')) || null;
@@ -53,6 +56,8 @@ function App() {
             />
           </Routes>
         </div>
+        <FlameChatBot />
+
 
         <Footer />
       </div>
