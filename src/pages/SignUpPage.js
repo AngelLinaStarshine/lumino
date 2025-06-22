@@ -6,7 +6,6 @@ import '../firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import emailjs from '@emailjs/browser';
 
-
 const countryCodes = [
   { code: '+1', name: '🇨🇦 CAN' },
   { code: '+1', name: '🇺🇸 USA' },
@@ -111,26 +110,28 @@ const SignUpPage = () => {
     localStorage.setItem('users', JSON.stringify(users));
 
     Swal.fire('Success', 'Account created successfully!', 'success').then(() => {
+      // ✅ Send welcome email after success
+      emailjs
+        .send(
+          process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          {
+            to_email: sanitizedEmail,
+            user_name: `${sanitizedFirstName} ${sanitizedLastName}`,
+            subject: 'Welcome to LuminoLearn Academy!',
+          },
+          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        )
+        .then(() => {
+          console.log('🎉 Welcome email sent!');
+        })
+        .catch((error) => {
+          console.warn('⚠️ Welcome email failed:', error);
+        });
+
       navigate('/login');
     });
   };
-emailjs
-  .send(
-    'your_service_id',
-    'template_signup_success', // your EmailJS template ID
-    {
-      to_email: email,
-      user_name: `${firstName} ${lastName}`,
-      subject: 'Welcome to LuminoLearn Academy!',
-    },
-    'your_public_key'
-  )
-  .then(() => {
-    console.log('🎉 Welcome email sent!');
-  })
-  .catch((error) => {
-    console.warn('⚠️ Welcome email failed:', error);
-  });
 
   const handleGoogleSignIn = async () => {
     try {
