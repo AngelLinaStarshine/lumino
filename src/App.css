@@ -741,8 +741,8 @@ html {
 /* Tablet view */
 @media (max-width: 1199px) {
   .animated-bell {
-    top: 427%;
-    right: 4%;
+    top: 428%;
+    right: 4.5%;
     width: 80px;
     height: 80px;
   }
@@ -750,8 +750,8 @@ html {
 
 @media (max-width: 1024px) {
   .animated-bell {
-    top: 430%;
-    right: 3.5%;
+    top: 432%;
+    right: 4%;
     width: 70px;
     height: 70px;
   }
@@ -759,28 +759,28 @@ html {
 
 @media (max-width: 768px) {
   .animated-bell {
-    top: 433%;
+    top: 436%;
     right: 3%;
+    width: 65px;
+    height: 65px;
+  }
+}
+
+@media (max-width: 600px) {
+  .animated-bell {
+    top: 440%;
+    right: 2.5%;
     width: 60px;
     height: 60px;
   }
 }
 
-
-@media (max-width: 600px) {
-  .animated-bell {
-    top: 436%;
-    right: 2.5%;
-    width: 55px;
-    height: 55px;
-  }
-}
 @media (max-width: 480px) {
   .animated-bell {
-    top: 440%;
+    top: 445%;
     right: 2%;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
   }
 }
 
