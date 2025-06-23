@@ -691,30 +691,32 @@ html {
 /* Tablets and smaller laptops */
 @media (max-width: 1024px) {
   .animated-star {
-    top: 78%;
-    width: 40px;
-    height: 40px;
-    left: 12%;
+    top: 355%;
+    left: 9%;
+    width: 70px;
+    height: 70px;
   }
 }
+
 
 /* Mobile phones */
 @media (max-width: 768px) {
   .animated-star {
-    top: 714%;
-    width: 35px;
-    height: 35px;
+    top: 360%;
     left: 8%;
+    width: 60px;
+    height: 60px;
   }
 }
+
 
 /* Very small phones */
 @media (max-width: 480px) {
   .animated-star {
-    top: 737%;
-    width: 30px;
-    height: 30px;
-    left: 6%;
+    top: 365%;
+    left: 7%;
+    width: 50px;
+    height: 50px;
   }
 }
 .animated-bell {
@@ -737,35 +739,34 @@ html {
 }
 
 /* Tablet view */
-@media (max-width: 1024px) {
-  .animated-bell {
-    top: 347%;
-    width: 40px;
-    height: 40px;
-    right: 7%;
-  }
-}
-
-/* Mobile view */
 @media (max-width: 768px) {
   .animated-bell {
-    top: 350%;
-    width: 35px;
-    height: 35px;
-    right: 8%;
+    top: 440%;
+    right: 3%;
+    width: 65px;
+    height: 65px;
   }
 }
 
-/* Very small phones */
+
+@media (max-width: 768px) {
+  .animated-bell {
+    top: 440%;
+    right: 3%;
+    width: 65px;
+    height: 65px;
+  }
+}
+
+
 @media (max-width: 480px) {
   .animated-bell {
-    top: 352%;
-    width: 30px;
-    height: 30px;
-    right: 10%;
+    top: 445%;
+    right: 2%;
+    width: 55px;
+    height: 55px;
   }
 }
-
 
 
 /* Keyframes for left-right rotation */
@@ -826,4 +827,25 @@ html {
 }
 .essentials-section {
   margin-bottom: 60px;
+}
+@media (max-width: 1024px) {
+  .animated-leaves {
+    top: 294%;
+    width: 65px;
+    height: 65px;
+  }
+}
+@media (max-width: 768px) {
+  .animated-leaves {
+    top: 296%;
+    width: 55px;
+    height: 55px;
+  }
+}
+@media (max-width: 480px) {
+  .animated-leaves {
+    top: 298%;
+    width: 45px;
+    height: 45px;
+  }
 }
