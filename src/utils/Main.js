@@ -126,7 +126,7 @@ function Main() {
           </Swiper>
         </div>
       </div>
-<br /><br /><br /><br /> <br /><br /><br /><br /><br /><br /> <br /><br />
+<br /><br /><br /><br /> <br />
    <div className="skills-section">
  
   
