@@ -19,7 +19,15 @@ import monthlyImg from '../assets/monthly.jpg';
 import beyondImg from '../assets/beyond.jpg';
 import atHomeImg from '../assets/at-home.jpg';
 import shelfImg from '../assets/shelf.jpg';
+import arrowImg from '../assets/arrowImg.svg';
 import wanderImg from '../assets/wander.jpg';
+import HeartIcon from '../assets/heart.svg';
+import starImg from '../assets/star.svg';
+import bellIcon from '../assets/bell.svg';
+import leaves from '../assets/leaves.svg';
+
+
+
 
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
 const headings = [
@@ -49,15 +57,22 @@ function Main() {
 
       <header className="header">
         <img src={HomeImage} alt="Home" className="header-image" />
+    
         <div className="header-buttons">
+          <img src={arrowImg} alt="Next" className="animated-arrow" />
           <button onClick={() => navigate('/login')} className="login_btn signin">Sign In</button>
           <button onClick={() => navigate('/signup')} className="login_btn signup">Sign Up</button>
         </div>
       </header>
 
-      <section id="about">
-        <img src={AboutImage} alt="About section" className="about-image" />
-      </section>
+   <section id="about" className="about-section">
+  <div className="about-image-wrapper">
+    <img src={AboutImage} alt="About section" className="about-image" />
+    <img src={HeartIcon} alt="Heart icon" className="heart-icon-centered" />
+  </div>
+</section>
+
+
 
       <section id="courses">
         <div className="courses-container">
@@ -111,31 +126,39 @@ function Main() {
           </Swiper>
         </div>
       </div>
+<br /><br /><br /><br /> <br /><br /><br /><br /><br /><br /> <br /><br />
+   <div className="skills-section">
+ 
+  
+  <img src={leaves} alt="Leaves" className="animated-leaves" />
 
-      <div className="skills-section">
-        <br /><br />
-        <div className="skills-grid">
-          <img src={studyImg} alt="Study" className="skills-image" />
-          <img src={homeworkImg} alt="Homework" className="skills-image" />
-          <img src={monthlyImg} alt="Monthly" className="skills-image" />
-        </div>
-      </div>
+  <div className="skills-grid">
+    <img src={studyImg} alt="Study" className="skills-image" />
+    <img src={homeworkImg} alt="Homework" className="skills-image" />
+    <img src={monthlyImg} alt="Monthly" className="skills-image" />
+  </div>
+</div>
 
-      <div className="beyond-section">
-        <div className="beyond-wrapper">
-          <img src={beyondImg} alt="Beyond" className="beyond-image" />
-          <div className="beyond-column">
-            <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
-            <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
-            <img src={wanderImg} alt="Wander" className="beyond-thumb" />
-          </div>
-        </div>
-      </div>
+
+<div className="beyond-section">
+  <img src={starImg} alt="Star" className="animated-star" />
+  
+  <div className="beyond-wrapper">
+    <img src={beyondImg} alt="Beyond" className="beyond-image" />
+    <div className="beyond-column">
+      <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
+      <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
+      <img src={wanderImg} alt="Wander" className="beyond-thumb" />
+    </div>
+  </div>
+</div>
 
       <div className="pricelist-section">
-        <br /> <br />
-        <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
-      </div>
+  <br /> <br />
+  <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
+  <img src={bellIcon} alt="Bell" className="animated-bell" />
+</div>
+
 
       <section id="contact">
         <h2>Contact Us</h2>

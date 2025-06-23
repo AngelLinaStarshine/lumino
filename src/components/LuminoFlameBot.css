@@ -116,3 +116,17 @@
 .chat-input button:hover {
   background-color: #e65100;
 }
+.whatsapp-link {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #075e54;
+  font-weight: 500;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
