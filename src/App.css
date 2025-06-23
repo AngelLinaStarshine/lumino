@@ -739,28 +739,45 @@ html {
 }
 
 /* Tablet view */
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .animated-bell {
     top: 427%;
     right: 4%;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .animated-bell {
+    top: 430%;
+    right: 3.5%;
     width: 70px;
     height: 70px;
   }
 }
 
-
 @media (max-width: 768px) {
   .animated-bell {
-    top: 429%;
+    top: 433%;
     right: 3%;
     width: 60px;
     height: 60px;
   }
 }
 
+
+@media (max-width: 600px) {
+  .animated-bell {
+    top: 436%;
+    right: 2.5%;
+    width: 55px;
+    height: 55px;
+  }
+}
 @media (max-width: 480px) {
   .animated-bell {
-    top: 431%;
+    top: 440%;
     right: 2%;
     width: 50px;
     height: 50px;
@@ -829,7 +846,7 @@ html {
 }
 @media (max-width: 1024px) {
   .animated-leaves {
-    top: 294%;
+    top: 297%;
     width: 65px;
     height: 65px;
   }
@@ -837,16 +854,23 @@ html {
 
 @media (max-width: 768px) {
   .animated-leaves {
-    top: 296%;
+    top: 299%;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .animated-leaves {
+    top: 302%;
     width: 55px;
     height: 55px;
   }
 }
 @media (max-width: 480px) {
   .animated-leaves {
-    top: 298%;
-    width: 45px;
-    height: 45px;
+    top: 305%;
+    width: 50px;
+    height: 50px;
   }
 }
-
