@@ -691,8 +691,8 @@ html {
 /* Tablets and smaller laptops */
 @media (max-width: 1024px) {
   .animated-star {
-    top: 355%;
-    left: 9%;
+    top: 790%;
+    left: 4%;
     width: 70px;
     height: 70px;
   }
@@ -702,8 +702,8 @@ html {
 /* Mobile phones */
 @media (max-width: 768px) {
   .animated-star {
-    top: 360%;
-    left: 8%;
+    top: 663%;
+    left: 4%;
     width: 60px;
     height: 60px;
   }
@@ -713,8 +713,8 @@ html {
 /* Very small phones */
 @media (max-width: 480px) {
   .animated-star {
-    top: 365%;
-    left: 7%;
+    top: 665%;
+    left: 5%;
     width: 50px;
     height: 50px;
   }
@@ -739,32 +739,31 @@ html {
 }
 
 /* Tablet view */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .animated-bell {
-    top: 440%;
-    right: 3%;
-    width: 65px;
-    height: 65px;
+    top: 427%;
+    right: 4%;
+    width: 70px;
+    height: 70px;
   }
 }
 
 
 @media (max-width: 768px) {
   .animated-bell {
-    top: 440%;
+    top: 429%;
     right: 3%;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
   }
 }
-
 
 @media (max-width: 480px) {
   .animated-bell {
-    top: 445%;
+    top: 431%;
     right: 2%;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -781,7 +780,7 @@ html {
 /* Tablet view */
 @media (max-width: 1024px) {
   .animated-bell {
-    top: 592%;
+    top: 792%;
     right: 6%;
     width: 65px;
     height: 75px;
@@ -791,7 +790,7 @@ html {
 /* Mobile view */
 @media (max-width: 768px) {
   .animated-bell {
-    top: 594%;
+    top: 844%;
     right: 7%;
     width: 55px;
     height: 65px;
@@ -801,7 +800,7 @@ html {
 /* Small phones */
 @media (max-width: 480px) {
   .animated-bell {
-    top: 596%;
+    top: 796%;
     right: 8%;
     width: 45px;
     height: 55px;
@@ -835,6 +834,7 @@ html {
     height: 65px;
   }
 }
+
 @media (max-width: 768px) {
   .animated-leaves {
     top: 296%;
@@ -849,3 +849,4 @@ html {
     height: 45px;
   }
 }
+
