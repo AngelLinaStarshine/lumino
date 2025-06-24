@@ -874,3 +874,41 @@ html {
     height: 50px;
   }
 }
+@media screen and (max-width: 430px) and (max-height: 950px) {
+  .animated-leaves {
+    top: 285%; /* lower it slightly */
+    width: 65px;
+    height: 65px;
+  }
+
+  .animated-bell {
+    top: 435%; /* raise it up */
+    width: 65px;
+    height: 65px;
+  }
+
+  .animated-star {
+    top: 345%; /* raise it */
+    width: 65px;
+    height: 65px;
+  }
+}
+@media screen and (max-width: 435px) and (max-height: 960px) {
+  .animated-leaves {
+    top: 283%; /* Adjusted for better fit */
+    width: 70px;
+    height: 70px;
+  }
+
+  .animated-bell {
+    top: 418%; /* Raised up slightly */
+    width: 70px;
+    height: 70px;
+  }
+
+  .animated-star {
+    top: 340%; /* Moved up a bit */
+    width: 70px;
+    height: 70px;
+  }
+}
