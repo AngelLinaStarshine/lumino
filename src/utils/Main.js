@@ -127,9 +127,8 @@ function Main() {
         </div>
       </div>
 <br /><br /><br /><br /> <br />
-   <div className="skills-section">
- 
-  
+
+<div className="skills-wrapper">
   <img src={leaves} alt="Leaves" className="animated-leaves" />
 
   <div className="skills-grid">
@@ -140,11 +139,13 @@ function Main() {
 </div>
 
 
+
 <div className="beyond-section">
   <img src={starImg} alt="Star" className="animated-star" />
   
   <div className="beyond-wrapper">
     <img src={beyondImg} alt="Beyond" className="beyond-image" />
+    
     <div className="beyond-column">
       <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
       <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
@@ -153,11 +154,11 @@ function Main() {
   </div>
 </div>
 
-      <div className="pricelist-section">
-  <br /> <br />
+<div className="pricelist-wrapper">
   <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
   <img src={bellIcon} alt="Bell" className="animated-bell" />
 </div>
+
 
 
       <section id="contact">
