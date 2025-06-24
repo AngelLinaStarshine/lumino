@@ -691,7 +691,7 @@ html {
 /* Tablets and smaller laptops */
 @media (max-width: 1024px) {
   .animated-star {
-    top: 790%;
+    top: 670%;
     left: 4%;
     width: 70px;
     height: 70px;
@@ -702,8 +702,8 @@ html {
 /* Mobile phones */
 @media (max-width: 768px) {
   .animated-star {
-    top: 663%;
-    left: 4%;
+    top: 675%;
+    left: 7%;
     width: 60px;
     height: 60px;
   }
@@ -797,7 +797,7 @@ html {
 /* Tablet view */
 @media (max-width: 1024px) {
   .animated-bell {
-    top: 792%;
+    top: 876%;
     right: 6%;
     width: 65px;
     height: 75px;
@@ -846,7 +846,7 @@ html {
 }
 @media (max-width: 1024px) {
   .animated-leaves {
-    top: 297%;
+    top: 505%;
     width: 65px;
     height: 65px;
   }
@@ -854,7 +854,7 @@ html {
 
 @media (max-width: 768px) {
   .animated-leaves {
-    top: 299%;
+    top: 399%;
     width: 60px;
     height: 60px;
   }
@@ -862,7 +862,7 @@ html {
 
 @media (max-width: 600px) {
   .animated-leaves {
-    top: 302%;
+    top: 447%;
     width: 55px;
     height: 55px;
   }
@@ -876,7 +876,7 @@ html {
 }
 @media screen and (max-width: 430px) and (max-height: 950px) {
   .animated-leaves {
-    top: 345%; /* lower it slightly */
+    top: 445%; /* lower it slightly */
     width: 65px;
     height: 65px;
   }
@@ -891,24 +891,5 @@ html {
     top: 545%; /* raise it */
     width: 65px;
     height: 65px;
-  }
-}
-@media screen and (max-width: 435px) and (max-height: 960px) {
-  .animated-leaves {
-    top: 283%; /* Adjusted for better fit */
-    width: 70px;
-    height: 70px;
-  }
-
-  .animated-bell {
-    top: 418%; /* Raised up slightly */
-    width: 70px;
-    height: 70px;
-  }
-
-  .animated-star {
-    top: 340%; /* Moved up a bit */
-    width: 70px;
-    height: 70px;
   }
 }
