@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import bcrypt from 'bcryptjs';
 import { useNavigate, Link } from 'react-router-dom';
 import '../pages/sign.css';
+import backgroundImage from '../assets/1.svg';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
@@ -25,7 +26,6 @@ const SignInPage = () => {
     }
 
     let users = [];
-
     try {
       users = JSON.parse(localStorage.getItem('users')) || [];
     } catch (err) {
@@ -34,19 +34,16 @@ const SignInPage = () => {
     }
 
     const matchedUser = users.find((user) => user.email === email);
-
     if (!matchedUser) {
       Swal.fire('Error', 'No account found with this email.', 'error');
       return;
     }
 
     const passwordMatch = bcrypt.compareSync(password, matchedUser.password);
-
     if (!passwordMatch) {
       Swal.fire('Error', 'Incorrect password.', 'error');
       return;
     }
-
 
     sessionStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
     sessionStorage.setItem('accountConfirmed', 'true');
@@ -58,30 +55,41 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="auth-page">
-      <h2>Sign In</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          className="auth-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="auth-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="auth-button">Login</button>
-      </form>
+    <div className="signin-wrapper">
+      {/* Full-screen SVG */}
+      <img src={backgroundImage} alt="Background" className="signin-bg" />
 
-      <p className="auth-footer">
-        Don't have an account? <Link to="/signup">Sign up here</Link><br />
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </p>
+      {/* Invisible “Create Account” hotspot */}
+      <Link to="/signup" className="invisible-button" aria-label="Go to Sign Up" />
+
+      {/* Overlayed form */}
+      <div className="signin-overlay">
+        <div className="signin-form">
+          <h2>Access Your Account</h2>
+          <p>Sign in with your credentials</p>
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              className="auth-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="auth-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit" className="auth-button">Sign In</button>
+          </form>
+          <p className="auth-footer">
+         
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

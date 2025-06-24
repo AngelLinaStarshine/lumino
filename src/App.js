@@ -13,7 +13,6 @@ import './App.css';
 import SignInPage from './pages/SignInPage';      
 import SignUpPage from './pages/SignUpPage';       
 import ForgotPassword from './pages/ForgotPassword';
-
 import FlameChatBot from './components/LuminoFlameBot';
 
 
@@ -34,6 +33,8 @@ function App() {
     <Router>
       <div className="App">
         <Navbar setLoggedInUser={setLoggedInUser} />
+
+   
 
         <div className="main-content">
           <Routes>
@@ -56,9 +57,8 @@ function App() {
             />
           </Routes>
         </div>
+
         <FlameChatBot />
-
-
         <Footer />
       </div>
     </Router>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -26,9 +26,6 @@ import starImg from '../assets/star.svg';
 import bellIcon from '../assets/bell.svg';
 import leaves from '../assets/leaves.svg';
 
-
-
-
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
 const headings = [
   'Class syllabus',
@@ -49,15 +46,47 @@ const descriptions = [
 
 function Main() {
   const navigate = useNavigate();
+useEffect(() => {
+  const text = "LuminoLearn Academy";
+  const element = document.getElementById("typed-brand");
+  let index = 0;
+  let interval;
+
+  const type = () => {
+    if (!element) return;
+    element.textContent = "";
+    index = 0;
+    interval = setInterval(() => {
+      element.textContent += text.charAt(index);
+      index++;
+      if (index === text.length) {
+        clearInterval(interval);
+        setTimeout(type, 4000); // Pause for 3 seconds before restarting
+      }
+    }, 150);
+  };
+
+  type();
+
+  return () => clearInterval(interval);
+}, []);
+
 
   return (
     <div className="App">
-      <h1>Welcome to LuminoLearn Academy</h1>
-      <p>Innovative STEM, Arts & Literature, and Language Programs for Every Age.</p>
+      <div className="welcome-section">
+        <h1 className="welcome-heading">
+          Welcome to<br />
+          <span id="typed-brand" className="brand-name highlight"></span>
+        </h1>
+        <p className="welcome-tagline">Fueling Wonder. Empowering Minds.</p>
+        <p className="welcome-subtext marquee">
+          Dive into an inspiring world of STEM, Arts & Literature, and Language programs—crafted for learners of all ages and stages.
+        </p>
+      </div>
 
       <header className="header">
         <img src={HomeImage} alt="Home" className="header-image" />
-    
         <div className="header-buttons">
           <img src={arrowImg} alt="Next" className="animated-arrow" />
           <button onClick={() => navigate('/login')} className="login_btn signin">Sign In</button>
@@ -65,41 +94,25 @@ function Main() {
         </div>
       </header>
 
-   <section id="about" className="about-section">
-  <div className="about-image-wrapper">
-    <img src={AboutImage} alt="About section" className="about-image" />
-    <img src={HeartIcon} alt="Heart icon" className="heart-icon-centered" />
-  </div>
-</section>
-
-
+      <section id="about" className="about-section">
+        <div className="about-image-wrapper">
+          <img src={AboutImage} alt="About section" className="about-image" />
+          <img src={HeartIcon} alt="Heart icon" className="heart-icon-centered" />
+        </div>
+      </section>
 
       <section id="courses">
         <div className="courses-container">
-          <div className="course">
-            <div className="course-wrapper">
-              <img src={Courses1Image} alt="Course1" className="course-image" />
-              <Link to="/stem" className="enroll">REGISTER ONLINE</Link>
+          {[Courses1Image, Courses2Image, Courses3Image, Courses4Image].map((img, index) => (
+            <div key={index} className="course">
+              <div className="course-wrapper">
+                <img src={img} alt={`Course${index + 1}`} className="course-image" />
+                <Link to={['/stem', '/art-and-craft', '/language-and-literature', '/science'][index]} className="enroll">
+                  REGISTER ONLINE
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="course">
-            <div className="course-wrapper">
-              <img src={Courses2Image} alt="Course2" className="course-image" />
-              <Link to="/art-and-craft" className="enroll">REGISTER ONLINE</Link>
-            </div>
-          </div>
-          <div className="course">
-            <div className="course-wrapper">
-              <img src={Courses3Image} alt="Course3" className="course-image" />
-              <Link to="/language-and-literature" className="enroll">REGISTER ONLINE</Link>
-            </div>
-          </div>
-          <div className="course">
-            <div className="course-wrapper">
-              <img src={Courses4Image} alt="Course4" className="course-image" />
-              <Link to="/science" className="enroll">REGISTER ONLINE</Link>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -126,40 +139,32 @@ function Main() {
           </Swiper>
         </div>
       </div>
-<br /><br /><br /><br /> <br />
 
-<div className="skills-wrapper">
-  <img src={leaves} alt="Leaves" className="animated-leaves" />
+      <div className="skills-wrapper">
+        <img src={leaves} alt="Leaves" className="animated-leaves" />
+        <div className="skills-grid">
+          <img src={studyImg} alt="Study" className="skills-image" />
+          <img src={homeworkImg} alt="Homework" className="skills-image" />
+          <img src={monthlyImg} alt="Monthly" className="skills-image" />
+        </div>
+      </div>
 
-  <div className="skills-grid">
-    <img src={studyImg} alt="Study" className="skills-image" />
-    <img src={homeworkImg} alt="Homework" className="skills-image" />
-    <img src={monthlyImg} alt="Monthly" className="skills-image" />
-  </div>
-</div>
+      <div className="beyond-section">
+        <img src={starImg} alt="Star" className="animated-star" />
+        <div className="beyond-wrapper">
+          <img src={beyondImg} alt="Beyond" className="beyond-image" />
+          <div className="beyond-column">
+            <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
+            <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
+            <img src={wanderImg} alt="Wander" className="beyond-thumb" />
+          </div>
+        </div>
+      </div>
 
-
-
-<div className="beyond-section">
-  <img src={starImg} alt="Star" className="animated-star" />
-  
-  <div className="beyond-wrapper">
-    <img src={beyondImg} alt="Beyond" className="beyond-image" />
-    
-    <div className="beyond-column">
-      <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
-      <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
-      <img src={wanderImg} alt="Wander" className="beyond-thumb" />
-    </div>
-  </div>
-</div>
-
-<div className="pricelist-wrapper">
-  <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
-  <img src={bellIcon} alt="Bell" className="animated-bell" />
-</div>
-
-
+      <div className="pricelist-wrapper">
+        <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
+        <img src={bellIcon} alt="Bell" className="animated-bell" />
+      </div>
 
       <section id="contact">
         <h2>Contact Us</h2>

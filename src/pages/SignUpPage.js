@@ -5,6 +5,8 @@ import bcrypt from 'bcryptjs';
 import '../firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import emailjs from '@emailjs/browser';
+import '../pages/sign.css';
+import signupImage from '../assets/2.svg';
 
 const countryCodes = [
   { code: '+1', name: '🇨🇦 CAN' },
@@ -110,7 +112,6 @@ const SignUpPage = () => {
     localStorage.setItem('users', JSON.stringify(users));
 
     Swal.fire('Success', 'Account created successfully!', 'success').then(() => {
-      // ✅ Send welcome email after success
       emailjs
         .send(
           process.env.REACT_APP_EMAILJS_SERVICE_ID,
@@ -155,48 +156,81 @@ const SignUpPage = () => {
       Swal.fire('Success', `Welcome ${user.displayName || user.email}`, 'success');
       navigate('/account');
     } catch (error) {
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log('User closed the sign-in popup.');
+        return;
+      }
       Swal.fire('Error', error.message || 'Google sign-in failed', 'error');
     }
   };
 
   return (
-    <div className="auth-page stylish-auth">
-      <h2>Create Your LuminoLearn Account</h2>
-      <div className="auth-form-box">
-        <input type="text" placeholder="First Name" className="auth-input" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-        <input type="text" placeholder="Last Name" className="auth-input" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-        <input type="email" placeholder="Email" className="auth-input" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="email" placeholder="Confirm Email" className="auth-input" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+    <div className="signup-wrapper">
+      <div style={{ flex: 1, position: 'relative', display: 'flex', flexWrap: 'wrap' }}>
+        <img src={signupImage} alt="Sign up" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
 
-        <div className="auth-phone-container">
-          <select className="auth-phone-select" value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
-            {countryCodes.map((c, i) => (
-              <option key={i} value={c.code}>{c.name} ({c.code})</option>
-            ))}
-          </select>
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="auth-input"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+        <div style={{
+          position: 'absolute',
+          top: '2%',
+          right: '12%',
+          width: '42%',
+          backgroundColor: 'transparent',
+          zIndex: 2
+        }}>
+          <div className="auth-form-box">
+            <input type="text" placeholder="First Name" className="auth-inputin" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input type="text" placeholder="Last Name" className="auth-inputin" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input type="email" placeholder="Email" className="auth-inputin" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" placeholder="Confirm Email" className="auth-inputin" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+
+            <div className="auth-phone-container">
+              <select className="auth-phone-select" value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+                {countryCodes.map((c, i) => (
+                  <option key={i} value={c.code}>{c.name} ({c.code})</option>
+                ))}
+              </select>
+              <input type="tel" placeholder="Phone Number" className="auth-inputin" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            </div>
+
+            <input type="password" placeholder="Password" className="auth-inputin" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" placeholder="Confirm Password" className="auth-inputin" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+
+            <small className="password-hint">
+              🔐 Min 16 characters, including UPPERCASE and special symbol ((!@#$%)).
+            </small>
+          </div>
         </div>
 
-        <input type="password" placeholder="Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <input type="password" placeholder="Confirm Password" className="auth-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        <div style={{
+          position: 'absolute',
+          bottom: '4%',
+          left: '4%',
+          right: '10%',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center'
+        }}>
+          <p className="auth-footer" style={{ fontSize: '20px', color: '#333', margin: 0 }}>
+            Already have an account? <Link to="/login">Sign in here</Link>
+          </p>
 
-        <small className="password-hint">
-          🔐 Minimum 16 characters, including UPPERCASE and special symbol ((!@#$%)).
-        </small>
+          <div style={{ display: 'flex', gap: '90px' }}>
+            <button
+              onClick={handleCreateAccount}
+              style={{ width: '220px', height: '45px', opacity: 0, cursor: 'pointer' }}
+            >
+              Create
+            </button>
 
-        <button onClick={handleCreateAccount} className="auth-button gradient-button">📨 Create Account</button>
-        <button onClick={handleGoogleSignIn} className="auth-button google-button">🔐 Sign up with Google</button>
+            <button
+              onClick={handleGoogleSignIn}
+              style={{ width: '290px', height: '45px', opacity: 0, cursor: 'pointer' }}
+            >
+              Google
+            </button>
+          </div>
+        </div>
       </div>
-
-      <p className="auth-footer">
-        Already have an account? <Link to="/login">Sign in here</Link>
-      </p>
     </div>
   );
 };

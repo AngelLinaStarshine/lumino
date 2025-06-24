@@ -905,3 +905,60 @@ html {
     width: 25px;
   }
 }
+.welcome-section {
+  text-align: center;
+  padding: 50px 20px;
+
+  animation: fadeIn 2s ease-in;
+}
+
+.welcome-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  animation: slideUp 1.2s ease-in-out;
+}
+
+.brand-name.highlight {
+  font-size: 3.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff6f00, #ff4081);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 111, 0, 0.4);
+  display: inline-block;
+}
+
+.welcome-tagline {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 10px;
+  animation: fadeIn 2.5s ease-in;
+  color: #333;
+}
+
+.welcome-subtext {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 650px;
+  margin: 0 auto;
+  animation: fadeIn 3s ease-in;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
