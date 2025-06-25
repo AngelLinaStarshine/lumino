@@ -167,7 +167,8 @@ const SignUpPage = () => {
   return (
     <div className="signup-wrapper">
       <div style={{ flex: 1, position: 'relative', display: 'flex', flexWrap: 'wrap' }}>
-        <img src={signupImage} alt="Sign up" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+     <img src={signupImage} alt="Sign up" className="signup-image-bg" />
+
 
         <div style={{
           position: 'absolute',

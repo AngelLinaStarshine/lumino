@@ -166,10 +166,22 @@ useEffect(() => {
         <img src={bellIcon} alt="Bell" className="animated-bell" />
       </div>
 
-      <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Please contact us at lumino@luminolearn.org or call us at +1 (437) 424-1380.</p>
-      </section>
+      <section id="contact" className="contact-section">
+  <h2>Get in Touch</h2>
+  <p>
+    Have questions or need assistance? Our team is here to help.
+  </p>
+  <div className="contact-details">
+    <p>
+      📧 Email: <a href="mailto:lumino@luminolearn.org">lumino@luminolearn.org</a>
+    </p>
+    <p>
+      📞 Phone: <a href="tel:+14374241380">+1 (437) 424-1380</a>
+    </p>
+  
+  </div>
+</section>
+
     </div>
   );
 }
