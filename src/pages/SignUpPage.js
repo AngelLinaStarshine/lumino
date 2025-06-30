@@ -1,237 +1,158 @@
+// Updated SignUpPage.js with integrated modal (no external TermsModal.js)
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // ✅ This line must be present
 import { useNavigate, Link } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
+import { getAuth } from 'firebase/auth';
 import '../firebase';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import emailjs from '@emailjs/browser';
 import '../pages/sign.css';
-import signupImage from '../assets/2.svg';
-
-const countryCodes = [
-  { code: '+1', name: '🇨🇦 CAN' },
-  { code: '+1', name: '🇺🇸 USA' },
-  { code: '+44', name: '🇬🇧 UK' },
-  { code: '+61', name: '🇦🇺 AUS' },
-  { code: '+91', name: '🇮🇳 IND' },
-  { code: '+49', name: '🇩🇪 GER' },
-  { code: '+81', name: '🇯🇵 JPN' },
-  { code: '+86', name: '🇨🇳 CHN' },
-  { code: '+33', name: '🇫🇷 FRA' },
-  { code: '+39', name: '🇮🇹 ITA' },
-  { code: '+7', name: '🇷🇺 RUS' },
-  { code: '+52', name: '🇲🇽 MEX' },
-  { code: '+55', name: '🇧🇷 BRA' },
-  { code: '+34', name: '🇪🇸 ESP' },
-  { code: '+27', name: '🇿🇦 RSA' },
-  { code: '+82', name: '🇰🇷 KOR' },
-  { code: '+62', name: '🇮🇩 IDN' },
-  { code: '+234', name: '🇳🇬 NGA' },
-  { code: '+31', name: '🇳🇱 NLD' },
-  { code: '+46', name: '🇸🇪 SWE' },
-  { code: '+63', name: '🇵🇭 PHI' }
-];
+import createAccountImage from '../assets/create_account.jpg';
+import { countryCodes } from '../utils/countryCodes';
 
 const SignUpPage = () => {
+  const [step, setStep] = useState(1);
+  const [showModal, setShowModal] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [countryCode, setCountryCode] = useState('+1');
   const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
-  const auth = getAuth();
+  getAuth();
 
   const validatePassword = (pwd) =>
     pwd.length >= 16 && /[A-Z]/.test(pwd) && /[!@#$%^&*(),.?":{}|<>]/.test(pwd);
 
-  const validateEmailFormat = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  const validatePhoneNumber = (num) => /^\d{6,15}$/.test(num);
-
   const sanitize = (str) => str.replace(/[<>"'/]/g, '').trim();
 
-  const handleCreateAccount = () => {
-    const sanitizedFirstName = sanitize(firstName);
-    const sanitizedLastName = sanitize(lastName);
-    const sanitizedEmail = email.toLowerCase().trim();
-    const sanitizedPhone = phone.replace(/\D/g, '').trim();
-
-    if (!sanitizedFirstName || !sanitizedLastName || !sanitizedEmail || !confirmEmail || !password || !confirmPassword || !sanitizedPhone) {
-      Swal.fire('Error', 'All fields are required', 'error');
-      return;
+  const handleInitialSubmit = () => {
+    const cleanEmail = sanitize(email.toLowerCase());
+    if (!firstName || !lastName || !email || !confirmEmail || !phone) {
+      return alert('All fields are required.');
     }
-
-    if (!validateEmailFormat(sanitizedEmail)) {
-      Swal.fire('Error', 'Invalid email format', 'error');
-      return;
+    if (cleanEmail !== confirmEmail.toLowerCase().trim()) {
+      return alert('Emails do not match.');
     }
-
-    if (sanitizedEmail !== confirmEmail.toLowerCase().trim()) {
-      Swal.fire('Error', 'Emails do not match', 'error');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      Swal.fire('Error', 'Passwords do not match', 'error');
-      return;
-    }
-
-    if (!validatePassword(password)) {
-      Swal.fire('Error', 'Password must be at least 16 characters long, include one uppercase letter and one special character.', 'error');
-      return;
-    }
-
-    if (!validatePhoneNumber(sanitizedPhone)) {
-      Swal.fire('Error', 'Phone number must contain 6 to 15 digits', 'error');
-      return;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const fullPhone = `${countryCode} ${sanitizedPhone}`;
-    const existing = users.find((u) => u.email === sanitizedEmail || u.phone === fullPhone);
-
-    if (existing) {
-      Swal.fire('Error', 'A user with this email or phone number already exists.', 'error');
-      return;
-    }
-
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const newUser = {
-      firstName: sanitizedFirstName,
-      lastName: sanitizedLastName,
-      email: sanitizedEmail,
-      phone: fullPhone,
-      password: hashedPassword
-    };
-
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    Swal.fire('Success', 'Account created successfully!', 'success').then(() => {
-      emailjs
-        .send(
-          process.env.REACT_APP_EMAILJS_SERVICE_ID,
-          process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-          {
-            to_email: sanitizedEmail,
-            user_name: `${sanitizedFirstName} ${sanitizedLastName}`,
-            subject: 'Welcome to LuminoLearn Academy!',
-          },
-          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-        )
-        .then(() => {
-          console.log('🎉 Welcome email sent!');
-        })
-        .catch((error) => {
-          console.warn('⚠️ Welcome email failed:', error);
-        });
-
-      navigate('/login');
-    });
+    setShowModal(true);
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      const userData = {
-        firstName: user.displayName?.split(' ')[0] || '',
-        lastName: user.displayName?.split(' ')[1] || '',
-        email: user.email || '',
-        phone: user.phoneNumber || '',
-        subscription: 'Free',
-        enrolledCourses: [],
-        paymentHistory: []
-      };
-
-      sessionStorage.setItem('loggedInUser', JSON.stringify(userData));
-      window.dispatchEvent(new Event('storageUpdate'));
-
-      Swal.fire('Success', `Welcome ${user.displayName || user.email}`, 'success');
-      navigate('/account');
-    } catch (error) {
-      if (error.code === 'auth/popup-closed-by-user') {
-        console.log('User closed the sign-in popup.');
-        return;
-      }
-      Swal.fire('Error', error.message || 'Google sign-in failed', 'error');
-    }
+  const handleDecline = () => {
+    setShowModal(false);
+    navigate('/');
   };
+
+  const handleAccept = () => {
+    setShowModal(false);
+    setStep(2);
+  };
+
+ const handleFinalSubmit = () => {
+  if (!password || !confirmPassword) {
+    return alert('Password fields cannot be empty.');
+  }
+  if (password !== confirmPassword) {
+    return alert('Passwords do not match.');
+  }
+  if (!validatePassword(password)) {
+    return alert('Password must be 16+ chars with uppercase and special symbol.');
+  }
+
+  const newUser = {
+    firstName: sanitize(firstName),
+    lastName: sanitize(lastName),
+    email: sanitize(email.toLowerCase()),
+    phone: `${countryCode} ${sanitize(phone)}`,
+    password: bcrypt.hashSync(password, 10)
+  };
+
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+  users.push(newUser);
+  localStorage.setItem('users', JSON.stringify(users));
+  sessionStorage.setItem('loggedInUser', JSON.stringify(newUser));
+
+  Swal.fire('Success', 'Account created!', 'success').then(() => {
+    navigate('/personalaccount');
+  });
+};
 
   return (
     <div className="signup-wrapper">
-      <div style={{ flex: 1, position: 'relative', display: 'flex', flexWrap: 'wrap' }}>
-     <img src={signupImage} alt="Sign up" className="signup-image-bg" />
+      <div className="signup-image">
+        <img src={createAccountImage} alt="Create Account" className="signup-image-bg" />
+      </div>
 
-
-        <div style={{
-          position: 'absolute',
-          top: '2%',
-          right: '12%',
-          width: '42%',
-          backgroundColor: 'transparent',
-          zIndex: 2
-        }}>
+      <div className="stylish-auth">
+        {step === 1 ? (
           <div className="auth-form-box">
-            <input type="text" placeholder="First Name" className="auth-inputin" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <input type="text" placeholder="Last Name" className="auth-inputin" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-            <input type="email" placeholder="Email" className="auth-inputin" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input type="email" placeholder="Confirm Email" className="auth-inputin" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
-
+            <input className="auth-inputin" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input className="auth-inputin" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input className="auth-inputin" placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input className="auth-inputin" placeholder="Confirm Email" type="email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
             <div className="auth-phone-container">
               <select className="auth-phone-select" value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 {countryCodes.map((c, i) => (
                   <option key={i} value={c.code}>{c.name} ({c.code})</option>
                 ))}
               </select>
-              <input type="tel" placeholder="Phone Number" className="auth-inputin" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <input className="auth-inputin" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
-
-            <input type="password" placeholder="Password" className="auth-inputin" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <input type="password" placeholder="Confirm Password" className="auth-inputin" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-
-            <small className="password-hint">
-              🔐 Min 16 characters, including UPPERCASE and special symbol ((!@#$%)).
-            </small>
+            <button className="auth-button" onClick={handleInitialSubmit}>Continue</button>
           </div>
-        </div>
-
-        <div style={{
-          position: 'absolute',
-          bottom: '4%',
-          left: '4%',
-          right: '10%',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center'
-        }}>
-          <p className="auth-footer" style={{ fontSize: '20px', color: '#333', margin: 0 }}>
-            Already have an account? <Link to="/login">Sign in here</Link>
-          </p>
-
-          <div style={{ display: 'flex', gap: '90px' }}>
-            <button
-              onClick={handleCreateAccount}
-              style={{ width: '220px', height: '45px', opacity: 0, cursor: 'pointer' }}
-            >
-              Create
-            </button>
-
-            <button
-              onClick={handleGoogleSignIn}
-              style={{ width: '290px', height: '45px', opacity: 0, cursor: 'pointer' }}
-            >
-              Google
-            </button>
+        ) : (
+          <div className="auth-form-box">
+            <input className="auth-inputin" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input className="auth-inputin" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <small className="password-hint">🔐 Min 16 characters, incl. UPPERCASE and special symbol (!@#$%).</small>
+            <button className="auth-button" onClick={handleFinalSubmit}>Create Account</button>
           </div>
-        </div>
+        )}
+        <p className="auth-footer">Already have an account? <Link to="/login">Sign in</Link></p>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>🌟 Welcome to LuminoLearn Academy</h2>
+            <p>
+              Thank you for registering! By creating an account, you agree to the following Terms & Conditions:
+            </p>
+            <ol>
+              <li>
+                <strong>Protecting Course Content:</strong> You will not share, redistribute, or publish any course
+                materials—including assessments, videos, and downloads—without prior written consent.
+              </li>
+              <li>
+                <strong>Academic Integrity:</strong> Use of Large Language Models (e.g., ChatGPT, Bard, Claude) to complete
+                assignments, quizzes, or exams is strictly prohibited unless explicitly authorized.
+              </li>
+              <li>
+                <strong>Intellectual Property Use:</strong> You agree not to copy, republish, upload, or distribute course
+                content on external platforms without permission.
+              </li>
+              <li>
+                <strong>Respectful Conduct:</strong> You will engage with fellow users and instructors respectfully,
+                professionally, and courteously.
+              </li>
+              <li>
+                <strong>Enforcement:</strong> Any violation may result in account suspension or other disciplinary or legal
+                action.
+              </li>
+            </ol>
+            <p>
+              By clicking <strong>Accept</strong>, you affirm that you have read, understood, and agree to abide by these
+              Terms & Conditions.
+            </p>
+            <div className="modal-actions">
+              <button className="btn-decline" onClick={handleDecline}>Decline</button>
+              <button className="btn-accept" onClick={handleAccept}>Accept</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

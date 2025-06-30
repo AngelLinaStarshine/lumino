@@ -10,11 +10,10 @@ import PersonalAccount from './pages/PersonalAccount';
 import Footer from './components/Footer';
 import RequireAuth from './utils/RequireAuth';
 import './App.css';
-import SignInPage from './pages/SignInPage';      
-import SignUpPage from './pages/SignUpPage';       
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import ForgotPassword from './pages/ForgotPassword';
 import FlameChatBot from './components/LuminoFlameBot';
-
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(() => {
@@ -33,9 +32,6 @@ function App() {
     <Router>
       <div className="App">
         <Navbar setLoggedInUser={setLoggedInUser} />
-
-   
-
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Main />} />
@@ -47,6 +43,10 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
+            {/* ✅ Unprotected access for PersonalAccount during sign-up */}
+            <Route path="/personalaccount" element={<PersonalAccount />} />
+
+            {/* ✅ Keep the protected version if logged-in navigation needed */}
             <Route
               path="/account"
               element={
@@ -57,7 +57,6 @@ function App() {
             />
           </Routes>
         </div>
-
         <FlameChatBot />
         <Footer />
       </div>
