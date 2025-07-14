@@ -35,11 +35,6 @@
     line-height: 1.6;
   }
   /* General Welcome Section */
-  .welcome-section {
-    text-align: center;
-    padding: 40px 20px;
-    color: #0b2a68;
-  }
   
   /* Learn More Button */
   .learn-more-button {
@@ -61,11 +56,11 @@
   }
   
   .course-page p {
-    max-width: 800px;
-    margin: 0 auto 20px auto;
-    font-size: 1.05rem;
+    max-width: max;
+
+    font-size: 1.45rem;
     text-align: center;
-    color: #333;
+    
   }
   /* ============================= */
   /*        Navbar Styles          */
@@ -213,7 +208,68 @@
       background-position: 100% 50%;
     }
   }
-  
+/* Ensure the custom-welcome class applies to <p> tags */
+.custom-welcome {
+  font-size: 1.55rem;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+  text-align: left;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.custom-welcome span {
+  font-weight: 600;
+}
+
+.custom-welcome .pink {
+  color: #db2777 !important; /* pink-600 */
+}
+
+.custom-welcome .purple {
+  color: #7e22ce !important; /* purple-600 */
+}
+
+.custom-welcome .green {
+  color: #059669 !important; /* green-600 */
+}
+
+.custom-welcome .indigo {
+  color: #4f46e5 !important; /* indigo-600 */
+}
+
+.custom-welcome .blue {
+  color: #2563eb !important; /* blue-600 */
+}
+
+.custom-welcome .yellow {
+  color: #ca8a04 !important; /* yellow-600 */
+}
+
+.custom-welcome .red {
+  color: #ef4444 !important; /* red-500 */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   /* ============================= */
   /*        Courses Section        */
   /* ============================= */
@@ -236,7 +292,10 @@
     align-items: center;
     justify-content: space-between;
   }
-  
+  .description-box {
+  white-space: pre-line;
+}
+
   /* Course Image Styling */
   .course-image {
     width: 100%;
@@ -244,7 +303,7 @@
     display: block;
     border-radius: 8px;
   }
-  
+
   /* Enroll Button Styling */
   .enroll-btn {
     position: absolute;

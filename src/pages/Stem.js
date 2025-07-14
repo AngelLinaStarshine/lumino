@@ -92,35 +92,39 @@ function Stem() {
 
   return (
     <>
-      <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
-        <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center tracking-tight">
-          STEM Pathways – Course Registration
-        </h1>
+     <div class="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
+  <h1 class="text-4xl font-extrabold text-indigo-800 mb-8 text-center tracking-tight">
+    STEM Pathways – Course Registration
+  </h1>
 
-        <p className="welcome-subtext text-lg md:text-xl text-gray-900 leading-relaxed mb-4">
-          Every learner begins a <span className="text-pink-600 font-semibold">customized journey</span> — 
-          one that’s <span className="text-indigo-600 font-semibold">AI-powered</span>, 
-          <span className="text-purple-600 font-semibold">educator-guided</span>, and 
-          <span className="text-yellow-500 font-semibold">creatively fueled</span> across  
-          <span className="text-blue-600 font-semibold"> STEM</span>, 
-          <span className="text-yellow-600 font-semibold"> Art & Craft</span>, 
-          <span className="text-green-600 font-semibold"> Science</span>, and 
-          <span className="text-red-500 font-semibold"> Language</span>.
-        </p>
+  <p class="custom-welcome">
+    Every learner begins a <span class="pink"> customized journey</span> — 
+    guided by caring <span class="purple">educators</span>, supported in their 
+    <span class="green"> individual strengths</span>, and encouraged to become more 
+    <span class="indigo"> independent thinkers</span>.
+  </p>
 
-        <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          With <span className="text-indigo-500 font-medium">critical thinking</span> as their compass, 
-          <span className="text-pink-500 font-medium">creative expression</span> as their voice, and 
-          <span className="text-emerald-600 font-medium">real-world impact</span> as their goal — 
-          our students don’t just follow the path — 
-          <span className="font-bold text-indigo-700">they illuminate it</span>.
-        </p>
+  <p class="custom-welcome">
+    We teach students to use 
+    <span class="blue"> AI as a creative tool</span>, not a leader — integrating it meaningfully into their explorations of 
+    <span class="blue"> STEM</span>, <span class="yellow"> Art & Craft</span>, 
+    <span class="green"> Science</span>, and <span class="red"> Language</span>.
+  </p>
 
-        <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          At <span className="text-indigo-600 font-semibold">LuminoLearn</span>, our STEM curriculum is crafted for learners aged 3–17, 
-          equipping them with <span className="text-yellow-600 font-medium">future-ready skills</span> through 
-          fun, structured, and developmentally appropriate programs.
-        </p>
+  <p class="custom-welcome">
+    With <span class="indigo">critical thinking</span> as their compass, 
+    <span class="pink">creative expression</span> as their voice, and 
+    <span class="green">real-world impact</span> as their goal — 
+    our students don’t just follow the path — 
+    <span class="indigo font-bold">they illuminate it</span>.
+  </p>
+
+  <p class="custom-welcome">
+    At <span class="indigo font-semibold">LuminoLearn</span>, our STEM curriculum is crafted for learners aged 3–17, 
+    equipping them with <span class="yellow">future-ready skills</span> through 
+    fun, structured, and developmentally appropriate programs.
+  </p>
+       
 
         <div className="bg-indigo-50 p-6 rounded-lg shadow border-l-4 border-indigo-500">
           <h3 className="text-xl font-semibold text-gray-800 mb-3">🛠️ How Registration Works</h3>
@@ -140,23 +144,21 @@ function Stem() {
           <p className="text-md text-gray-700 mb-2">
             📅 You’ll be invited to schedule a 1:1 consultation where we’ll walk through the results and help choose the best-fit course.
           </p>
-          <p className="text-md text-gray-700">
-            💬 Questions? Our team is available 24/7 via <a className="text-green-600 underline" href="mailto:info@luminolearn.ca">email</a> or <a className="text-green-600 underline" href="https://wa.me/yourwhatsapplink" target="_blank" rel="noreferrer">WhatsApp</a>.
-          </p>
+         
         </div>
 
         {!isLoggedIn && (
           <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-sm border-l-4 border-indigo-400">
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Begin?</h3>
             <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-              To access the assessment test and register for your personalized course, please create your account first.
-            </p>
+              To access the assessment test and register for your personalized course, please create your account first. <br></br>
+         
             <button
               onClick={handleRedirectToSignup}
               className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-medium transition"
             >
-              Create Account
-            </button>
+              Create Account 
+            </button>   </p>
           </div>
         )}
       </div>
@@ -180,25 +182,38 @@ function Stem() {
             </select>
           </div>
 
-          {selectedCourse && (
-            <div className="selected-course-info bg-gray-50 p-6 rounded-md shadow">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Assessment for {selectedGrade}
-              </h3>
-              <p className="mb-4">{extendedDetails}</p>
-              <div className="assessment-note text-gray-700 mb-3">
-                <p><strong>Why This Assessment?</strong> This comprehensive assessment helps us evaluate the learner’s current knowledge level and ensure appropriate course placement. Assessment results are stored for 7 days only and cannot be recovered once expired.</p>
-              </div>
-              {testLink && (
-                <p>
-                  🧪{' '}
-                  <a href={testLink} target="_blank" rel="noreferrer" className="text-indigo-600 underline">
-                    Click here to take the assessment test
-                  </a>
-                </p>
-              )}
-            </div>
-          )}
+     {selectedCourse && (
+  <div className="selected-course-info bg-gray-50 p-6 rounded-md shadow">
+    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+      Assessment for {selectedGrade}
+    </h3>
+<div className="mb-4 space-y-4">
+  {extendedDetails
+    .split('\n\n')
+    .map((para, i) => (
+      <p key={i} className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+        {para}
+      </p>
+    ))}
+</div>
+
+
+
+
+    <div className="assessment-note text-gray-700 mb-3">
+      <p><strong>Why This Assessment?</strong> This comprehensive assessment helps us evaluate the learner’s current knowledge level and ensure appropriate course placement. Assessment results are stored for 7 days only and cannot be recovered once expired.</p>
+    </div>
+    {testLink && (
+      <p>
+        🧪{' '}
+        <a href={testLink} target="_blank" rel="noreferrer" className="text-indigo-600 underline">
+          Click here to take the assessment test
+        </a>
+      </p>
+    )}
+  </div>
+)}
+
         </>
       )}
 
@@ -234,15 +249,50 @@ function Stem() {
         </div>
       </div>
 
-      {selectedCourseDetails && (
+{selectedCourseDetails && (
         <div className="modal-overlay" onClick={() => setSelectedCourseDetails(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedCourseDetails.title}</h2>
-            <p>{extendedDescriptions[selectedCourseDetails.title]}</p>
-            <button className="close-modal" onClick={() => setSelectedCourseDetails(null)}>✖ Close</button>
+          <div
+            className="modal-content animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-2xl font-bold text-indigo-800 mb-4">
+              {selectedCourseDetails.title}
+            </h2>
+
+            <div className="modal-description space-y-4 text-gray-800 leading-relaxed">
+              {extendedDescriptions[selectedCourseDetails.title]
+                .trim()
+                .split('\n\n')
+                .map((para, i) => (
+                  <p
+                    key={i}
+                    className="whitespace-pre-wrap"
+                    dangerouslySetInnerHTML={{
+                      __html: para.replace(
+                        /\*\*(.*?)\*\*/g,
+                        (_, boldText) => `<span class='highlight-keyword'>${boldText}</span>`
+                      )
+                    }}
+                  />
+                ))}
+            </div>
+
+            <button
+              className="close-modal absolute top-4 right-4 text-xl font-bold text-red-500 hover:text-red-700"
+              onClick={() => setSelectedCourseDetails(null)}
+            >
+              ✖ Close
+            </button>
           </div>
         </div>
       )}
+      
+        <div className="bg-white border-l-4 border-emerald-400 mt-6 p-6 rounded-lg shadow-sm">
+         
+          <p className="text-md text-gray-700">
+            💬 Questions? Our team is available 24/7 via <a className="text-green-600 underline" href="mailto:info@luminolearn.ca">email</a> or <a className="text-green-600 underline" href="https://wa.me/yourwhatsapplink" target="_blank" rel="noreferrer">WhatsApp</a>.
+          </p>
+        </div>
     </>
   );
 }
