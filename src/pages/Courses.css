@@ -470,6 +470,16 @@
   }
 }
 
+.welcome-subtext {
+  font-size: 2.1rem;
+  color: black;
+  max-width: max;
+  margin: 0 auto;
+  animation: fadeIn 3s ease-in;
+  white-space: normal;
+  overflow: visible;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .course-grid {

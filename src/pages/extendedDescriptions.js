@@ -1,8 +1,8 @@
 // extendedDescriptions.js
 
 const extendedDescriptions = {
-  "Early Learners (Ages 3–5)": `
-**Overview**
+ "Early Learners (Ages 3–5)": `
+
 At this critical developmental stage, children explore STEM through sensory play and storytelling.
 
 **Science & Exploration**
@@ -19,9 +19,11 @@ At this critical developmental stage, children explore STEM through sensory play
 
 **Literacy Integration**
 - Science storytelling and themed picture books
+
+Our Early Learners program is a joyful introduction to the world of STEM, thoughtfully designed for children ages 3 to 5. Through playful exploration, sensory-rich activities, and guided discovery, we lay the foundation for essential cognitive and motor skills. Children learn by doing — building, touching, observing, and asking questions — in a safe, nurturing environment where curiosity is celebrated and every moment sparks imagination. This is where young minds begin their lifelong learning adventure.
 `,
 
-  "Primary Learners (Ages 6–8)": `
+"Primary Learners (Ages 6–8)": `
 **Overview**
 Young learners build logical thinking through early math, coding, and engineering play.
 
@@ -36,6 +38,15 @@ Young learners build logical thinking through early math, coding, and engineerin
 **Computing**
 - Early coding with ScratchJr
 - Keyboarding and basic navigation skills
+
+Our Primary Learners program is designed to spark curiosity and build foundational problem-solving skills through engaging science, math, and engineering activities. At this stage, learners begin to think critically, recognize patterns, and apply logic to real-world challenges. Hands-on experiments, interactive games, and collaborative tasks encourage exploration, teamwork, and creative thinking — all in a vibrant, supportive environment where every question leads to discovery.
+
+**Key Components:**
+- **Science Exploration:** Simple experiments using magnets, plants, and weather tools
+- **Math Practice:** Building fluency in addition, subtraction, patterns, and measurements
+- **Engineering Tasks:** Basic design challenges using blocks, bridges, and circuits
+- **Technology Exposure:** Age-appropriate apps and early programming games
+- **Literacy Connection:** Journaling, STEM-themed storybooks, and discussion prompts
 `,
 
   "Intermediate Learners (Ages 9–11)": `

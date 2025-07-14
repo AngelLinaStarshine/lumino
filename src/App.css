@@ -58,6 +58,16 @@ body {
 .border-yellow {
   border: 2px solid #FFDE59 !important;
 }
+.animate-fadeIn {
+  animation: fadeIn 1.2s ease-in forwards;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
 
 /* Backgrounds */
 .bg-yellow {
@@ -920,7 +930,7 @@ html {
 }
 
 .brand-name.highlight {
-  font-size: 3.2rem;
+  font-size: 3.8rem;
   font-weight: 800;
   background: linear-gradient(90deg, #ff6f00, #ff4081);
   -webkit-background-clip: text;
@@ -930,23 +940,23 @@ html {
 }
 
 .welcome-tagline {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-style: italic;
   margin-bottom: 10px;
   animation: fadeIn 2.5s ease-in;
-  color: #333;
+  color: black;
 }
 
 .welcome-subtext {
-  font-size: 1.1rem;
-  color: #555;
-  max-width: 650px;
+  font-size: 2.1rem;
+  color: black;
+  max-width: max;
   margin: 0 auto;
   animation: fadeIn 3s ease-in;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: marquee 20s linear infinite;
+  white-space: normal;
+  overflow: visible;
 }
+
 
 @keyframes fadeIn {
   from { opacity: 0; }

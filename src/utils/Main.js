@@ -73,18 +73,29 @@ useEffect(() => {
 
 
   return (
-    <div className="App">
-      <div className="welcome-section">
-        <h1 className="welcome-heading">
-          Welcome to<br />
-          <span id="typed-brand" className="brand-name highlight"></span>
-        </h1>
-        <p className="welcome-tagline">Fueling Wonder. Empowering Minds.</p>
-        <p className="welcome-subtext marquee">
-          Dive into an inspiring world of STEM, Arts & Literature, and Language programs—crafted for learners of all ages and stages.
-        </p>
-      </div>
 
+<div className="App">
+  <div className="welcome-section text-center py-16 px-4 md:px-10 max-w-6xl mx-auto">
+    <h1 className="welcome-heading text-4xl md:text-5xl font-extrabold text-gray-800 leading-snug mb-6">
+      Welcome to<br />
+      <span id="typed-brand" className="brand-name highlight text-indigo-700"></span>
+    </h1>
+
+  <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-2">
+  At <span className="font-semibold text-indigo-600">LuminoLearn</span>, we don’t just teach — 
+  we craft futures. Our mission goes far beyond grade-level checkboxes.
+</p>
+
+
+
+    <p className="welcome-tagline text-3xl italic text-gray-700 animate-fadeIn delay-200">
+      Fueling Wonder. Empowering Minds.
+    </p>
+  </div>
+
+
+<br>
+</br>
       <header className="header">
         <img src={HomeImage} alt="Home" className="header-image" />
         <div className="header-buttons">

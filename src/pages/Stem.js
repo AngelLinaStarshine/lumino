@@ -38,13 +38,13 @@ function Stem() {
   const courses = [
     {
       title: "Early Learners (Ages 3–5)",
-      description: "This sensory-based program introduces foundational STEM concepts through play, exploration, and discovery.",
+      description: "Our Early Learners program offers a playful, sensory-rich introduction to STEM for children ages 3–5. Through guided discovery and hands-on activities, young learners build essential skills in a safe, nurturing space where imagination leads the way.",
       color: "#ffb6b9",
       formLink: "https://forms.gle/EAxVGZartfL7CJKL6"
     },
     {
       title: "Primary Learners (Ages 6–8)",
-      description: "Early problem-solving and logical reasoning skills using science, math, and engineering tasks.",
+      description: "This stage nurtures growing minds with hands-on STEM challenges that build logical thinking and early problem-solving skills. Students explore patterns, measurements, and simple coding while investigating the world around them through fun science experiments and basic engineering tasks. It’s a playful, structured foundation that sparks curiosity and confidence.",
       color: "#f9971d",
       formLink: "https://forms.gle/nmskVUnXWjhz2TV18"
     },
@@ -91,27 +91,87 @@ function Stem() {
   const extendedDetails = selectedCourse ? extendedDescriptions[selectedCourse.title] : '';
 
   return (
-    <div className="course-page">
-      <h1>STEM Pathways – Course Registration</h1>
-      <p>
-        At LuminoLearn, our STEM curriculum supports learners aged 3–17 in developing real-world skills through fun, structured, age-appropriate programs.
-        <br /><br />
+    <>
+      <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
+        <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center tracking-tight">
+          STEM Pathways – Course Registration
+        </h1>
+
+        <p className="welcome-subtext text-lg md:text-xl text-gray-900 leading-relaxed mb-4">
+          Every learner begins a <span className="text-pink-600 font-semibold">customized journey</span> — 
+          one that’s <span className="text-indigo-600 font-semibold">AI-powered</span>, 
+          <span className="text-purple-600 font-semibold">educator-guided</span>, and 
+          <span className="text-yellow-500 font-semibold">creatively fueled</span> across  
+          <span className="text-blue-600 font-semibold"> STEM</span>, 
+          <span className="text-yellow-600 font-semibold"> Art & Craft</span>, 
+          <span className="text-green-600 font-semibold"> Science</span>, and 
+          <span className="text-red-500 font-semibold"> Language</span>.
+        </p>
+
+        <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          With <span className="text-indigo-500 font-medium">critical thinking</span> as their compass, 
+          <span className="text-pink-500 font-medium">creative expression</span> as their voice, and 
+          <span className="text-emerald-600 font-medium">real-world impact</span> as their goal — 
+          our students don’t just follow the path — 
+          <span className="font-bold text-indigo-700">they illuminate it</span>.
+        </p>
+
+        <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          At <span className="text-indigo-600 font-semibold">LuminoLearn</span>, our STEM curriculum is crafted for learners aged 3–17, 
+          equipping them with <span className="text-yellow-600 font-medium">future-ready skills</span> through 
+          fun, structured, and developmentally appropriate programs.
+        </p>
+
+        <div className="bg-indigo-50 p-6 rounded-lg shadow border-l-4 border-indigo-500">
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">🛠️ How Registration Works</h3>
+          <ol className="list-decimal list-inside text-gray-800 space-y-2">
+            <li><strong>Create an Account:</strong> Sign up to unlock the registration and assessment forms.</li>
+            <li><strong>Complete the Assessment:</strong> After logging in, access the personalized grade-level assessment form.</li>
+            <li><strong>Review & Feedback:</strong> Within 48 hours, our educators will review results and generate feedback outlining your child’s knowledge level, learning style, and educational fit.</li>
+            <li><strong>Schedule a Consultation:</strong> Meet with our team to align goals and customize your child’s educational path.</li>
+            <li><strong>Finalize Registration:</strong> Review courses and complete the enrollment process.</li>
+          </ol>
+        </div>
+
+        <div className="bg-white border-l-4 border-emerald-400 mt-6 p-6 rounded-lg shadow-sm">
+          <p className="text-md text-gray-700 mb-2">
+            🧠 This assessment helps us understand how your child learns and where they currently stand. It includes personalized insights to support both academic progress and cognitive growth.
+          </p>
+          <p className="text-md text-gray-700 mb-2">
+            📅 You’ll be invited to schedule a 1:1 consultation where we’ll walk through the results and help choose the best-fit course.
+          </p>
+          <p className="text-md text-gray-700">
+            💬 Questions? Our team is available 24/7 via <a className="text-green-600 underline" href="mailto:info@luminolearn.ca">email</a> or <a className="text-green-600 underline" href="https://wa.me/yourwhatsapplink" target="_blank" rel="noreferrer">WhatsApp</a>.
+          </p>
+        </div>
+
         {!isLoggedIn && (
-          <>
-            <strong>To register and take the assessment test, please create an account first.</strong>
-            <br />
-            <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
-          </>
+          <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-sm border-l-4 border-indigo-400">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Begin?</h3>
+            <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+              To access the assessment test and register for your personalized course, please create your account first.
+            </p>
+            <button
+              onClick={handleRedirectToSignup}
+              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-medium transition"
+            >
+              Create Account
+            </button>
+          </div>
         )}
-      </p>
+      </div>
+
       {isLoggedIn && (
         <>
-          <div className="grade-selector">
-            <label htmlFor="grade-select"><strong>Choose Your Grade:</strong></label>
+          <div className="grade-selector my-6 px-4">
+            <label htmlFor="grade-select" className="block mb-2 text-lg font-semibold text-gray-800">
+              Choose Your Grade:
+            </label>
             <select
               id="grade-select"
               onChange={(e) => setSelectedGrade(e.target.value)}
               defaultValue=""
+              className="w-full md:w-1/2 p-2 border border-gray-300 rounded-md"
             >
               <option value="">-- Select Grade --</option>
               {gradeOptions.map((grade, index) => (
@@ -121,16 +181,18 @@ function Stem() {
           </div>
 
           {selectedCourse && (
-            <div className="selected-course-info">
-              <h3>Assessment for {selectedGrade}</h3>
-              <p>{extendedDetails}</p>
-              <div className="assessment-note">
+            <div className="selected-course-info bg-gray-50 p-6 rounded-md shadow">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                Assessment for {selectedGrade}
+              </h3>
+              <p className="mb-4">{extendedDetails}</p>
+              <div className="assessment-note text-gray-700 mb-3">
                 <p><strong>Why This Assessment?</strong> This comprehensive assessment helps us evaluate the learner’s current knowledge level and ensure appropriate course placement. Assessment results are stored for 7 days only and cannot be recovered once expired.</p>
               </div>
               {testLink && (
                 <p>
                   🧪{' '}
-                  <a href={testLink} target="_blank" rel="noreferrer">
+                  <a href={testLink} target="_blank" rel="noreferrer" className="text-indigo-600 underline">
                     Click here to take the assessment test
                   </a>
                 </p>
@@ -140,7 +202,7 @@ function Stem() {
         </>
       )}
 
-      <h2>Explore Our Age-Based STEM Courses</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Explore Our Age-Based STEM Courses</h2>
       <div className="course-grid">
         <div className="row">
           {courses.slice(0, 2).map((course, index) => (
@@ -181,7 +243,7 @@ function Stem() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
