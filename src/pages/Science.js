@@ -1,7 +1,7 @@
 import '../pages/Courses.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import extendedDescriptions from './scienceDescriptions';
+import scienceDescriptions from './scienceDescriptions';
 
 function Science() {
   const [selectedGrade, setSelectedGrade] = useState('');
@@ -11,9 +11,7 @@ function Science() {
 
   useEffect(() => {
     const user = sessionStorage.getItem('loggedInUser');
-    if (user) {
-      setIsLoggedIn(true);
-    }
+    if (user) setIsLoggedIn(true);
   }, []);
 
   const handleRedirectToSignup = () => {
@@ -88,32 +86,47 @@ function Science() {
   const selectedGradeObj = gradeOptions.find(g => g.label === selectedGrade);
   const selectedCourse = selectedGradeObj ? courses[selectedGradeObj.courseIndex] : null;
   const testLink = gradeTestLinks[selectedGrade] || (selectedCourse && selectedCourse.testLink);
-  const extendedDetails = selectedCourse ? extendedDescriptions[selectedCourse.title] : '';
+  const extendedDetails = selectedCourse ? scienceDescriptions[selectedCourse.title] || '' : '';
 
   return (
-    <div className="course-page">
-      <h1>Science & Geography – Course Registration</h1>
-      <p>
-        Our Science & Geography curriculum fosters curiosity through hands-on learning, map skills, Earth systems, environmental science, and inquiry-based experiments.
-        <br /><br />
+    <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
+      <h1 className="text-4xl font-extrabold text-green-800 mb-8 text-center tracking-tight">
+        Science & Geography – Course Registration
+      </h1>
+
+      <p className="custom-welcome">At LuminoLearn, we believe <span className="green font-bold">curiosity is a compass</span> — and science is the map. Every learner embarks on a <span className="pink">personal discovery journey</span>, guided by passionate <span className="purple">educators</span> and enriched with <span className="yellow">real-world inquiry</span>.</p>
+
+      <p className="custom-welcome">Our Science & Geography curriculum is designed to foster <span className="indigo">systems thinking</span>, <span className="blue">environmental awareness</span>, and <span className="green">global understanding</span>. Students explore Earth's wonders — from water cycles to weather systems, ecosystems to ethical geography — all while building scientific literacy.</p>
+
+      <div className="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
+        <h2 className="text-2xl font-bold mb-3">🛠️ How Registration Works</h2>
+        <ul className="list-disc list-inside space-y-2 text-gray-800">
+          <li><strong>Create an Account:</strong> Sign up to unlock the registration and assessment forms.</li>
+          <li><strong>Complete the Assessment:</strong> After logging in, access the personalized grade-level assessment form.</li>
+          <li><strong>Review & Feedback:</strong> Within 48 hours, our educators will review results and generate feedback outlining your child’s knowledge level, learning style, and educational fit.</li>
+          <li><strong>Schedule a Consultation:</strong> Meet with our team to align goals and customize your child’s educational path.</li>
+          <li><strong>Finalize Registration:</strong> Review courses and complete the enrollment process.</li>
+        </ul>
+        <p className="mt-4">🧠 This assessment helps us understand how your child learns and where they currently stand. It includes personalized insights to support both academic progress and cognitive growth.</p>
+        <p className="mt-2">📅 You’ll be invited to schedule a 1:1 consultation where we’ll walk through the results and help choose the best-fit course.</p>
         {!isLoggedIn && (
-          <>
-            <strong>To register and take the assessment test, please create an account first.</strong>
-            <br />
-            <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
-          </>
+          <p className="mt-4">To access the assessment test and register for your personalized course, please create your account first.</p>
         )}
-      </p>
+      </div>
+
+      {!isLoggedIn && (
+        <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-sm border-l-4 border-green-500">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Begin?</h3>
+          <p className="text-lg text-gray-700 mb-4">To access the assessment test and register for your personalized course, please create your account first.</p>
+          <button onClick={handleRedirectToSignup} className="px-6 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white text-lg font-medium transition">Create Account</button>
+        </div>
+      )}
 
       {isLoggedIn && (
         <>
-          <div className="grade-selector">
-            <label htmlFor="grade-select"><strong>Choose Your Grade:</strong></label>
-            <select
-              id="grade-select"
-              onChange={(e) => setSelectedGrade(e.target.value)}
-              defaultValue=""
-            >
+          <div className="grade-selector my-6 px-4">
+            <label htmlFor="grade-select" className="block mb-2 text-lg font-semibold text-gray-800">Choose Your Grade:</label>
+            <select id="grade-select" onChange={(e) => setSelectedGrade(e.target.value)} defaultValue="" className="w-full md:w-1/2 p-2 border border-gray-300 rounded-md">
               <option value="">-- Select Grade --</option>
               {gradeOptions.map((grade, index) => (
                 <option key={index} value={grade.label}>{grade.label}</option>
@@ -122,26 +135,25 @@ function Science() {
           </div>
 
           {selectedCourse && (
-            <div className="selected-course-info">
-              <h3>Assessment for {selectedGrade}</h3>
-              <p>{extendedDetails}</p>
-              <div className="assessment-note">
-                <p><strong>Why This Assessment?</strong> This evaluation helps us understand your learner’s current understanding and interests. Results are kept for 7 days only and cannot be recovered afterward.</p>
+            <div className="selected-course-info bg-gray-50 p-6 rounded-md shadow">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Assessment for {selectedGrade}</h3>
+              <div className="mb-4 space-y-4">
+                {extendedDetails.split('\n\n').map((para, i) => (
+                  <p key={i} className="text-gray-800 leading-relaxed whitespace-pre-wrap">{para}</p>
+                ))}
+              </div>
+              <div className="assessment-note text-gray-700 mb-3">
+                <p><strong>Why This Assessment?</strong> This evaluation helps us understand your learner’s current understanding and interests. Results are retained for 7 days only and cannot be recovered afterward.</p>
               </div>
               {testLink && (
-                <p>
-                  🌍{' '}
-                  <a href={testLink} target="_blank" rel="noreferrer">
-                    Click here to take the assessment test
-                  </a>
-                </p>
+                <p>🌍 <a href={testLink} target="_blank" rel="noreferrer" className="text-green-600 underline">Click here to take the assessment test</a></p>
               )}
             </div>
           )}
         </>
       )}
 
-      <h2>Explore Our Age-Based Science & Geography Courses</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Explore Our Age-Based Science & Geography Courses</h2>
       <div className="course-grid">
         <div className="row">
           {courses.slice(0, 2).map((course, index) => (
@@ -175,13 +187,23 @@ function Science() {
 
       {selectedCourseModal && (
         <div className="modal-overlay" onClick={() => setSelectedCourseModal(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedCourseModal.title}</h2>
-            <p>{extendedDescriptions[selectedCourseModal.title]}</p>
-            <button className="close-modal" onClick={() => setSelectedCourseModal(null)}>✖ Close</button>
+          <div className="modal-content animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-2xl font-bold text-green-800 mb-4">{selectedCourseModal.title}</h2>
+            <div className="modal-description space-y-4 text-gray-800 leading-relaxed">
+              {scienceDescriptions[selectedCourseModal.title]?.trim().split('\n\n').map((para, i) => (
+                <p key={i} className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, (_, boldText) => `<span class='highlight-keyword'>${boldText}</span>`) }} />
+              ))}
+            </div>
+            <button className="close-modal absolute top-4 right-4 text-xl font-bold text-red-500 hover:text-red-700" onClick={() => setSelectedCourseModal(null)}>
+              ✖ Close
+            </button>
           </div>
         </div>
       )}
+
+      <div className="bg-white border-l-4 border-emerald-400 mt-6 p-6 rounded-lg shadow-sm">
+        <p className="text-md text-gray-700">💬 Questions? Our team is available 24/7 via <a className="text-green-600 underline" href="mailto:info@luminolearn.ca">email</a> or <a className="text-green-600 underline" href="https://wa.me/yourwhatsapplink" target="_blank" rel="noreferrer">WhatsApp</a>.</p>
+      </div>
     </div>
   );
 }

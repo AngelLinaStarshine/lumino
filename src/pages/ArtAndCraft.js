@@ -6,14 +6,12 @@ import extendedDescriptions from './artDescriptions';
 function ArtAndCraft() {
   const [selectedGrade, setSelectedGrade] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourseModal, setSelectedCourseModal] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = sessionStorage.getItem('loggedInUser');
-    if (user) {
-      setIsLoggedIn(true);
-    }
+    if (user) setIsLoggedIn(true);
   }, []);
 
   const handleRedirectToSignup = () => {
@@ -86,33 +84,56 @@ function ArtAndCraft() {
   ];
 
   const selectedGradeObj = gradeOptions.find(g => g.label === selectedGrade);
-  const selectedCourseFromGrade = selectedGradeObj ? courses[selectedGradeObj.courseIndex] : null;
-  const testLink = gradeTestLinks[selectedGrade] || (selectedCourseFromGrade && selectedCourseFromGrade.testLink);
-  const extendedDetails = selectedCourseFromGrade ? extendedDescriptions[selectedCourseFromGrade.title] : '';
+  const selectedCourse = selectedGradeObj ? courses[selectedGradeObj.courseIndex] : null;
+  const testLink = gradeTestLinks[selectedGrade] || (selectedCourse && selectedCourse.testLink);
+  const extendedDetails = selectedCourse ? extendedDescriptions[selectedCourse.title] || '' : '';
 
   return (
-    <div className="course-page">
-      <h1>Art & Craft – Course Registration</h1>
-      <p>
-        Our Art & Craft curriculum sparks imagination and strengthens fine motor skills. Explore drawing, sculpture, color theory, and digital creativity at every age!
-        <br /><br />
-        {!isLoggedIn && (
-          <>
-            <strong>To register and take the assessment test, please create an account first.</strong>
-            <br />
-            <button onClick={handleRedirectToSignup} className="inline-register-link">Create Account</button>
-          </>
-        )}
+    <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
+      <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center">Art & Craft Courses – Express & Enroll</h1>
+
+      <p className="custom-welcome">
+        Our Art & Craft curriculum sparks imagination, supports motor development, and builds a strong design foundation. Learners explore drawing, 3D building, digital art, and portfolio creation across every age.
       </p>
+
+      <div className="mt-10 bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded">
+        <h2 className="text-2xl font-bold mb-3">🛠️ How Registration Works</h2>
+        <ul className="list-disc list-inside space-y-2 text-gray-800">
+          <li><strong>Create an Account:</strong> Sign up to unlock the registration and assessment forms.</li>
+          <li><strong>Complete the Assessment:</strong> After logging in, access the personalized grade-level assessment form.</li>
+          <li><strong>Review & Feedback:</strong> Within 48 hours, our educators will review results and generate feedback outlining your child’s knowledge level, learning style, and educational fit.</li>
+          <li><strong>Schedule a Consultation:</strong> Meet with our team to align goals and customize your child’s educational path.</li>
+          <li><strong>Finalize Registration:</strong> Review courses and complete the enrollment process.</li>
+        </ul>
+        <p className="mt-4">🧠 This assessment helps us understand how your child learns and where they currently stand. It includes personalized insights to support both academic progress and cognitive growth.</p>
+        <p className="mt-2">📅 You’ll be invited to schedule a 1:1 consultation where we’ll walk through the results and help choose the best-fit course.</p>
+        {!isLoggedIn && (
+          <p className="mt-4">To access the assessment test and register for your personalized course, please create your account first.</p>
+        )}
+      </div>
+
+      {!isLoggedIn && (
+        <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-sm border-l-4 border-indigo-400">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Begin?</h3>
+          <p className="text-lg text-gray-700 mb-4">Please create your account to access assessments and enroll in Art & Craft courses.</p>
+          <button
+            onClick={handleRedirectToSignup}
+            className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-medium transition"
+          >
+            Create Account
+          </button>
+        </div>
+      )}
 
       {isLoggedIn && (
         <>
-          <div className="grade-selector">
-            <label htmlFor="grade-select"><strong>Choose Your Grade:</strong></label>
+          <div className="grade-selector my-6 px-4">
+            <label htmlFor="grade-select" className="block mb-2 text-lg font-semibold text-gray-800">Choose Your Grade:</label>
             <select
               id="grade-select"
               onChange={(e) => setSelectedGrade(e.target.value)}
               defaultValue=""
+              className="w-full md:w-1/2 p-2 border border-gray-300 rounded-md"
             >
               <option value="">-- Select Grade --</option>
               {gradeOptions.map((grade, index) => (
@@ -121,66 +142,68 @@ function ArtAndCraft() {
             </select>
           </div>
 
-          {selectedCourseFromGrade && (
-            <div className="selected-course-info">
-              <h3>Assessment for {selectedGrade}</h3>
-              <p>{extendedDetails}</p>
-              <div className="assessment-note">
-                <p><strong>Why This Assessment?</strong> This creative assessment helps us evaluate the learner’s current level, interests, and artistic techniques. Results are stored for 7 days only and cannot be recovered once expired.</p>
+          {selectedCourse && (
+            <div className="selected-course-info bg-gray-50 p-6 rounded-md shadow">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Assessment for {selectedGrade}</h3>
+              <div className="mb-4 space-y-4">
+                {extendedDetails.split('\n\n').map((para, i) => (
+                  <p key={i} className="text-gray-800 leading-relaxed whitespace-pre-wrap">{para}</p>
+                ))}
               </div>
               {testLink && (
-                <p>
-                  🎨{' '}
-                  <a href={testLink} target="_blank" rel="noreferrer">
-                    Click here to take the assessment test
-                  </a>
-                </p>
+                <p>🖌️ <a href={testLink} target="_blank" rel="noreferrer" className="text-indigo-600 underline">Click here to take the assessment test</a></p>
               )}
             </div>
           )}
-        </>
-      )}
 
-      <h2>Explore Our Age-Based Art & Craft Courses</h2>
-      <div className="course-grid">
-        <div className="row">
-          {courses.slice(0, 2).map((course, index) => (
-            <div key={index} className="course-block" style={{ backgroundColor: course.color }}>
-              <h3>{course.title}</h3>
-              <p>{course.description}</p>
-              <button className="read-more-btn" onClick={() => setSelectedCourse(course)}>📖 Read More</button>
-              {isLoggedIn && (
-                <div className="course-links">
-                  <a href={course.formLink} target="_blank" rel="noreferrer">📝 Registration Form</a>
+          <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Explore Our Age-Based Art & Craft Courses</h2>
+          <div className="course-grid">
+            <div className="row">
+              {courses.slice(0, 2).map((course, index) => (
+                <div key={index} className="course-block" style={{ backgroundColor: course.color }}>
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
+                  <button className="read-more-btn" onClick={() => setSelectedCourseModal(course)}>📖 Read More</button>
+                  <div className="course-links">
+                    <a href={course.formLink} target="_blank" rel="noreferrer">📝 Registration Form</a>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="row">
-          {courses.slice(2).map((course, index) => (
-            <div key={index + 2} className="course-block" style={{ backgroundColor: course.color }}>
-              <h3>{course.title}</h3>
-              <p>{course.description}</p>
-              <button className="read-more-btn" onClick={() => setSelectedCourse(course)}>📖 Read More</button>
-              {isLoggedIn && (
-                <div className="course-links">
-                  <a href={course.formLink} target="_blank" rel="noreferrer">📝 Registration Form</a>
+            <div className="row">
+              {courses.slice(2).map((course, index) => (
+                <div key={index + 2} className="course-block" style={{ backgroundColor: course.color }}>
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
+                  <button className="read-more-btn" onClick={() => setSelectedCourseModal(course)}>📖 Read More</button>
+                  <div className="course-links">
+                    <a href={course.formLink} target="_blank" rel="noreferrer">📝 Registration Form</a>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {selectedCourse && (
-        <div className="modal-overlay" onClick={() => setSelectedCourse(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedCourse.title}</h2>
-            <p>{extendedDescriptions[selectedCourse.title]}</p>
-            <button className="close-modal" onClick={() => setSelectedCourse(null)}>✖ Close</button>
           </div>
-        </div>
+
+          {selectedCourseModal && (
+            <div className="modal-overlay" onClick={() => setSelectedCourseModal(null)}>
+              <div className="modal-content animate-fade-in" onClick={(e) => e.stopPropagation()}>
+                <h2 className="text-2xl font-bold text-indigo-800 mb-4">{selectedCourseModal.title}</h2>
+                <div className="modal-description space-y-4 text-gray-800 leading-relaxed">
+                  {extendedDescriptions[selectedCourseModal.title]?.trim().split('\n\n').map((para, i) => (
+                    <p key={i} className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, (_, boldText) => `<span class='highlight-keyword'>${boldText}</span>`) }} />
+                  ))}
+                </div>
+                <button className="close-modal absolute top-4 right-4 text-xl font-bold text-red-500 hover:text-red-700" onClick={() => setSelectedCourseModal(null)}>
+                  ✖ Close
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-white border-l-4 border-indigo-400 mt-6 p-6 rounded-lg shadow-sm">
+            <p className="text-md text-gray-700">💬 Questions? Reach out anytime via <a className="text-indigo-600 underline" href="mailto:info@luminolearn.ca">email</a> or <a className="text-indigo-600 underline" href="https://wa.me/yourwhatsapplink" target="_blank" rel="noreferrer">WhatsApp</a>.</p>
+          </div>
+        </>
       )}
     </div>
   );

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import bcrypt from 'bcryptjs';
 import { useNavigate, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 import '../pages/sign.css';
 import backgroundImage from '../assets/1.svg';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -56,13 +58,10 @@ const SignInPage = () => {
 
   return (
     <div className="signin-wrapper">
-      {/* Full-screen SVG */}
       <img src={backgroundImage} alt="Background" className="signin-bg" />
 
-      {/* Invisible “Create Account” hotspot */}
       <Link to="/signup" className="invisible-button" aria-label="Go to Sign Up" />
 
-      {/* Overlayed form */}
       <div className="signin-overlay">
         <div className="signin-form">
           <h2>Access Your Account</h2>
@@ -75,17 +74,24 @@ const SignInPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="auth-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                className="auth-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </span>
+            </div>
             <button type="submit" className="auth-button">Sign In</button>
           </form>
           <p className="auth-footer">
-         
             <Link to="/forgot-password">Forgot Password?</Link>
           </p>
         </div>

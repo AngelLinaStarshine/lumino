@@ -5,6 +5,8 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import contactImg from '../assets/contact.jpg';
+
 
 import HomeImage from '../assets/Home.svg';
 import AboutImage from '../assets/About.svg';
@@ -83,7 +85,7 @@ useEffect(() => {
 
   <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-2">
   At <span className="font-semibold text-indigo-600">LuminoLearn</span>, we don’t just teach — 
-  we craft futures. Our mission goes far beyond grade-level checkboxes.
+  we craft futures. Our mission reaches well beyond simply meeting grade-level requirements.
 </p>
 
 
@@ -176,22 +178,23 @@ useEffect(() => {
         <img src={PricelistImage} alt="Pricelist" className="pricelist-image" />
         <img src={bellIcon} alt="Bell" className="animated-bell" />
       </div>
-
-      <section id="contact" className="contact-section">
+<section id="contact" className="contact-section">
   <h2>Get in Touch</h2>
-  <p>
-    Have questions or need assistance? Our team is here to help.
-  </p>
-  <div className="contact-details">
-    <p>
-      📧 Email: <a href="mailto:lumino@luminolearn.org">lumino@luminolearn.org</a>
-    </p>
-    <p>
-      📞 Phone: <a href="tel:+14374241380">+1 (437) 424-1380</a>
-    </p>
-  
+  <p>Have questions or need assistance? Our team is here to help.</p>
+
+  <div className="contact-content">
+    <img src={contactImg} alt="Contact Us" className="contact-img" />
+    <div className="contact-details">
+      <p>
+        📧 Email: <a href="mailto:lumino@luminolearn.org">lumino@luminolearn.org</a>
+      </p>
+      <p>
+        📞 Phone: <a href="tel:+14374241380">+1 (437) 424-1380</a>
+      </p>
+    </div>
   </div>
 </section>
+
 
     </div>
   );
