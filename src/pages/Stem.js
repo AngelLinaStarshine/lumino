@@ -1,4 +1,236 @@
-import '../pages/Courses.css';
+
+import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
+
+import thinkImg from '../assets/think.png';   // If using /public, remove this import and use src="/think.png"
+import btnReg  from '../assets/btn_reg.png'; // Button image
+
+export default function LanguageAndLiterature() {
+  const tiles = [
+    { title: 'Explorers (3–5)',    topics: ['Shapes', 'Patterns', 'Seasons', 'Animal', 'Worlds'],         formLink: 'https://forms.gle/EAxVGZartfL7CJKL6', to: '/stem' },
+    { title: 'Builders (6–8)',     topics: ['Number logic', 'Earth science', 'Experiments'],               formLink: 'https://forms.gle/nmskVUnXWjhz2TV18',  to: '/art-and-craft' },
+    { title: 'Thinkers (9–11)',    topics: ['Geometry', 'Forces', 'Historical timelines'],                 formLink: 'https://forms.gle/7dToZW1wFbHrgbyt7',  to: '/language-and-literature' },
+    { title: 'Analysts (12–14)',   topics: ['Algebra', 'Chemistry', 'Global systems'],                     formLink: 'https://forms.gle/idAivrySZrDrT8Vb9',  to: '/science' },
+    { title: 'Innovators (15–18)', topics: ['Research', 'Calculus', 'Labs', 'Theory-to-practice'],         formLink: 'https://forms.gle/utPVf1p1KAVycG1H7',  to: '/language-and-literature' },
+  ];
+
+  const open = useCallback((url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const handleKey = useCallback((e, url) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      open(url);
+    }
+  }, [open]);
+
+  return (
+    <div style={{ width: '100%', background: 'transparent' }}>
+      <style>{`
+        :root {
+          --orange-1: #ff7a00;
+          --orange-2: #ff7a00;
+          --ink: #111111;
+          --text: #111827;
+        }
+
+        /* Full-bleed utility */
+        .full-bleed {
+          width: 100vw;
+          margin-left: 50%;
+          transform: translateX(-50%);
+        }
+
+        /* Hero with overlay title on top of the image */
+        .hero {
+          position: relative;
+          width: 100%;
+        }
+        .hero-img {
+          width: 100%;
+          height: 22rem;
+          object-fit: cover;
+          display: block;
+        }
+     
+
+        /* Quote below hero (not full-bleed to keep readable line length) */
+        .quote {
+          text-align: center;
+          font-style: italic;
+          color: #374151;
+          margin: .9rem auto 2rem;
+          max-width: 9150px;
+          line-height: 1.6;
+          font-size: 2.1rem;
+        }
+        .quote b {
+          display: block;
+          margin-top: .35rem;
+          font-weight: 700;
+          font-style: normal;
+          color: var(--ink);
+        }
+
+        /* 5 columns across the full screen width */
+        .tiles-band.full-bleed { padding: 16px 20px 28px; }
+        .tiles-grid {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(0, 1fr)); /* exactly 5 columns */
+          gap: 24px;
+          align-items: stretch;
+        }
+
+        /* Taller orange tiles */
+        .tile {
+          border-radius: 18px;
+          color: #fff;
+          text-align: center;
+          min-height: 400px; /* ← Taller blocks; tweak as needed */
+          background-image:
+            radial-gradient(1200px 400px at -20% -40%, rgba(255,255,255,0.15), rgba(255,255,255,0) 60%),
+            linear-gradient(135deg, var(--orange-1), var(--orange-2));
+          box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+          transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+          outline: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 22px;
+        }
+        .tile:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 16px 36px rgba(0,0,0,0.18); filter: saturate(1.05); }
+        .tile:active { transform: translateY(-2px) scale(0.995); }
+        .tile:focus-visible { outline: 3px solid rgba(255, 122, 0, .4); outline-offset: 4px; }
+
+        .tile-title {
+          color: black;
+          letter-spacing: .2px;
+          font-size: 30px;
+          margin: 0 0 12px 0;
+          text-shadow: 0 1px 0 rgba(0,0,0,.06);
+        }
+
+        .topics {
+          background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+          border-radius: 14px;
+          padding: 12px;
+          width: 100%;
+          margin-top: 6px;
+          flex: 1; /* take remaining height so button sticks to bottom */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+            .chip {
+          display: inline-block;
+          font-size: 32px;
+          padding: 6px 10px;
+       
+          color: #1f2937;
+       border-radius: 15px;
+          user-select: none;
+        
+          transition: transform .15s ease, background .15s ease;
+          user-select: none;
+        }
+            .chip:hover { background: #fbb884ff; transform: translateY(-1px); }
+        /* Full-width image button INSIDE each tile */
+        .btn-img {
+          width: 100%;
+          height: 120px; /* a bit taller to feel substantial */
+        font-size: 25px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          color: black;
+        
+          letter-spacing: .12px;
+          position: relative;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        
+          transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+          margin-top: 16px; /* sits at the bottom due to .topics flex:1 */
+        }
+        .btn-img:hover { transform: translateY(-2px);  filter: saturate(1.06); }
+        .btn-img:active { transform: translateY(0); }
+        .btn-img:focus-visible { outline: 3px solid rgba(0,0,0,.35); outline-offset: 3px; }
+
+        .btn-text {
+          position: relative;
+          z-index: 1;
+          text-shadow: 0 1px 2px rgba(0,0,0,.25);
+        }
+
+        /* Horizontal scroll fallback if a parent container constrains width too much */
+        @media (max-width: 1100px) {
+          .tiles-grid {
+            grid-template-columns: repeat(5, 260px); /* keep 5 columns; allow side scroll */
+            overflow-x: auto;
+          }
+        }
+      `}</style>
+
+      {/* Full-bleed hero with overlay title */}
+      <header className="hero full-bleed" aria-label="Thinking and Discovery">
+        <img src={thinkImg} alt="Curiosity and Learning" className="hero-img" />
+       
+      </header>
+<br></br>
+      {/* Quote */}
+      <p className="quote">
+        “The important thing is not to stop questioning. Curiosity has its own reason for existing.”
+        <b>– Albert Einstein</b>
+      </p>
+
+      {/* Five taller blocks spanning the entire screen width */}
+      <section className="tiles-band full-bleed">
+        <div className="tiles-grid" role="list">
+          {tiles.map((t, i) => (
+            <div
+              key={i}
+              className="tile"
+              role="listitem"
+              tabIndex={0}
+              aria-label={`${t.title} — Open registration form`}
+              onClick={() => open(t.formLink)}
+              onKeyDown={(e) => handleKey(e, t.formLink)}
+            >
+              <h3 className="tile-title">{t.title}</h3>
+
+              <div className="topics" aria-label="Topics">
+                {t.topics.map((topic, idx) => (
+                  <span key={idx} className="chip">{topic}</span>
+                ))}
+              </div>
+
+              {/* REGISTER button inside each tile, full width */}
+              <Link
+                to={t.to}
+                className="btn-img"
+                aria-label={`Register online for ${t.title}`}
+                style={{ backgroundImage: `url(${btnReg})` }}
+                onClick={(e) => e.stopPropagation()} /* keep tile click from hijacking the Link */
+              >
+                <span className="btn-text">REGISTER</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+
+
+/*import '../pages/Courses.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import extendedDescriptions from './extendedDescriptions';
@@ -242,4 +474,4 @@ function Stem() {
   );
 }
 
-export default Stem;
+export default Stem;*/

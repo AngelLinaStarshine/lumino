@@ -10,23 +10,23 @@ import contactImg from '../assets/contact.png';
 
 import HomeImage from '../assets/Home.svg';
 import AboutImage from '../assets/About.svg';
-import Courses1Image from '../assets/courses1.jpg';
-import Courses2Image from '../assets/courses2.jpg';
-import Courses3Image from '../assets/courses3.jpg';
-import Courses4Image from '../assets/courses4.jpg';
+import Courses1Image from '../assets/courses1.png';
+import Courses2Image from '../assets/courses2.png';
+import Courses3Image from '../assets/courses3.png';
+import flameGif from '../assets/flame.gif';
 import PricelistImage from '../assets/Pricelist.svg';
 import studyImg from '../assets/study.jpg';
 import homeworkImg from '../assets/homework.jpg';
 import monthlyImg from '../assets/monthly.jpg';
 import beyondImg from '../assets/beyond.jpg';
-import atHomeImg from '../assets/at-home.jpg';
-import shelfImg from '../assets/shelf.jpg';
+import atHomeImg from '../assets/at-home.png';
+import shelfImg from '../assets/shelf.png';
 import arrowImg from '../assets/arrowImg.svg';
-import wanderImg from '../assets/wander.jpg';
+import wanderImg from '../assets/wander.png';
 import HeartIcon from '../assets/heart.svg';
 import starImg from '../assets/star.svg';
 import bellIcon from '../assets/bell.svg';
-import leaves from '../assets/leaves.svg';
+
 
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
 const headings = [
@@ -77,17 +77,36 @@ useEffect(() => {
   return (
 
 <div className="App">
-  <div className="welcome-section text-center py-16 px-4 md:px-10 max-w-6xl mx-auto">
+  <div className="welcome-section" style={{ position: 'relative' }}>
+    {/* flame pinned to top-left of this section */}
+  <img
+      src={flameGif}
+      alt=""
+      aria-hidden="true"
+      className="flame-badge"
+      style={{
+        position: 'absolute',
+        top: '8px',
+        left: '8px',
+        width: '305px',
+        pointerEvents: 'none',
+        zIndex: 20,
+        transform: 'none',           // neutralize any global transform
+        margin: 0                    // neutralize global centering
+      }}
+    />
+
+   
     <h1 className="welcome-heading text-4xl md:text-5xl font-extrabold text-gray-800 leading-snug mb-6">
-      Welcome to<br />
+      <br />
       <span id="typed-brand" className="brand-name highlight text-indigo-700"></span>
     </h1>
 
-  <p className="welcome-subtext text-lg md:text-xl text-gray-700 leading-relaxed mb-2">
-  At <span className="font-semibold text-indigo-600">LuminoLearn</span>, we don’t just teach — 
-  we craft futures. Our mission reaches well beyond simply meeting grade-level requirements.
+  <p className="welcome-subtext text-lg md:text-xl text-gray-800 leading-relaxed mb-2">
+  We don’t just teach — 
+  we craft futures. 
 </p>
-
+ 
 
 
     <p className="welcome-tagline text-3xl italic text-gray-700 animate-fadeIn delay-200">
@@ -116,7 +135,7 @@ useEffect(() => {
 
       <section id="courses">
         <div className="courses-container">
-          {[Courses1Image, Courses2Image, Courses3Image, Courses4Image].map((img, index) => (
+          {[Courses1Image, Courses2Image, Courses3Image].map((img, index) => (
             <div key={index} className="course">
               <div className="course-wrapper">
                 <img src={img} alt={`Course${index + 1}`} className="course-image" />
@@ -154,7 +173,7 @@ useEffect(() => {
       </div>
 
       <div className="skills-wrapper">
-        <img src={leaves} alt="Leaves" className="animated-leaves" />
+    
         <div className="skills-grid">
           <img src={studyImg} alt="Study" className="skills-image" />
           <img src={homeworkImg} alt="Homework" className="skills-image" />
