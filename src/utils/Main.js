@@ -88,7 +88,7 @@ useEffect(() => {
         position: 'absolute',
         top: '8px',
         left: '8px',
-        width: '305px',
+        width: '170px',
         pointerEvents: 'none',
         zIndex: 20,
         transform: 'none',           // neutralize any global transform
