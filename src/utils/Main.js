@@ -96,7 +96,7 @@ function Main() {
         </div>
       </header>
 
-   <section id="about" className="about-section">
+<section id="about" className="about-section about-fullbleed">
   <div className="about-image-wrapper">
     <img src={AboutImage} alt="About section" className="about-image" />
     <img src={HeartIcon} alt="Heart icon" className="heart-icon-centered" />
