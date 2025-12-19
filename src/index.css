@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* ===============================
+   LUMINOLearn Brand Styling
+   =============================== */
+
+.brand-name,
+.brand-text,
+.brand-logo {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+/* Canonical gradient highlight */
+.brand-highlight {
+  background: linear-gradient(90deg, #ff6f00, #ff4081);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 10px rgba(255, 111, 0, 0.4);
+  display: inline-block;
+}

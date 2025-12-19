@@ -3,7 +3,7 @@ import './PersonalAccount.css';
 
 function PersonalAccount() {
   const [user, setUser] = useState(null);
-  const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState('overview');
   const [moodleCourses, setMoodleCourses] = useState([]);
   const [moodleUser, setMoodleUser] = useState(null);
   const [loadingMoodle, setLoadingMoodle] = useState(true);
@@ -42,126 +42,221 @@ function PersonalAccount() {
     setExpanded((prev) => (prev === section ? null : section));
   };
 
-  if (!user) return <p className="loading">Loading your account...</p>;
+  if (!user) return <p className="account-loading">Loading your account...</p>;
+
+  const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+  const subscription = user.subscription || 'No active subscription yet';
+  const paymentCount = user.paymentHistory ? user.paymentHistory.length : 0;
 
   return (
-    <div className="personal-account">
-      <h2 className="welcome">
-        Welcome, {user.firstName} {user.lastName}
-      </h2>
-
-      {/* My Info */}
-      <div className="account-section">
-        <button onClick={() => toggleSection('info')} className="section-toggle">
-          My Information
-        </button>
-        {expanded === 'info' && (
-          <div className="section-content">
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Phone:</strong> {user.phone}</p>
-            <p><strong>Subscription:</strong> {user.subscription}</p>
-            {moodleUser && (
-              <>
-                <hr />
-                <p><strong>Moodle ID:</strong> {moodleUser.id}</p>
-                <p><strong>Username:</strong> {moodleUser.username}</p>
-              </>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Courses */}
-      <div className="account-section">
-        <button onClick={() => toggleSection('courses')} className="section-toggle">
-          Enrolled Courses
-        </button>
-        {expanded === 'courses' && (
-          <div className="section-content">
-            {loadingMoodle ? (
-              <p>Loading Moodle courses...</p>
-            ) : moodleCourses.length > 0 ? (
-              <ul>
-                {moodleCourses.map((course, i) => (
-                  <li key={course.id || i}>
-                    <p><strong>{course.fullname}</strong></p>
-                    {course.courseimage && (
-                      <img
-                        src={course.courseimage}
-                        alt={`${course.fullname} course`}
-                        style={{ width: '100%', maxWidth: '300px', borderRadius: '10px' }}
-                      />
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No Moodle courses found.</p>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Payments */}
-      <div className="account-section">
-        <button onClick={() => toggleSection('payments')} className="section-toggle">
-          Payment History
-        </button>
-        {expanded === 'payments' && (
-          <div className="section-content">
-            {user.paymentHistory && user.paymentHistory.length > 0 ? (
-              <ul>
-                {user.paymentHistory.map((payment, i) => (
-                  <li key={i}>{payment.date} - {payment.amount} - {payment.status}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No payment history found.</p>
-            )}
-          </div>
-        )}
-      </div>
-
-  <div className="account-section">
-  <button onClick={() => toggleSection('appointment')} className="section-toggle">
-    📅 Book Appointment
-  </button>
-  {expanded === 'appointment' && (
-    <div className="section-content">
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <h3 style={{ color: '#0571d3', fontSize: '1.5rem', marginBottom: '10px' }}>
-          Let's Connect!
-        </h3>
-        <p style={{ fontSize: '1rem', marginBottom: '10px' }}>
-          Choose a time that works best for you below. Prefer a new tab? 
-          <a 
-            href="https://calendly.com/lumino-luminolearn" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{
-              color: '#f9971d',
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              marginLeft: '6px'
-            }}
-            onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
-            onMouseOut={(e) => e.target.style.textDecoration = 'none'}
-          >
-            Click here
-          </a>
+    <div className="account-page">
+      {/* Top overview hero */}
+      <section className="account-hero">
+        <p className="account-hero-kicker">Personal Learning Space</p>
+        <h1 className="account-hero-title">
+          Welcome back, <span className="account-hero-name">{fullName || 'LuminoLearn Family'}</span>
+        </h1>
+        <p className="account-hero-sub">
+          Track courses, certificates, payment plans, and book a call — all in one calm, organized space.
         </p>
+
+        <div className="account-hero-badges">
+          <div className="hero-badge">
+            <span className="hero-badge-label">Subscription</span>
+            <span className="hero-badge-value">{subscription}</span>
+          </div>
+          <div className="hero-badge">
+            <span className="hero-badge-label">Enrolled in</span>
+            <span className="hero-badge-value">
+              {loadingMoodle ? '…' : `${moodleCourses.length} course${moodleCourses.length === 1 ? '' : 's'}`}
+            </span>
+          </div>
+          <div className="hero-badge">
+            <span className="hero-badge-label">Payments on record</span>
+            <span className="hero-badge-value">{paymentCount}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Main layout: left/right cards */}
+      <div className="account-grid">
+        {/* LEFT: Info + Courses */}
+        <div className="account-column">
+          {/* My Information */}
+          <section className="account-card">
+            <button
+              onClick={() => toggleSection('info')}
+              className="account-section-header"
+            >
+              <div>
+                <span className="section-icon">👤</span>
+                <span className="section-title">My Information</span>
+              </div>
+              <span className="section-toggle-indicator">
+                {expanded === 'info' ? '−' : '+'}
+              </span>
+            </button>
+
+            {expanded === 'info' && (
+              <div className="account-section-body">
+                <p>
+                  <strong>Name:</strong> {fullName || '—'}
+                </p>
+                <p>
+                  <strong>Email:</strong> {user.email || '—'}
+                </p>
+                <p>
+                  <strong>Phone:</strong> {user.phone || '—'}
+                </p>
+                <p>
+                  <strong>Subscription:</strong> {subscription}
+                </p>
+
+                {moodleUser && (
+                  <>
+                    <hr className="account-divider" />
+                    <p className="account-moodle-meta">
+                      Linked to LuminoLearn classroom:
+                    </p>
+                    <p>
+                      <strong>Moodle ID:</strong> {moodleUser.id}
+                    </p>
+                    <p>
+                      <strong>Username:</strong> {moodleUser.username}
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
+          </section>
+
+          {/* Enrolled Courses */}
+          <section className="account-card">
+            <button
+              onClick={() => toggleSection('courses')}
+              className="account-section-header"
+            >
+              <div>
+                <span className="section-icon">📚</span>
+                <span className="section-title">Enrolled Courses</span>
+              </div>
+              <span className="section-toggle-indicator">
+                {expanded === 'courses' ? '−' : '+'}
+              </span>
+            </button>
+
+            {expanded === 'courses' && (
+              <div className="account-section-body">
+                {loadingMoodle ? (
+                  <p>Loading your Moodle courses…</p>
+                ) : moodleCourses.length > 0 ? (
+                  <ul className="course-list">
+                    {moodleCourses.map((course, i) => (
+                      <li key={course.id || i} className="course-list-item">
+                        <p className="course-title">
+                          {course.fullname}
+                        </p>
+                        {course.courseimage && (
+                          <img
+                            src={course.courseimage}
+                            alt={`${course.fullname} course`}
+                            className="course-image"
+                          />
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No Moodle courses found yet. Once your child is enrolled in classes, they will appear here.</p>
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+
+        {/* RIGHT: Payments + Appointment */}
+        <div className="account-column">
+          {/* Payment History */}
+          <section className="account-card">
+            <button
+              onClick={() => toggleSection('payments')}
+              className="account-section-header"
+            >
+              <div>
+                <span className="section-icon">💳</span>
+                <span className="section-title">Payment History</span>
+              </div>
+              <span className="section-toggle-indicator">
+                {expanded === 'payments' ? '−' : '+'}
+              </span>
+            </button>
+
+            {expanded === 'payments' && (
+              <div className="account-section-body">
+                {user.paymentHistory && user.paymentHistory.length > 0 ? (
+                  <ul className="payment-list">
+                    {user.paymentHistory.map((payment, i) => (
+                      <li key={i} className="payment-list-item">
+                        <span className="payment-date">{payment.date}</span>
+                        <span className="payment-amount">{payment.amount}</span>
+                        <span className={`payment-status payment-status-${(payment.status || '').toLowerCase()}`}>
+                          {payment.status}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No payment history found yet. Once your first payment is processed, it will appear here.</p>
+                )}
+              </div>
+            )}
+          </section>
+
+          {/* Book Appointment */}
+          <section className="account-card">
+            <button
+              onClick={() => toggleSection('appointment')}
+              className="account-section-header"
+            >
+              <div>
+                <span className="section-icon">📅</span>
+                <span className="section-title">Book Appointment</span>
+              </div>
+              <span className="section-toggle-indicator">
+                {expanded === 'appointment' ? '−' : '+'}
+              </span>
+            </button>
+
+            {expanded === 'appointment' && (
+              <div className="account-section-body">
+                <div className="appointment-intro">
+                  <h3>Let’s Connect</h3>
+                  <p>
+                    Choose a time that works best for your family. Prefer a new tab?
+                    <a
+                      href="https://calendly.com/lumino-luminolearn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="appointment-link"
+                    >
+                      Click here
+                    </a>
+                  </p>
+                </div>
+
+                <div
+                  className="calendly-inline-widget"
+                  data-url="https://calendly.com/lumino-luminolearn?hide_landing_page_details=1&hide_gdpr_banner=1"
+                  style={{
+                    minWidth: '320px',
+                    height: '650px',
+                  }}
+                ></div>
+              </div>
+            )}
+          </section>
+        </div>
       </div>
-
-      <div
-        className="calendly-inline-widget"
-        data-url="https://calendly.com/lumino-luminolearn?hide_landing_page_details=1&hide_gdpr_banner=1"
-        style={{ minWidth: '320px', height: '700px', borderRadius: '10px', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)' }}
-      ></div>
-    </div>
-  )}
-</div>
-
-
     </div>
   );
 }

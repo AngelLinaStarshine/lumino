@@ -1,79 +1,89 @@
-// src/components/Navbar.js
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import emailjs from '@emailjs/browser';
-import '../components/Navbar.css';
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./Navbar.css";
+import flameImg from "../assets/flame-unscreen.png";
 
-const Navbar = () => {
+export default function Navbar() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Listen to login/logout changes
-  useEffect(() => {
-    emailjs.init('P7BJMiXc8d3y4XOha'); // Your EmailJS user ID
+  const closeMenu = () => setMenuOpen(false);
 
-    const updateUser = () => {
-      const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
-      setLoggedInUser(user);
-    };
+ 
+  const handleMySpaceClick = (e) => {
+    e.preventDefault(); 
 
-    updateUser(); // Initial load
+    const user = sessionStorage.getItem("loggedInUser");
 
-    window.addEventListener('storageUpdate', updateUser);
-    return () => window.removeEventListener('storageUpdate', updateUser);
-  }, []);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('loggedInUser');
-    setLoggedInUser(null);
-    Swal.fire('Logged out', 'You have successfully logged out.', 'success');
-    window.dispatchEvent(new Event('storageUpdate')); // Let Navbar know
-    navigate('/');
-  };
-
-  const navigateAndScroll = (id) => {
-    setIsMenuOpen(false);
-    if (location.pathname === '/') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (user) {
+      navigate("/account");
     } else {
-      navigate('/');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
+      navigate("/login");
     }
+
+    closeMenu();
   };
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">LuminoLearn</Link>
+      <div className="brand-wrap" onClick={() => navigate("/")}>
+        <span className="brand-text brand-highlight brand-lg">
+          LuminoLearn
+        </span>
 
-      <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        &#9776;
+        <span className="brand-flame">
+          <img src={flameImg} alt="Lumino Flame" />
+        </span>
+      </div>
+
+      <button
+        className="hamburger"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle navigation"
+        aria-expanded={menuOpen}
+      >
+        ☰
       </button>
 
-      <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-        <span onClick={() => navigateAndScroll('about')} className="nav-item">About</span>
-        <span onClick={() => navigateAndScroll('courses')} className="nav-item">Courses</span>
-        <span onClick={() => navigateAndScroll('contact')} className="nav-item">Contact</span>
+      <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+        <NavLink
+          to="/our-story"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+          onClick={closeMenu}
+        >
+          Our Story
+        </NavLink>
 
-        {loggedInUser ? (
-          <>
-            <span className="welcome-text">👋 Welcome, {loggedInUser.firstName}</span>
-            <Link to="/account" className="nav-item">My Account</Link>
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
-          </>
-        ) : (
-          <div className="auth-buttons">
-            <span onClick={() => navigate('/login')} className="nav-item">Sign In</span>
-            <span onClick={() => navigate('/signup')} className="nav-item">Sign Up</span>
-          </div>
-        )}
+        <NavLink
+          to="/programs"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+          onClick={closeMenu}
+        >
+          Learning Paths
+        </NavLink>
+
+        <NavLink
+          to="/tuition"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+          onClick={closeMenu}
+        >
+          Plans &amp; Tuition
+        </NavLink>
+
+        <NavLink
+          to="/account" 
+          className="nav-item"
+          onClick={handleMySpaceClick}
+        >
+          My Space
+        </NavLink>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

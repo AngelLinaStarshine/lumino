@@ -1,547 +1,211 @@
-.signup-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #fdfaf0;
-  position: relative;
-  overflow: hidden;
-  padding-left: 2%; /* Reduced spacing from left */
+/* ==========================================================
+   SIGN IN (Centered + Responsive + No Overlap)
+   Works with:
+   .signin-wrapper, .signin-bg, .signin-overlay, .signin-form
+   ========================================================== */
+
+:root{
+  --page-bg: #fdfaf0;
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(0,0,0,0.10);
+  --shadow: 0 18px 45px rgba(0,0,0,0.14);
+  --radius: 18px;
+  --text: #111;
+  --muted: rgba(0,0,0,0.62);
+
+  --input-bg: #fbe7f2; /* soft pink */
+  --input-border: rgba(0,0,0,0.18);
+
+  --btn-bg: #fa9d78;
+  --btn-hover: #d99b70;
 }
 
-/* Adjust form placement */
-.stylish-auth {
-  top: 5%;
-
-  width: 46%; /* Slightly wider if needed */
-  background-color: transparent;
-}
-
-
-
-
-
-/* Invisible Button Areas Over SVG */
-.signup-wrapper button[style*="opacity: 0"] {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Form Container Positioned Over Image */
-.stylish-auth {
-  position: absolute;
-  top: 8%;
-  right: 12%; /* Add this line to push it to the right */
-  width: 45%;
-  background-color: transparent;
-}
-
-/* Form Box Styling (No background/borders) */
-.auth-form-box {
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
-}
-
-/* Input Styling */
-.auth-inputin {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  background-color: #8befcc;
-  color: #333;
-}
-
-.auth-input::placeholder {
-  color: #555;
-}
-
-/* Country Code + Phone Container */
-.auth-phone-container {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.auth-phone-select {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #8befcc;
-}
-
-/* Password Hint */
-.password-hint {
-  color: #666;
-  font-size: 12px;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-
-
-.signin-container {
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem;
-  background-color: #fdfaf0; /* ← Canva's background color */
-}
-
-
-.signin-form {
-  flex: 1;
-  max-width: 500px;
-  padding: 2rem;
-}
-
-.signin-form h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.signin-form p {
-  margin-bottom: 1.5rem;
-  color: #666;
-}
-
-.signin-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.signin-image img {
-  max-width: 100%;
-  height: auto;
-}
-
-.auth-input {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 19px;
-  background-color: #fbe7f2; /* Soft pink background */
-  color: #333;
-  font-weight: 500;
-}
-
-.auth-input::placeholder {
-  color: #6e3e57; /* Darker pink-purple tone for contrast */
-  opacity: 0.8;
-}
-
-.auth-button {
-  background-color: #fa9d78; /* Soft peach button */
-  color: rgb(2, 2, 2);
-  border: none;
-  padding: 0.8rem;
-  width: 60%;
-  border-radius: 18px;
-  cursor: pointer;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0 auto;
-  display: block;
-}
-
-
-.auth-button:hover {
-  background-color: #d99b70; /* Slightly darker on hover */
-}
+/* Page wrapper */
 .signin-wrapper {
   position: relative;
-  height: 90vh;
-  width: 90vw;
-  margin: auto;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--page-bg);
   overflow: hidden;
   display: flex;
-
-}
-
-
-
-.signin-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.signin-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-  display: flex;
   align-items: center;
-  justify-content: flex-start; /* <-- aligns form to the left */
-  padding: 3rem;
+  justify-content: center;
+  padding: 28px 16px; /* safe space on small screens */
   box-sizing: border-box;
 }
 
-.signin-form {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 2rem;
-  border-radius: 16px;
-  max-width: 400px;
-  width: 100%;
-}
-
-
-.invisible-button {
-  position: absolute;
-  top: 45%;      /* adjust to match your SVG */
-  left: 70%;     /* adjust to match your SVG */
-  width: 250px;  /* clickable area width */
-  height: 60px;  /* clickable area height */
-  z-index: 3;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-@media (max-width: 1024px) {
-  .signup-wrapper {
-    flex-direction: column;
-    padding: 1rem;
-  }
-
-  .signup-wrapper img {
-    display: none; /* Hide image on tablets and phones */
-  }
-
-  .stylish-auth {
-    position: relative;
-    top: 0;
-    right: 0;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .auth-form-box {
-    width: 100%;
-    padding: 1rem;
-    box-shadow: none;
-  }
-
-  .auth-footer {
-    flex-direction: column;
-    text-align: center;
-    font-size: 1rem !important;
-    margin-top: 1rem;
-  }
-
-  .auth-phone-container {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .signup-wrapper button[style*="opacity: 0"] {
-    width: 100% !important;
-    margin-top: 0.5rem;
-  }
-
-  .signup-wrapper .auth-footer,
-  .signup-wrapper .auth-footer a {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .auth-inputin {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .auth-phone-select {
-    font-size: 14px;
-    padding: 0.4rem;
-  }
-
-  .auth-button {
-    width: 100%;
-    font-size: 14px;
-    padding: 0.6rem;
-  }
-
-  .password-hint {
-    font-size: 11px;
-  }
-}
-/* === Responsive Layout Adjustments === */
-@media (max-width: 1024px) {
-  .signup-wrapper {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .signup-wrapper img {
-    display: none; /* Hide image on tablet and mobile */
-  }
-
-  .auth-form-box {
-    width: 100%;
-    padding: 1rem;
-    box-shadow: none;
-  }
-
-  .stylish-auth {
-    position: relative;
-    width: 100% !important;
-    top: 0;
-    right: 0;
-  }
-
-  .auth-footer {
-    flex-direction: column;
-    text-align: center;
-    font-size: 1rem !important;
-    margin-top: 1.5rem;
-  }
-
-  .auth-phone-container {
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-  }
-
-  .signup-wrapper button[style*="opacity: 0"] {
-    width: 100% !important;
-    margin-top: 0.5rem;
-  }
-
-  .auth-inputin {
-    font-size: 1rem;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-  .auth-inputin {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .auth-phone-select {
-    font-size: 14px;
-    padding: 0.5rem;
-  }
-
-  .auth-button {
-    width: 100%;
-    font-size: 14px;
-    padding: 0.6rem;
-  }
-
-  .password-hint {
-    font-size: 11px;
-  }
-
-  .auth-footer {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .signup-wrapper {
-    padding: 1rem;
-  }
-}
-.signup-image-bg {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-}
-
-@media (max-width: 1024px) {
-  .signup-image-bg {
-    height: auto;
-    display: none; /* Hide image on smaller screens */
-  }
-
-  .auth-form-box {
-    width: 100% !important;
-    padding: 1.5rem;
-  }
-
-  .stylish-auth {
-    position: static !important;
-    width: 100% !important;
-    top: auto;
-    right: auto;
-    padding: 0 1rem;
-  }
-
-  .signup-wrapper {
-    flex-direction: column !important;
-    padding: 1rem !important;
-  }
-
-  .auth-footer {
-    font-size: 16px !important;
-    text-align: center;
-    flex-wrap: wrap;
-    padding-top: 1rem;
-  }
-
-  .signup-wrapper button[style*="opacity: 0"] {
-    width: 100% !important;
-    margin-top: 0.5rem;
-    height: 50px !important;
-  }
-
-  .auth-inputin {
-    padding: 10px;
-    font-size: 1rem;
-  }
-
-  .auth-phone-select {
-    font-size: 14px;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .auth-footer {
-    font-size: 14px !important;
-  }
-
-  .auth-inputin {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .auth-phone-container {
-    flex-direction: column;
-    width: 100%;
-  }
-}
-@media (max-width: 1024px) {
-  .signup-image-bg {
-    height: 300px;
-    object-fit: contain;
-  }
-}
-/* Ensure background image scales */
+/* Background SVG */
 .signin-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 100vh;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;      /* fills nicely */
+  z-index: 1;
+  opacity: 1;
 }
 
-@media (max-width: 1024px) {
-  .signin-wrapper {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    overflow-x: hidden;
-  }
-
-  .signin-bg {
-    height: auto;
-    max-height: 300px;
-    object-fit: contain;
-  }
-
-  .signin-overlay {
-    position: static;
-    padding: 1rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .signin-form {
-    background-color: #ffffffd9;
-    width: 100%;
-    padding: 1.5rem;
-    max-width: 400px;
-   
-  }
-
-  .auth-input {
-    padding: 10px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .auth-button {
-    font-size: 1rem;
-    height: 45px;
-  }
-
-  .auth-footer {
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-  .invisible-button {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .signin-form h2 {
-    font-size: 1.5rem;
-  }
-
-  .signin-form p {
-    font-size: 14px;
-  }
-
-  .auth-input {
-    font-size: 0.9rem;
-  }
-
-  .auth-button {
-    width: 100%;
-  }
-}
-/* Wrapper stacks everything vertically */
-.signin-wrapper {
+/* Overlay centers the card */
+.signin-overlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  background-color: #fdfaf0;
+  justify-content: center; /* ✅ center */
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Form container */
-.signin-form-container {
+/* Form card */
+.signin-form {
+  width: min(420px, 92vw);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 22px;
+  backdrop-filter: blur(10px);
+}
+
+/* Title + subtitle */
+.signin-form h2 {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color: var(--text);
+}
+
+.signin-form p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Inputs */
+.auth-input {
   width: 100%;
-  max-width: 450px;
-  background-color: #ffffffd9;
+  padding: 12px 14px;
+  margin: 0 0 12px;
+  border: 1px solid var(--input-border);
   border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: var(--input-bg);
+  color: #222;
+  font-weight: 600;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
 }
 
-/* Image underneath the form */
-.signin-image-container {
-  margin-top: 2rem;
+.auth-input::placeholder {
+  color: rgba(110, 62, 87, 0.8);
+}
+
+/* Password wrapper */
+.password-input-wrapper {
+  position: relative;
   width: 100%;
-  display: flex;
+}
+
+/* Toggle button in password field */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: rgba(0,0,0,0.55);
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
 }
 
-.signin-image-below {
+/* Sign in button */
+.auth-button {
+  background: var(--btn-bg);
+  color: #111;
+  border: none;
+  padding: 12px 14px;
   width: 100%;
-  max-width: 600px;
-  height: auto;
-  object-fit: contain;
   border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, filter 0.18s ease;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  margin-top: 6px;
+}
+
+.auth-button:hover {
+  background: var(--btn-hover);
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+}
+
+.auth-button:active {
+  transform: translateY(0px);
+}
+
+/* Links section */
+.auth-links {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.auth-links a,
+.auth-footer a {
+  color: #0b2a68;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.auth-links a:hover,
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Footer text */
+.auth-footer {
+  margin-top: 12px;
+  text-align: center;
+  color: rgba(0,0,0,0.65);
+  font-size: 0.95rem;
+}
+
+/* Remove the invisible button for sign-in page (it causes random click areas) */
+.invisible-button {
+  display: none !important;
+}
+
+/* ==========================================================
+   Responsive tweaks
+   ========================================================== */
+
+@media (max-width: 768px) {
+  .signin-wrapper {
+    padding: 22px 14px;
+  }
+  .signin-form {
+    padding: 22px 18px;
+  }
+  .signin-form h2 {
+    font-size: 1.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-form {
+    width: 94vw;
+    border-radius: 16px;
+    padding: 18px 14px;
+  }
+  .auth-input {
+    border-radius: 14px;
+  }
+  .auth-button {
+    border-radius: 14px;
+  }
 }
