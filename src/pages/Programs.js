@@ -4,7 +4,7 @@ import "./Programs.css";
 
 // 🔗 TODO: replace with your real links
 const INTAKE_FORM_URL = "https://forms.gle/your-intake-form-id";
-const BOOKING_CALENDAR_URL = "https://calendly.com/your-booking-link"; // or Google Calendar appointment schedule link
+const BOOKING_CALENDAR_URL = "https://calendly.com/lumino-luminolearn/new-meeting-1"; // or Google Calendar appointment schedule link
 
 export default function Programs() {
   // =========================

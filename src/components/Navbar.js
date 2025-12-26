@@ -1,35 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import flameImg from "../assets/flame-unscreen.png";
+import { AuthContext } from "../auth/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const { user, authLoading, logout } = useContext(AuthContext);
+
   const closeMenu = () => setMenuOpen(false);
 
- 
   const handleMySpaceClick = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    if (authLoading) return; // prevent bounce while auth is loading
 
-    const user = sessionStorage.getItem("loggedInUser");
-
-    if (user) {
-      navigate("/account");
-    } else {
-      navigate("/login");
-    }
+    if (user) navigate("/account");
+    else navigate("/login");
 
     closeMenu();
+  };
+
+  const handleLogoutClick = async () => {
+    await logout();
+    closeMenu();
+    navigate("/");
   };
 
   return (
     <nav className="navbar">
       <div className="brand-wrap" onClick={() => navigate("/")}>
-        <span className="brand-text brand-highlight brand-lg">
-          LuminoLearn
-        </span>
+        <span className="brand-text brand-highlight brand-lg">LuminoLearn</span>
 
         <span className="brand-flame">
           <img src={flameImg} alt="Lumino Flame" />
@@ -48,9 +50,7 @@ export default function Navbar() {
       <div className={`nav-links ${menuOpen ? "open" : ""}`}>
         <NavLink
           to="/our-story"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
+          className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
           onClick={closeMenu}
         >
           Our Story
@@ -58,9 +58,7 @@ export default function Navbar() {
 
         <NavLink
           to="/programs"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
+          className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
           onClick={closeMenu}
         >
           Learning Paths
@@ -68,21 +66,23 @@ export default function Navbar() {
 
         <NavLink
           to="/tuition"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
+          className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
           onClick={closeMenu}
         >
           Plans &amp; Tuition
         </NavLink>
 
-        <NavLink
-          to="/account" 
-          className="nav-item"
-          onClick={handleMySpaceClick}
-        >
+        {/* My Space (cookie-based) */}
+        <NavLink to="/account" className="nav-item" onClick={handleMySpaceClick}>
           My Space
         </NavLink>
+
+        {/* Logout appears only if logged in */}
+        {!!user && (
+          <button type="button" className="nav-item" onClick={handleLogoutClick}>
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -17,30 +17,17 @@ import SignInPage from "./pages/SignInPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import FlameChatBot from "./components/LuminoFlameBot";
 
-
-
 /* New navbar pages */
 import About from "./pages/About"; // /our-story
 import Programs from "./pages/Programs"; // /programs
 import Tuition from "./pages/Tuition"; // /tuition
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(() => {
-    return JSON.parse(sessionStorage.getItem("loggedInUser")) || null;
-  });
-
-  useEffect(() => {
-    if (loggedInUser) {
-      sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-    } else {
-      sessionStorage.removeItem("loggedInUser");
-    }
-  }, [loggedInUser]);
-
   return (
     <Router>
       <div className="App">
-        <Navbar setLoggedInUser={setLoggedInUser} />
+        {/* Navbar no longer needs setLoggedInUser */}
+        <Navbar />
 
         <div className="main-content">
           <Routes>
@@ -52,25 +39,20 @@ function App() {
             <Route path="/programs" element={<Programs />} />
             <Route path="/tuition" element={<Tuition />} />
 
-            {/* Legacy pages (optional) */}
+            {/* Legacy pages */}
             <Route path="/stem" element={<Stem />} />
             <Route path="/art-and-craft" element={<ArtAndCraft />} />
-            <Route
-              path="/language-and-literature"
-              element={<LanguageAndLiterature />}
-            />
+            <Route path="/language-and-literature" element={<LanguageAndLiterature />} />
             <Route path="/science" element={<Science />} />
-
-         
 
             {/* Auth */}
             <Route path="/login" element={<SignInPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            {/* Unprotected personal account during sign-up/onboarding */}
+            {/* Optional: keep if you want an unprotected version */}
             <Route path="/personalaccount" element={<PersonalAccount />} />
 
-            {/* Protected account (after login) */}
+            {/* Protected account */}
             <Route
               path="/account"
               element={
