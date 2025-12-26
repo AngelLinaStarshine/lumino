@@ -37,35 +37,8 @@ export default function Programs() {
         iep: "1, 3, 6, or 12 months • 2x per week • Customized support",
         badgeClass: "b-math",
         levels: [
-          {
-            id: "curious-explorers",
-            title: "Curious Explorers (3–5)",
-            topics: ["Shapes", "Counting", "Simple Patterns"],
-            modal: {
-              heading: "Mathematics (Ages 3–5)",
-              subtitle: "Shapes, counting, numbers up to 20",
-              sampleProject:
-                "“Shape Treasure Hunt” – find and sort real-life objects by shape/size.",
-              description:
-                "Children discover numbers, shapes, and patterns through play. The program builds early counting skills, problem-solving, and confidence with math in everyday life.",
-              achievement: "Achievement: Shape Master Certificate",
-              extra: "Numbers up to 20",
-            },
-          },
-          {
-            id: "number-builders",
-            title: "Number Builders (6–8)",
-            topics: ["Addition", "Subtraction", "Times tables", "Intro to fractions"],
-            modal: {
-              heading: "Mathematics (Ages 6–8)",
-              subtitle: "Addition, subtraction, times tables",
-              sampleProject:
-                "“Math in the Kitchen” – measure ingredients for a simple recipe.",
-              description:
-                "Children deepen their understanding of numbers through real-life applications. The program strengthens addition, subtraction, and early multiplication skills while building confidence and curiosity.",
-              achievement: "Achievement: Number Builder Certificate",
-            },
-          },
+        
+          
           {
             id: "problem-solvers",
             title: "Problem Solvers (9–11)",
@@ -120,34 +93,8 @@ export default function Programs() {
         iep: "1, 3, 6, or 12 months • 2x per week • Reading-level based",
         badgeClass: "b-lang",
         levels: [
-          {
-            id: "story-sprouts",
-            title: "Story Sprouts (3–5)",
-            topics: ["Alphabet", "Sounds", "Color play"],
-            modal: {
-              heading: "Language & Art (Ages 3–5)",
-              subtitle: "Alphabet, early narration, color exploration",
-              sampleProject:
-                "“My First Storybook” – draw and narrate a 3-page illustrated story.",
-              description:
-                "Young learners build early letter knowledge and sound awareness while practicing simple storytelling through drawing, speaking, and playful creative tasks.",
-              achievement: "Achievement: Little Storyteller Certificate",
-            },
-          },
-          {
-            id: "reading-sparks",
-            title: "Reading Sparks (6–8)",
-            topics: ["Reading fluency", "Vocabulary", "Sentence building"],
-            modal: {
-              heading: "Language & Art (Ages 6–8)",
-              subtitle: "Fluency, vocabulary, confident expression",
-              sampleProject:
-                "“Story Scene Studio” – illustrate a scene and write 5–7 sentences describing it.",
-              description:
-                "Students develop stronger reading habits and build vocabulary through stories, guided writing, and creative responses that make learning feel exciting and doable.",
-              achievement: "Achievement: Confident Reader Certificate",
-            },
-          },
+         
+          
           {
             id: "writers-workshop",
             title: "Writer’s Workshop (9–11)",
@@ -202,34 +149,7 @@ export default function Programs() {
         iep: "1, 3, 6, or 12 months • 2x per week • Tailored CS focus",
         badgeClass: "b-cs",
         levels: [
-          {
-            id: "digital-starters",
-            title: "Digital Starters (3–5)",
-            topics: ["Device basics", "Safe tech habits", "Sequencing"],
-            modal: {
-              heading: "Computer Science (Ages 3–5)",
-              subtitle: "First steps with technology",
-              sampleProject:
-                "“Digital Story Puzzle” – drag-and-drop images to form a story.",
-              description:
-                "Early learners explore sequencing, patterns, and safe technology habits through guided digital play and hands-on activities.",
-              achievement: "Achievement: Curious Coder Badge",
-            },
-          },
-          {
-            id: "logic-builders",
-            title: "Logic Builders (6–8)",
-            topics: ["Blockly coding", "Loops", "Problem-solving games"],
-            modal: {
-              heading: "Computer Science (Ages 6–8)",
-              subtitle: "Logic, loops, and beginner coding",
-              sampleProject:
-                "“Maze Solver” – build a simple sequence to guide a character to a goal.",
-              description:
-                "Students learn foundational coding ideas using visual programming, building strong logic and confidence before moving to text-based coding later.",
-              achievement: "Achievement: Junior Coder Certificate",
-            },
-          },
+       
           {
             id: "project-coders",
             title: "Project Coders (9–11)",
