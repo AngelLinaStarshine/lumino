@@ -10,7 +10,8 @@ const SignInPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { refreshAuth } = useContext(AuthContext);
+  // ✅ Use API_BASE from AuthContext (single source of truth)
+  const { refreshAuth, API_BASE } = useContext(AuthContext);
 
   const isValidEmail = (value) => /\S+@\S+\.\S+/.test(value);
 
@@ -30,7 +31,7 @@ const SignInPage = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +53,11 @@ const SignInPage = () => {
       // ✅ strongest navigation with HashRouter
       window.location.assign(`${window.location.origin}/#/account`);
     } catch (error) {
-      Swal.fire("Server Error", "Unable to reach the server. Please try again later.", "error");
+      Swal.fire(
+        "Server Error",
+        "Unable to reach the server. Please try again later.",
+        "error"
+      );
     }
   };
 
