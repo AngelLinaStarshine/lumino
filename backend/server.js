@@ -11,7 +11,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 /* ---------------------------
    CORS (PRODUCTION + LOCAL)
-   --------------------------- */
+--------------------------- */
 const allowedOrigins = [
   "https://luminolearn.ca",
   "https://www.luminolearn.ca",
@@ -19,10 +19,9 @@ const allowedOrigins = [
   "http://localhost:5001",
 ];
 
-// One shared config so preflight (OPTIONS) matches exactly
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no Origin (curl, Postman, server-to-server)
+    // allow server-to-server, Postman, curl (no Origin header)
     if (!origin) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) return callback(null, true);
@@ -35,7 +34,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Ensure preflight requests succeed with SAME options
+// ✅ Preflight for all routes
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
@@ -46,25 +45,15 @@ app.get("/health", (req, res) => {
 });
 
 /* ---------------------------
-   Cookies (HTTPS cross-site)
-   --------------------------- */
-function isProd() {
-  return process.env.NODE_ENV === "production";
-}
-
-/**
- * For production on https://luminolearn.ca:
- * - secure must be true
- * - sameSite must be "none" (frontend + backend are cross-site if backend is on render/railway etc.)
- */
+   Auth Cookie Helper (SINGLE SOURCE)
+   Netlify (luminolearn.ca) -> Render (onrender.com) is cross-site
+   so we must use SameSite=None + Secure=true
+--------------------------- */
 function setSessionCookie(res, token) {
-  const secure = isProd() ? true : process.env.COOKIE_SECURE === "true";
-  const sameSite = isProd() ? "none" : (process.env.COOKIE_SAMESITE || "lax");
-
   res.cookie("ll_session", token, {
     httpOnly: true,
-    secure,
-    sameSite,
+    secure: true,     // ✅ required when SameSite=None
+    sameSite: "none", // ✅ required for cross-site cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     path: "/",
   });
@@ -117,7 +106,11 @@ app.post("/api/auth/login", async (req, res) => {
     );
 
     setSessionCookie(res, token);
-    res.json({ ok: true, user: { id: user.id, email: user.email, role: user.role } });
+
+    res.json({
+      ok: true,
+      user: { id: user.id, email: user.email, role: user.role },
+    });
   } catch (e) {
     console.error("LOGIN ERROR:", e);
     res.status(500).json({ error: "Server error" });
@@ -140,11 +133,10 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
 
 /* ---------- LOGOUT ---------- */
 app.post("/api/auth/logout", (req, res) => {
-  // Clear cookie using matching attributes
   res.clearCookie("ll_session", {
     path: "/",
-    sameSite: isProd() ? "none" : "lax",
-    secure: isProd() ? true : false,
+    secure: true,
+    sameSite: "none",
   });
   res.json({ ok: true });
 });
@@ -170,7 +162,6 @@ app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) =
   }
 });
 
-/* ---------- START ---------- */
 app.listen(process.env.PORT || 5000, () =>
   console.log("🚀 Backend running on", process.env.PORT || 5000)
 );
