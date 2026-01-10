@@ -26,26 +26,44 @@ const SignInPage = () => {
     }
 
     if (!isValidEmail(cleanEmail)) {
-      Swal.fire("Invalid Email", "Please enter a valid email address.", "warning");
+      Swal.fire(
+        "Invalid Email",
+        "Please enter a valid email address.",
+        "warning"
+      );
       return;
     }
 
     try {
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
-        credentials: "include",
+        credentials: "include", // cookie optional; keep it
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: cleanEmail, password }),
       });
 
       const data = await res.json().catch(() => ({}));
+      console.log("LOGIN RESPONSE:", data);
+
 
       if (!res.ok) {
-        Swal.fire("Login Failed", data?.error || "Invalid email or password.", "error");
+        Swal.fire(
+          "Login Failed",
+          data?.error || "Invalid email or password.",
+          "error"
+        );
         return;
       }
 
-      // ✅ update AuthContext from /me
+      // ✅ Store JWT token fallback (works even when cookies fail)
+      if (data?.token) {
+        sessionStorage.setItem("ll_token", data.token);
+      } else {
+        // If token missing, still clear any old token
+        sessionStorage.removeItem("ll_token");
+      }
+
+      // ✅ update AuthContext from /me (AuthContext will use Bearer token)
       await refreshAuth();
 
       await Swal.fire("Success", "You are logged in.", "success");

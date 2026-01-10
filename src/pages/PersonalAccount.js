@@ -4,28 +4,28 @@ import "./PersonalAccount.css";
 import { AuthContext } from "../auth/AuthContext";
 
 function PersonalAccount() {
-  // ✅ read session/user from AuthContext (cookie-based)
+  // ✅ read session/user from AuthContext
   const { user, authLoading } = useContext(AuthContext);
 
-  // ✅ One source of truth for backend URL (works on Netlify + locally)
+  // ✅ Prod: "" so calls go to "/api/..." (Netlify redirect)
+  // ✅ Local: set REACT_APP_API_BASE=http://localhost:5000
   const API_BASE = useMemo(() => {
-   return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
-
+    return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
   }, []);
 
   const [expanded, setExpanded] = useState("overview");
 
-  // Google Classroom (from YOUR backend)
-  const [gcClasses, setGcClasses] = useState([]);
-  const [loadingGC, setLoadingGC] = useState(true);
-  const [gcError, setGcError] = useState("");
+  // ✅ Student Links (from YOUR DB: public.student_links)
+  const [studentLinks, setStudentLinks] = useState(null);
+  const [loadingLinks, setLoadingLinks] = useState(true);
+  const [linksError, setLinksError] = useState("");
 
-  // Progress report (from YOUR backend)
+  // ✅ Progress report (optional / if route exists)
   const [progressReport, setProgressReport] = useState(null);
   const [loadingProgress, setLoadingProgress] = useState(true);
   const [progressError, setProgressError] = useState("");
 
-  // Student submissions (uploads)
+  // ✅ Student submissions (optional / if route exists)
   const [submissions, setSubmissions] = useState([]);
   const [loadingSubs, setLoadingSubs] = useState(true);
   const [subsError, setSubsError] = useState("");
@@ -50,7 +50,7 @@ function PersonalAccount() {
     setExpanded((prev) => (prev === section ? null : section));
   };
 
-  // ✅ Hook MUST be before any early return
+  // ✅ Safe progress summary
   const progressSummary = useMemo(() => {
     if (!progressReport?.summary) return null;
     const s = progressReport.summary;
@@ -63,38 +63,38 @@ function PersonalAccount() {
     };
   }, [progressReport]);
 
-  // ✅ 1) Fetch Google Classroom classes
+  // ✅ 1) Fetch student links from DB
   useEffect(() => {
     const run = async () => {
       if (!user?.email) {
-        setLoadingGC(false);
+        setLoadingLinks(false);
         return;
       }
 
-      setLoadingGC(true);
-      setGcError("");
+      setLoadingLinks(true);
+      setLinksError("");
 
       try {
         const res = await fetch(
-          `${API_BASE}/api/classroom/classes/${encodeURIComponent(user.email)}`,
+          `${API_BASE}/api/student-links/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
 
-        if (!res.ok) throw new Error("Failed to load Google Classroom classes.");
+        if (!res.ok) throw new Error("Failed to load your class links.");
         const data = await res.json();
 
-        setGcClasses(Array.isArray(data?.classes) ? data.classes : []);
+        setStudentLinks(data || null);
       } catch (e) {
-        setGcError(e?.message || "Could not load classes.");
+        setLinksError(e?.message || "Could not load your class links.");
       } finally {
-        setLoadingGC(false);
+        setLoadingLinks(false);
       }
     };
 
     run();
   }, [API_BASE, user?.email]);
 
-  // ✅ 2) Fetch progress report
+  // ✅ 2) Fetch progress report (IF backend route exists)
   useEffect(() => {
     const run = async () => {
       if (!user?.email) {
@@ -111,9 +111,15 @@ function PersonalAccount() {
           { credentials: "include" }
         );
 
+        // ✅ if you haven't created this backend route yet
+        if (res.status === 404) {
+          setProgressReport(null);
+          setProgressError("Progress report is not available yet.");
+          return;
+        }
+
         if (!res.ok) throw new Error("Failed to load progress report.");
         const data = await res.json();
-
         setProgressReport(data || null);
       } catch (e) {
         setProgressError(e?.message || "Could not load progress report.");
@@ -125,7 +131,7 @@ function PersonalAccount() {
     run();
   }, [API_BASE, user?.email]);
 
-  // ✅ 3) Fetch student submissions list
+  // ✅ 3) Fetch student submissions list (IF backend route exists)
   useEffect(() => {
     const run = async () => {
       if (!user?.email) {
@@ -141,6 +147,13 @@ function PersonalAccount() {
           `${API_BASE}/api/submissions/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
+
+        // ✅ if you haven't created this backend route yet
+        if (res.status === 404) {
+          setSubmissions([]);
+          setSubsError("Submissions feature is not enabled yet.");
+          return;
+        }
 
         if (!res.ok) throw new Error("Failed to load submissions.");
         const data = await res.json();
@@ -187,6 +200,10 @@ function PersonalAccount() {
         credentials: "include",
       });
 
+      if (res.status === 404) {
+        throw new Error("Uploads are not enabled yet.");
+      }
+
       if (!res.ok) throw new Error("Upload failed. Please try again.");
       const data = await res.json();
 
@@ -194,16 +211,6 @@ function PersonalAccount() {
         setSubmissions(data.submissions);
       } else if (data?.submission) {
         setSubmissions((prev) => [data.submission, ...prev]);
-      } else {
-        // fallback refetch
-        const refetch = await fetch(
-          `${API_BASE}/api/submissions/${encodeURIComponent(user.email)}`,
-          { credentials: "include" }
-        );
-        const refData = await refetch.json();
-        setSubmissions(
-          Array.isArray(refData?.submissions) ? refData.submissions : []
-        );
       }
 
       setUploadTitle("");
@@ -230,14 +237,17 @@ function PersonalAccount() {
     );
   }
 
-  // DB-backed user uses full_name
   const fullName = user.full_name || "LuminoLearn Family";
-
-  // Safe defaults (your DB may not include these fields yet)
   const subscription = user.subscription || "No active subscription yet";
   const paymentCount = Array.isArray(user.paymentHistory)
     ? user.paymentHistory.length
     : 0;
+
+  const hasGC = !!studentLinks?.google_classroom_url;
+  const hasMeet = !!studentLinks?.class_meeting_url;
+
+  // ✅ FIXED: correct math
+  const linkCount = (hasGC ? 1 : 0) + (hasMeet ? 1 : 0);
 
   return (
     <div className="account-page">
@@ -248,8 +258,8 @@ function PersonalAccount() {
           Welcome back, <span className="account-hero-name">{fullName}</span>
         </h1>
         <p className="account-hero-sub">
-          Track classes, progress reports, certificates, payment plans, upload
-          work, and book a call — all in one calm, organized space.
+          Track class links, progress, certificates, payment plans, upload work,
+          and book a call — all in one calm, organized space.
         </p>
 
         <div className="account-hero-badges">
@@ -259,13 +269,13 @@ function PersonalAccount() {
           </div>
 
           <div className="hero-badge">
-            <span className="hero-badge-label">Google Classroom</span>
+            <span className="hero-badge-label">Class Links</span>
             <span className="hero-badge-value">
-              {loadingGC
+              {loadingLinks
                 ? "…"
-                : `${gcClasses.length} class${
-                    gcClasses.length === 1 ? "" : "es"
-                  }`}
+                : linkCount > 0
+                ? `${linkCount} link${linkCount === 1 ? "" : "s"}`
+                : "No links yet"}
             </span>
           </div>
 
@@ -314,14 +324,14 @@ function PersonalAccount() {
                 <hr className="account-divider" />
 
                 <p className="account-hint">
-                  Tip: This page can show progress and uploaded work even if
-                  classes are hosted elsewhere.
+                  Tip: Your teacher can add your Google Classroom + meeting link
+                  directly to your account.
                 </p>
               </div>
             )}
           </section>
 
-          {/* Google Classroom Classes */}
+          {/* ✅ Class Links (DB-backed) */}
           <section className="account-card">
             <button
               onClick={() => toggleSection("classes")}
@@ -330,7 +340,7 @@ function PersonalAccount() {
             >
               <div>
                 <span className="section-icon">🏫</span>
-                <span className="section-title">Google Classroom Classes</span>
+                <span className="section-title">Class Links</span>
               </div>
               <span className="section-toggle-indicator">
                 {expanded === "classes" ? "−" : "+"}
@@ -339,44 +349,42 @@ function PersonalAccount() {
 
             {expanded === "classes" && (
               <div className="account-section-body">
-                {loadingGC ? (
-                  <p>Loading your classes…</p>
-                ) : gcError ? (
-                  <p className="account-error">{gcError}</p>
-                ) : gcClasses.length > 0 ? (
-                  <ul className="course-list">
-                    {gcClasses.map((c, i) => (
-                      <li key={c.id || i} className="course-list-item">
-                        <p className="course-title">
-                          {c.name || "Untitled class"}
-                        </p>
-                        <p className="course-meta">
-                          <strong>Section:</strong> {c.section || "—"} |{" "}
-                          <strong>Teacher:</strong> {c.teacherName || "—"} |{" "}
-                          <strong>Room:</strong> {c.room || "—"}
-                        </p>
+                {loadingLinks ? (
+                  <p>Loading your links…</p>
+                ) : linksError ? (
+                  <p className="account-error">{linksError}</p>
+                ) : studentLinks ? (
+                  <>
+                    {studentLinks.google_classroom_url ? (
+                      <a
+                        className="course-link"
+                        href={studentLinks.google_classroom_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open Google Classroom ↗
+                      </a>
+                    ) : (
+                      <p>No Google Classroom link yet.</p>
+                    )}
 
-                        {c.link && (
-                          <a
-                            className="course-link"
-                            href={c.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Open in Google Classroom ↗
-                          </a>
-                        )}
+                    <div style={{ height: 10 }} />
 
-                        {c.enrollmentCode && (
-                          <p className="course-meta">
-                            <strong>Enrollment code:</strong> {c.enrollmentCode}
-                          </p>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                    {studentLinks.class_meeting_url ? (
+                      <a
+                        className="course-link"
+                        href={studentLinks.class_meeting_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Join Class Meeting ↗
+                      </a>
+                    ) : (
+                      <p>No class meeting link yet.</p>
+                    )}
+                  </>
                 ) : (
-                  <p>No classes found yet.</p>
+                  <p>No links found yet.</p>
                 )}
               </div>
             )}

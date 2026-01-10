@@ -11,7 +11,7 @@ const app = express();
 // DB
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-// CORS
+// Allowed origins
 const allowedOrigins = [
   "https://luminolearn.ca",
   "https://www.luminolearn.ca",
@@ -21,8 +21,23 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // allow curl/postman
-    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow requests with no origin (curl, Postman)
+    if (!origin) return callback(null, true);
+
+    // ✅ Allow ALL localhost ports in development
+    if (
+      process.env.NODE_ENV !== "production" &&
+      origin.startsWith("http://localhost:")
+    ) {
+      return callback(null, true);
+    }
+
+    // ✅ Allow known production origins
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // ❌ Block everything else
     return callback(new Error("CORS blocked: " + origin));
   },
   credentials: true,
@@ -30,11 +45,30 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+// Middleware
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Debug route to confirm cookies arrive
+app.get("/api/debug-cookie", (req, res) => {
+  res.json({
+    cookies: req.cookies || null,
+    hasSession: !!req.cookies?.ll_session,
+    authHeader: req.headers.authorization || null,
+  });
+});
+app.use(express.json());
+app.use(cookieParser());
+app.get("/api/debug-cookie", (req, res) => {
+  res.json({
+    cookies: req.cookies || null,
+    hasSession: !!req.cookies?.ll_session,
+    authHeader: req.headers.authorization || null,
+  });
+});
 
 // Routes
 const studentLinksRoutes = require("./routes/studentLinks")(pool);
@@ -42,9 +76,9 @@ app.use("/api/student-links", studentLinksRoutes);
 
 // Health
 app.get("/health", (req, res) => res.json({ ok: true }));
-app.get("/api/health", (req, res) => res.json({ ok: true })); // ✅ for Netlify proxy test
+app.get("/api/health", (req, res) => res.json({ ok: true }));
 
-// Cookie helpers
+// Cookie helpers (still fine to keep cookies as optional)
 function getCookieOptions() {
   const isProd = process.env.NODE_ENV === "production";
 
@@ -63,16 +97,26 @@ function setSessionCookie(res, token) {
   res.cookie("ll_session", token, {
     httpOnly: true,
     secure,
-    sameSite, // "lax" recommended here
+    sameSite,
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     path: "/",
   });
 }
 
-// Auth middleware
+// Auth middleware (✅ cookie OR bearer token)
 function requireAuth(req, res, next) {
   try {
-    const token = req.cookies.ll_session;
+    // Cookie token (optional)
+    const cookieToken = req.cookies?.ll_session;
+
+    // Bearer token (recommended fallback)
+    const authHeader = req.headers.authorization || "";
+    const bearerToken = authHeader.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : null;
+
+    const token = cookieToken || bearerToken;
+
     if (!token) return res.status(401).json({ error: "Not authenticated" });
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
@@ -90,7 +134,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-// LOGIN
+// LOGIN (✅ returns token too)
 app.post("/api/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -121,6 +165,7 @@ app.post("/api/auth/login", async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
     );
 
+    // Cookie is optional now (keep it if it works)
     setSessionCookie(res, token);
 
     // ✅ helps avoid caching/proxy oddities
@@ -128,6 +173,7 @@ app.post("/api/auth/login", async (req, res) => {
 
     return res.json({
       ok: true,
+      token, // ✅ IMPORTANT (frontend will store it)
       user: { id: user.id, email: user.email, role: user.role },
     });
   } catch (e) {

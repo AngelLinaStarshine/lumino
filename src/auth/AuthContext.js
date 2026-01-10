@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 
 export const AuthContext = createContext({
   user: null,
@@ -17,17 +12,23 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-const API_BASE = useMemo(() => {
-  return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
-}, []);
 
+  // ✅ Production: "" so calls go to "/api/..." (Netlify redirects)
+  // ✅ Local: set REACT_APP_API_BASE=http://localhost:5000
+  const API_BASE = useMemo(() => {
+    return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
+  }, []);
 
   const refreshAuth = async () => {
     setAuthLoading(true);
+
     try {
+      const token = sessionStorage.getItem("ll_token");
+
       const res = await fetch(`${API_BASE}/api/auth/me`, {
         method: "GET",
-        credentials: "include",
+        credentials: "include", // cookie optional
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (!res.ok) {
@@ -51,12 +52,13 @@ const API_BASE = useMemo(() => {
         credentials: "include",
       });
     } catch (err) {
-    
+      // ignore
     } finally {
+      // ✅ clear token too
+      sessionStorage.removeItem("ll_token");
       setUser(null);
     }
   };
-
 
   useEffect(() => {
     refreshAuth();

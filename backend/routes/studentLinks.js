@@ -1,27 +1,55 @@
 const express = require("express");
-const router = express.Router();
-
-// IMPORTANT: use the SAME pool you already created in server.js.
-// So we will export a function that receives pool, OR we will require pool from server.js (not recommended).
-// Best: pass pool in from server.js.
 
 module.exports = (pool) => {
-  // GET student links by email
+  const router = express.Router();
+
+  // GET links by student email
   router.get("/:email", async (req, res) => {
     try {
       const email = decodeURIComponent(req.params.email).toLowerCase();
 
       const result = await pool.query(
-        `SELECT google_classroom_url, class_meeting_url
+        `SELECT student_email, google_classroom_url, class_meeting_url, updated_at
          FROM public.student_links
-         WHERE student_email = $1`,
+         WHERE student_email = $1
+         LIMIT 1`,
         [email]
       );
 
-      res.json(result.rows[0] || null);
+      return res.json(result.rows[0] || null);
     } catch (err) {
-      console.error("Student links error:", err);
-      res.status(500).json({ error: "Failed to load student links" });
+      console.error("student-links GET error:", err);
+      return res.status(500).json({ error: "Failed to load student links" });
+    }
+  });
+
+  // UPSERT links (admin tool — you can protect later)
+  router.post("/upsert", async (req, res) => {
+    try {
+      const { student_email, google_classroom_url, class_meeting_url } = req.body;
+
+      if (!student_email) {
+        return res.status(400).json({ error: "student_email is required" });
+      }
+
+      const email = String(student_email).toLowerCase();
+
+      const result = await pool.query(
+        `INSERT INTO public.student_links (student_email, google_classroom_url, class_meeting_url)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (student_email)
+         DO UPDATE SET
+           google_classroom_url = EXCLUDED.google_classroom_url,
+           class_meeting_url = EXCLUDED.class_meeting_url,
+           updated_at = NOW()
+         RETURNING student_email, google_classroom_url, class_meeting_url, updated_at`,
+        [email, google_classroom_url || null, class_meeting_url || null]
+      );
+
+      return res.json({ ok: true, row: result.rows[0] });
+    } catch (err) {
+      console.error("student-links UPSERT error:", err);
+      return res.status(500).json({ error: "Failed to save student links" });
     }
   });
 
