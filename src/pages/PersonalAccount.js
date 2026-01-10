@@ -9,10 +9,8 @@ function PersonalAccount() {
 
   // ✅ One source of truth for backend URL (works on Netlify + locally)
   const API_BASE = useMemo(() => {
-    return (process.env.REACT_APP_API_BASE || "http://localhost:5000").replace(
-      /\/$/,
-      ""
-    );
+   return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
+
   }, []);
 
   const [expanded, setExpanded] = useState("overview");

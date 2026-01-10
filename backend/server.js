@@ -46,17 +46,24 @@ app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
 
-
 function setSessionCookie(res, token) {
+  const isProd = process.env.NODE_ENV === "production";
+
+  const secure =
+    (process.env.COOKIE_SECURE ?? (isProd ? "true" : "false")) === "true";
+
+  const sameSite =
+    process.env.COOKIE_SAMESITE || (isProd ? "none" : "lax");
+
   res.cookie("ll_session", token, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure,
+    sameSite,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     path: "/",
-    domain: ".luminolearn.ca", // ✅ ADD THIS
   });
 }
+
 
 
 function requireAuth(req, res, next) {
@@ -130,16 +137,24 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
   }
 });
 
-
 app.post("/api/auth/logout", (req, res) => {
+  const isProd = process.env.NODE_ENV === "production";
+
+  const secure =
+    (process.env.COOKIE_SECURE ?? (isProd ? "true" : "false")) === "true";
+
+  const sameSite =
+    process.env.COOKIE_SAMESITE || (isProd ? "none" : "lax");
+
   res.clearCookie("ll_session", {
     path: "/",
-    secure: true,
-    sameSite: "none",
-    domain: ".luminolearn.ca", // ✅ ADD THIS
+    secure,
+    sameSite,
   });
+
   res.json({ ok: true });
 });
+
 
 
 
