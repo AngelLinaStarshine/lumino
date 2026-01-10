@@ -7,9 +7,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const app = express();
+
+// DB
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-
+// CORS
 const allowedOrigins = [
   "https://luminolearn.ca",
   "https://www.luminolearn.ca",
@@ -19,11 +21,8 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
- 
-    if (!origin) return callback(null, true);
-
+    if (!origin) return callback(null, true); // allow curl/postman
     if (allowedOrigins.includes(origin)) return callback(null, true);
-
     return callback(new Error("CORS blocked: " + origin));
   },
   credentials: true,
@@ -32,40 +31,45 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Routes
 const studentLinksRoutes = require("./routes/studentLinks")(pool);
 app.use("/api/student-links", studentLinksRoutes);
 
+// Health
+app.get("/health", (req, res) => res.json({ ok: true }));
+app.get("/api/health", (req, res) => res.json({ ok: true })); // ✅ for Netlify proxy test
 
-
-app.get("/health", (req, res) => {
-  res.json({ ok: true });
-});
-
-function setSessionCookie(res, token) {
+// Cookie helpers
+function getCookieOptions() {
   const isProd = process.env.NODE_ENV === "production";
 
   const secure =
     (process.env.COOKIE_SECURE ?? (isProd ? "true" : "false")) === "true";
 
-  const sameSite =
-    process.env.COOKIE_SAMESITE || (isProd ? "none" : "lax");
+  // ✅ With Netlify /api proxy, cookie is first-party → lax is correct
+  const sameSite = (process.env.COOKIE_SAMESITE || "lax").toLowerCase();
+
+  return { secure, sameSite };
+}
+
+function setSessionCookie(res, token) {
+  const { secure, sameSite } = getCookieOptions();
 
   res.cookie("ll_session", token, {
     httpOnly: true,
     secure,
-    sameSite,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    sameSite, // "lax" recommended here
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     path: "/",
   });
 }
 
-
-
+// Auth middleware
 function requireAuth(req, res, next) {
   try {
     const token = req.cookies.ll_session;
@@ -86,6 +90,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+// LOGIN
 app.post("/api/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -95,15 +100,20 @@ app.post("/api/auth/login", async (req, res) => {
       [String(email || "").toLowerCase()]
     );
 
-    if (!r.rows.length) return res.status(401).json({ error: "Invalid credentials" });
+    if (!r.rows.length) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     const user = r.rows[0];
+
     if (user.status !== "active") {
       return res.status(403).json({ error: "Account not active" });
     }
 
     const ok = await bcrypt.compare(password, user.password_hash || "");
-    if (!ok) return res.status(401).json({ error: "Invalid credentials" });
+    if (!ok) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
@@ -113,38 +123,37 @@ app.post("/api/auth/login", async (req, res) => {
 
     setSessionCookie(res, token);
 
-    res.json({
+    // ✅ helps avoid caching/proxy oddities
+    res.setHeader("Cache-Control", "no-store");
+
+    return res.json({
       ok: true,
       user: { id: user.id, email: user.email, role: user.role },
     });
   } catch (e) {
     console.error("LOGIN ERROR:", e);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
-
+// ME
 app.get("/api/auth/me", requireAuth, async (req, res) => {
   try {
     const r = await pool.query(
       "SELECT id, full_name, email, role, status FROM users WHERE id=$1 LIMIT 1",
       [req.user.id]
     );
-    res.json({ user: r.rows[0] });
+
+    return res.json({ user: r.rows[0] || null });
   } catch (e) {
     console.error("ME ERROR:", e);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
+// LOGOUT
 app.post("/api/auth/logout", (req, res) => {
-  const isProd = process.env.NODE_ENV === "production";
-
-  const secure =
-    (process.env.COOKIE_SECURE ?? (isProd ? "true" : "false")) === "true";
-
-  const sameSite =
-    process.env.COOKIE_SAMESITE || (isProd ? "none" : "lax");
+  const { secure, sameSite } = getCookieOptions();
 
   res.clearCookie("ll_session", {
     path: "/",
@@ -152,12 +161,10 @@ app.post("/api/auth/logout", (req, res) => {
     sameSite,
   });
 
-  res.json({ ok: true });
+  return res.json({ ok: true });
 });
 
-
-
-
+// ADMIN: create user
 app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) => {
   try {
     const { full_name, email, role = "student" } = req.body;
@@ -171,13 +178,14 @@ app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) =
       [full_name, String(email || "").toLowerCase(), role]
     );
 
-    res.json({ ok: true, user: created.rows[0] });
+    return res.json({ ok: true, user: created.rows[0] });
   } catch (e) {
     console.error("CREATE USER ERROR:", e);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
+// Start
 app.listen(process.env.PORT || 5000, () =>
   console.log("🚀 Backend running on", process.env.PORT || 5000)
 );
