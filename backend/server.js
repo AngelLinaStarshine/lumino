@@ -50,12 +50,14 @@ app.get("/health", (req, res) => {
 function setSessionCookie(res, token) {
   res.cookie("ll_session", token, {
     httpOnly: true,
-    secure: true,     
-    sameSite: "none", 
-    maxAge: 1000 * 60 * 60 * 24 * 7, 
+    secure: true,
+    sameSite: "none",
+    maxAge: 1000 * 60 * 60 * 24 * 7,
     path: "/",
+    domain: ".luminolearn.ca", // ✅ ADD THIS
   });
 }
+
 
 function requireAuth(req, res, next) {
   try {
@@ -134,9 +136,11 @@ app.post("/api/auth/logout", (req, res) => {
     path: "/",
     secure: true,
     sameSite: "none",
+    domain: ".luminolearn.ca", // ✅ ADD THIS
   });
   res.json({ ok: true });
 });
+
 
 
 app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) => {
