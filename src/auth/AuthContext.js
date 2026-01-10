@@ -17,12 +17,10 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-  const API_BASE = useMemo(() => {
-    return (process.env.REACT_APP_API_BASE || "http://localhost:5000").replace(
-      /\/$/,
-      ""
-    );
-  }, []);
+const API_BASE = useMemo(() => {
+  return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
+}, []);
+
 
   const refreshAuth = async () => {
     setAuthLoading(true);
