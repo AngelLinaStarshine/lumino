@@ -7,6 +7,14 @@ function PersonalAccount() {
   // ✅ read session/user from AuthContext (cookie-based)
   const { user, authLoading } = useContext(AuthContext);
 
+  // ✅ One source of truth for backend URL (works on Netlify + locally)
+  const API_BASE = useMemo(() => {
+    return (process.env.REACT_APP_API_BASE || "http://localhost:5000").replace(
+      /\/$/,
+      ""
+    );
+  }, []);
+
   const [expanded, setExpanded] = useState("overview");
 
   // Google Classroom (from YOUR backend)
@@ -70,9 +78,7 @@ function PersonalAccount() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/classroom/classes/${encodeURIComponent(
-            user.email
-          )}`,
+          `${API_BASE}/api/classroom/classes/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
 
@@ -88,7 +94,7 @@ function PersonalAccount() {
     };
 
     run();
-  }, [user?.email]);
+  }, [API_BASE, user?.email]);
 
   // ✅ 2) Fetch progress report
   useEffect(() => {
@@ -103,7 +109,7 @@ function PersonalAccount() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/progress/${encodeURIComponent(user.email)}`,
+          `${API_BASE}/api/progress/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
 
@@ -119,7 +125,7 @@ function PersonalAccount() {
     };
 
     run();
-  }, [user?.email]);
+  }, [API_BASE, user?.email]);
 
   // ✅ 3) Fetch student submissions list
   useEffect(() => {
@@ -134,9 +140,7 @@ function PersonalAccount() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/submissions/${encodeURIComponent(
-            user.email
-          )}`,
+          `${API_BASE}/api/submissions/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
 
@@ -152,7 +156,7 @@ function PersonalAccount() {
     };
 
     run();
-  }, [user?.email]);
+  }, [API_BASE, user?.email]);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -179,7 +183,7 @@ function PersonalAccount() {
       form.append("note", uploadNote.trim());
       form.append("file", uploadFile);
 
-      const res = await fetch("http://localhost:5000/api/submissions/upload", {
+      const res = await fetch(`${API_BASE}/api/submissions/upload`, {
         method: "POST",
         body: form,
         credentials: "include",
@@ -195,9 +199,7 @@ function PersonalAccount() {
       } else {
         // fallback refetch
         const refetch = await fetch(
-          `http://localhost:5000/api/submissions/${encodeURIComponent(
-            user.email
-          )}`,
+          `${API_BASE}/api/submissions/${encodeURIComponent(user.email)}`,
           { credentials: "include" }
         );
         const refData = await refetch.json();
@@ -263,7 +265,9 @@ function PersonalAccount() {
             <span className="hero-badge-value">
               {loadingGC
                 ? "…"
-                : `${gcClasses.length} class${gcClasses.length === 1 ? "" : "es"}`}
+                : `${gcClasses.length} class${
+                    gcClasses.length === 1 ? "" : "es"
+                  }`}
             </span>
           </div>
 

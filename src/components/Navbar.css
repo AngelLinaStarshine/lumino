@@ -1,16 +1,7 @@
-/* ============================================================
-   NAVBAR (CLEAN + RESPONSIVE) + BRAND FLAME HOVER (NO BG)
-   File: src/components/Navbar.css
-   ============================================================ */
-
-/* Keep page content below fixed navbar */
 body {
   padding-top: 72px;
 }
 
-/* ============================= */
-/* NAVBAR SHELL                  */
-/* ============================= */
 
 .navbar {
   position: fixed;
@@ -118,9 +109,6 @@ body {
     navGlow 2.2s ease-in-out infinite;
 }
 
-/* ===============================
-   LUMINOLearn Brand Styling
-   =============================== */
 
 .brand-name,
 .brand-text,

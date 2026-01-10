@@ -9,9 +9,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-/* ---------------------------
-   CORS (PRODUCTION + LOCAL)
---------------------------- */
+
 const allowedOrigins = [
   "https://luminolearn.ca",
   "https://www.luminolearn.ca",
@@ -21,7 +19,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // allow server-to-server, Postman, curl (no Origin header)
+ 
     if (!origin) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) return callback(null, true);
@@ -34,27 +32,27 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// ✅ Preflight for all routes
+
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+const studentLinksRoutes = require("./routes/studentLinks")(pool);
+app.use("/api/student-links", studentLinksRoutes);
+
+
 
 app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
 
-/* ---------------------------
-   Auth Cookie Helper (SINGLE SOURCE)
-   Netlify (luminolearn.ca) -> Render (onrender.com) is cross-site
-   so we must use SameSite=None + Secure=true
---------------------------- */
+
 function setSessionCookie(res, token) {
   res.cookie("ll_session", token, {
     httpOnly: true,
-    secure: true,     // ✅ required when SameSite=None
-    sameSite: "none", // ✅ required for cross-site cookies
-    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    secure: true,     
+    sameSite: "none", 
+    maxAge: 1000 * 60 * 60 * 24 * 7, 
     path: "/",
   });
 }
@@ -79,7 +77,6 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-/* ---------- LOGIN ---------- */
 app.post("/api/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -117,7 +114,7 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-/* ---------- ME ---------- */
+
 app.get("/api/auth/me", requireAuth, async (req, res) => {
   try {
     const r = await pool.query(
@@ -131,7 +128,7 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
   }
 });
 
-/* ---------- LOGOUT ---------- */
+
 app.post("/api/auth/logout", (req, res) => {
   res.clearCookie("ll_session", {
     path: "/",
@@ -141,7 +138,7 @@ app.post("/api/auth/logout", (req, res) => {
   res.json({ ok: true });
 });
 
-/* ---------- ADMIN: CREATE USER (invited) ---------- */
+
 app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) => {
   try {
     const { full_name, email, role = "student" } = req.body;

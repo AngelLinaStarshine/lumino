@@ -1,4 +1,3 @@
-// src/auth/AuthContext.js
 import React, {
   createContext,
   useEffect,
@@ -18,10 +17,6 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-
-  // ✅ Single source of truth for backend URL
-  // - Netlify: REACT_APP_API_BASE
-  // - Local dev fallback: http://localhost:5000
   const API_BASE = useMemo(() => {
     return (process.env.REACT_APP_API_BASE || "http://localhost:5000").replace(
       /\/$/,
@@ -29,7 +24,6 @@ export const AuthProvider = ({ children }) => {
     );
   }, []);
 
-  // ✅ Refresh session from cookie
   const refreshAuth = async () => {
     setAuthLoading(true);
     try {
@@ -52,7 +46,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✅ Logout (clear cookie on backend)
   const logout = async () => {
     try {
       await fetch(`${API_BASE}/api/auth/logout`, {
@@ -60,13 +53,13 @@ export const AuthProvider = ({ children }) => {
         credentials: "include",
       });
     } catch (err) {
-      // ignore network errors on logout
+    
     } finally {
       setUser(null);
     }
   };
 
-  // ✅ Load session once on app mount
+
   useEffect(() => {
     refreshAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps

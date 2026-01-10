@@ -1,5 +1,3 @@
-/* LuminoFlameBot.css */
-
 .lumino-chatbot-container {
   position: fixed;
   bottom: 20px;
@@ -30,7 +28,6 @@
   animation: float 2.5s ease-in-out infinite, glow 1.8s ease-in-out infinite;
 }
 
-/* Flame bounce effect */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -40,7 +37,6 @@
   }
 }
 
-/* Light pulse glow effect */
 @keyframes glow {
   0%, 100% {
     filter: drop-shadow(0 0 5px orange);
