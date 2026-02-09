@@ -39,7 +39,7 @@ export default function Tuition() {
 
             <section className="pricing-section" style={{ borderRadius: "16px" }}>
               <div className="pricing-inner">
-                <h2 className="pricing-title">LuminoLearn Pricing (Ages 9–11)</h2>
+                <h2 className="pricing-title">LuminoLearn Pricing </h2>
                 <p className="pricing-intro">
                   Simple, transparent pricing designed for modern families in Ontario.
                   If you’re unsure where to start, we’ll guide you.

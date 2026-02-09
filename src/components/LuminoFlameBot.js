@@ -106,7 +106,7 @@ function LuminoFlameBot() {
   // =========================
   const intents = useMemo(
     () => ({
-      tuition: ["tuition", "price", "pricing", "cost", "fees", "plan", "plans"],
+      tuition: ["tuition", "price", "pricing", "cost", "fees", "plan", "plans", "payment"],
       programs: ["programs", "program", "learning path", "learning paths", "courses", "course"],
       account: ["account", "login", "log in", "sign in", "signup", "sign up", "register"],
       meeting: ["book", "booking", "meeting", "call", "consultation", "schedule", "calendly"],
