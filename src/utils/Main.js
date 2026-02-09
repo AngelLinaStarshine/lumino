@@ -104,14 +104,20 @@ function Main() {
 </section>
 
 
-     {/* ======================= MINIMAL COURSES TEASER ======================= */}
+{/* ======================= MINIMAL COURSES TEASER ======================= */}
 <section id="courses" className="courses-section">
-  <h2 className="courses-title">Learning Paths</h2>
+
+  <p className="about-kicker">Learning Paths</p>
+
+  <h2 className="about-title">
+    <span className="brand-name brand-highlight">LuminoLearn</span>
+    <span className="about-title-rest"> learning paths.</span>
+  </h2>
 
   <p className="courses-intro">
     Every meaningful learning journey begins with clarity.
     <br /><br />
-    Start with <strong>LuminoStart™</strong> a short, carefully designed placement experience that
+    Start with <strong>LuminoStart™</strong>, a short, carefully designed placement experience that
     identifies your child’s level, strengths, and learning pace. From there, continue into
     <strong> LuminoCore™</strong>, our <strong>12-week certified learning cycle</strong>, where understanding
     deepens through guided instruction, hands-on projects, and clear progress reporting.
@@ -127,9 +133,9 @@ function Main() {
     >
       Explore Learning Paths
     </button>
-
-    
   </div>
+
+
 </section>
 
 {/* ===================== END MINIMAL COURSES TEASER ===================== */}

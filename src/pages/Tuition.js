@@ -17,18 +17,24 @@ export default function Tuition() {
     <div className="simple-page">
       {/* =========================
           OPTION 1 (FULL-WIDTH) — PREMIUM BACKGROUND
-          LuminoStart™
+          LuminoStart™ (MANDATORY FIRST MONTH)
          ========================= */}
       <section className="tuition-band band-premium">
         <div className="tuition-inner">
           <div className="tuition-surface">
-            <h1>Plans &amp; Tuition</h1>
+        <p className="about-kicker">Plans &amp; Tuition</p>
+
+<h1 className="about-title">
+  <span className="brand-name brand-highlight">LuminoLearn</span>
+  <span className="about-title-rest"> plans &amp; tuition.</span>
+</h1>
+
 
             <p className="lead">
-              Our tuition follows a clear learning model: start with{" "}
-              <strong>LuminoStart™</strong> (placement sprint), then enroll in{" "}
-              <strong>LuminoCore™</strong> (12-week certified cycle), and continue with{" "}
-              <strong>LuminoPath™</strong> for long-term growth.
+              Our tuition follows a clear learning model: everyone begins with{" "}
+              <strong>LuminoStart™</strong> (mandatory first month for placement + learning plan),
+              then continues into <strong>LuminoCore™</strong> (12-week certified cycle), and can
+              extend long-term through <strong>LuminoPath™</strong>.
             </p>
 
             <section className="pricing-section" style={{ borderRadius: "16px" }}>
@@ -42,10 +48,10 @@ export default function Tuition() {
                 {/* 1) LuminoStart */}
                 <div className="pricing-block">
                   <h3 className="pricing-block-title">
-                    1) LuminoStart™ — Learning Assessment &amp; Placement
+                    1) LuminoStart™ — Learning Assessment &amp; Placement (Required)
                   </h3>
                   <p className="pricing-block-sub">
-                    <strong>4 weeks</strong> • required for all new students
+                    <strong>4 weeks</strong> • mandatory for all new students
                   </p>
 
                   <div className="pricing-table-wrapper">
@@ -72,7 +78,8 @@ export default function Tuition() {
                   </div>
 
                   <p className="pricing-footer-note">
-                    LuminoStart™ may be credited toward LuminoPath™ enrollment (optional incentive).
+                    LuminoStart™ is the required first month for every learner and ensures the best-fit
+                    level and pacing before enrolling in LuminoCore™ or LuminoPath™.
                   </p>
                 </div>
               </div>
@@ -167,7 +174,7 @@ export default function Tuition() {
 
       {/* =========================
           OPTION 3 (FULL-WIDTH) — TIFFANY BACKGROUND
-          LuminoPath™ + Mentor
+          LuminoPath™ (NO Mentor Add-on)
          ========================= */}
       <section className="tuition-band band-tiffany">
         <div className="tuition-inner">
@@ -234,40 +241,6 @@ export default function Tuition() {
                   <p className="pricing-footer-note">
                     LuminoPath™ includes ongoing personalization, priority scheduling, and regular
                     progress reports with a clear next-step roadmap.
-                  </p>
-                </div>
-
-                {/* Optional Add-on */}
-                <div className="pricing-block" style={{ marginTop: "1.25rem" }}>
-                  <h3 className="pricing-block-title">Optional Add-On: LuminoMentor™ Support</h3>
-
-                  <div className="pricing-table-wrapper">
-                    <table className="pricing-table">
-                      <thead>
-                        <tr>
-                          <th className="pricing-head-col">Option</th>
-                          <th>Price</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Small Group Mentoring</td>
-                          <td>
-                            <span className="price-main">$180/month</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>1:1 Mentoring</td>
-                          <td>
-                            <span className="price-main">$250/month</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <p className="pricing-footer-note">
-                    Great for confidence, homework guidance, and steady weekly accountability.
                   </p>
                 </div>
               </div>

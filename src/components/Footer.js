@@ -41,7 +41,7 @@ const Footer = () => {
         ))}
       </div>
 
-      <p>© {new Date().getFullYear()} LuminoLearn Academy. All rights reserved.</p>
+      <p>©2025 LuminoLearn Academy. All rights reserved.</p>
     </footer>
   );
 };

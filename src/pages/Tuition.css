@@ -1,13 +1,11 @@
 /* ============================================================
    Tuition.css — FULL-WIDTH BANDS + CENTERED CONTENT
-   1) Option 1 band = gradient (premium)
-   2) Option 2 band = white
-   3) Option 3 band = Tiffany/mint
    Put this in: src/pages/Tuition.css
+   Fix: first line not covered by fixed navbar
    ============================================================ */
 
 :root {
-  --lumino-mint: #a7f5ed;     /* tiffany-ish */
+  --lumino-mint: #a7f5ed; /* tiffany-ish */
   --lumino-lilac: #f3a7f3;
   --lumino-sun: #ffde59;
   --lumino-orange: #ff6f00;
@@ -24,24 +22,24 @@
    PAGE SHELL
    ========================= */
 
+/* ✅ IMPORTANT FIX:
+   This guarantees content starts BELOW fixed navbar,
+   even if global body padding gets overridden somewhere. */
 .simple-page {
-  min-height: calc(100vh - 72px);
-  padding: 18px 0 60px;
+  min-height: calc(100vh - var(--nav-h));
+  padding-top: calc(var(--nav-h) + 18px);
+  padding-right: 0;
+  padding-bottom: 60px;
+  padding-left: 0;
+
   position: relative;
   overflow-x: hidden;
 }
-
-/* IMPORTANT:
-   We stop using the glowing background ON THE WHOLE PAGE
-   because you want full-width "band" sections.
-   (If you still want subtle glows, we’ll add them inside Option 1 band only.)
-*/
 
 /* =========================
    FULL-WIDTH BANDS (OPTIONS)
    ========================= */
 
-/* Base band: full width background, with vertical spacing */
 .tuition-band {
   width: 100%;
   padding: 28px 0;
@@ -103,7 +101,7 @@
   );
 }
 
-/* Optional: if you need a white sub-block inside a colored band */
+/* Optional: white surface inside colored band */
 .tuition-surface {
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -114,12 +112,9 @@
 }
 
 /* =========================
-   SIMPLE PAGE INNER (keep compatible)
+   SIMPLE PAGE INNER (compat)
    ========================= */
 
-/* Keep your existing structure working.
-   If you keep using .simple-page-inner, it will still look premium.
-   But now it WON’T be the only container; you'll use tuition bands. */
 .simple-page-inner {
   width: min(var(--maxw), calc(100% - 32px));
   margin: 0 auto;
@@ -131,7 +126,6 @@
   backdrop-filter: blur(10px);
 }
 
-/* Headings */
 .simple-page-inner h1,
 .tuition-inner h1 {
   margin: 0 0 10px;
@@ -149,7 +143,7 @@
 }
 
 /* =========================
-   CARDS (your existing "card")
+   CARDS
    ========================= */
 
 .card {
@@ -183,7 +177,6 @@
 
 /* =========================
    PRICING TABLE COMPAT
-   (works with your existing pricing-table classes)
    ========================= */
 
 .pricing-section {
@@ -290,7 +283,11 @@
 
 .home-cta.secondary {
   color: #111;
-  background: linear-gradient(90deg, rgba(167, 245, 237, 0.95), rgba(243, 167, 243, 0.72));
+  background: linear-gradient(
+    90deg,
+    rgba(167, 245, 237, 0.95),
+    rgba(243, 167, 243, 0.72)
+  );
 }
 
 .home-cta:hover {
@@ -336,7 +333,8 @@
 
 @media (max-width: 560px) {
   .simple-page {
-    padding: 14px 0 50px;
+    padding-top: calc(var(--nav-h) + 14px);
+    padding-bottom: 50px;
   }
 
   .tuition-band {
@@ -366,7 +364,10 @@
   }
 }
 
-/* Animations */
+/* =========================
+   Animations
+   ========================= */
+
 @keyframes tuitionGradientShift {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }

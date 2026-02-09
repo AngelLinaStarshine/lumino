@@ -1,58 +1,197 @@
-/* src/pages/Programs.css
-   Animated + colorful + responsive Learning Paths page
-   (uses your existing .brand-highlight gradient if present)
-*/
+/* ============================================================
+   Programs.css — FULL-WIDTH BANDS + CENTERED CONTENT (Tuition-style)
+   Put this in: src/pages/Programs.css
+   Fix: first line not covered by fixed navbar
+   ============================================================ */
 
+/* ONE source of truth for nav height (must match Navbar) */
+:root {
+  --nav-h: 72px;
+
+  --lumino-mint: #a7f5ed;
+  --lumino-lilac: #f3a7f3;
+  --lumino-sun: #ffde59;
+  --lumino-orange: #ff6f00;
+  --lumino-ink: #111;
+  --lumino-muted: rgba(0, 0, 0, 0.62);
+
+  --lumino-border: rgba(0, 0, 0, 0.08);
+  --lumino-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+
+  --maxw: 1100px;
+}
+
+/* ✅ Anchor jumps and scrollIntoView land below fixed navbar */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 14px);
+}
+
+/* ✅ Anchor targets also respect the navbar */
+#course-math,
+#course-language,
+#course-cs,
+#programs-top,
+#directions {
+  scroll-margin-top: calc(var(--nav-h) + 14px);
+}
+
+/* =========================
+   PAGE SHELL (Tuition-style)
+   ========================= */
+
+/* ✅ IMPORTANT FIX:
+   Guarantees content starts BELOW fixed navbar,
+   even if global body padding gets overridden somewhere. */
 .programs-page {
+  min-height: calc(100vh - var(--nav-h));
+
+  padding-top: calc(var(--nav-h) + 18px);
+  padding-right: 0;
+  padding-bottom: 60px;
+  padding-left: 0;
+
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* =========================
+   FULL-WIDTH BANDS (Tuition-style)
+   ========================= */
+
+.programs-band {
+  width: 100%;
+  padding: 28px 0;
   position: relative;
   overflow: hidden;
-  padding: clamp(1.2rem, 2.5vw, 2rem);
-  min-height: calc(100vh - 72px);
 }
 
-/* Ambient animated glows */
-.pg-glow {
-  position: absolute;
-  width: 560px;
-  height: 560px;
-  border-radius: 999px;
-  filter: blur(60px);
-  opacity: 0.35;
-  pointer-events: none;
-  animation: pgDrift 10s ease-in-out infinite;
-}
-.pg-glow.g1 {
-  top: -220px;
-  left: -180px;
-  background: radial-gradient(circle, #ff6f00, transparent 62%);
-}
-.pg-glow.g2 {
-  bottom: -240px;
-  right: -220px;
-  background: radial-gradient(circle, #ff4081, transparent 60%);
-  animation-delay: 1.8s;
-}
-.pg-glow.g3 {
-  top: 32%;
-  right: -280px;
-  background: radial-gradient(circle, #7dcfb6, transparent 60%);
-  animation-delay: 3.4s;
-}
-
-@keyframes pgDrift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-12px, 18px) scale(1.02);
-  }
-}
-
-/* Hero */
-.pg-hero {
-  max-width: 1100px;
+/* Centered content inside each full-width band */
+.programs-inner {
+  width: min(var(--maxw), calc(100% - 32px));
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Band 1: premium gradient band */
+.programs-band.band-premium {
+  background: linear-gradient(145deg, var(--lumino-mint), var(--lumino-lilac));
+  background-size: 200% 200%;
+  animation: programsGradientShift 8s ease infinite;
+}
+
+/* Soft ambient glows only inside premium band */
+.programs-band.band-premium::before,
+.programs-band.band-premium::after {
+  content: "";
+  position: absolute;
+  inset: -140px;
+  pointer-events: none;
+  filter: blur(46px);
+  opacity: 0.6;
+}
+
+.programs-band.band-premium::before {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 222, 89, 0.35), transparent 52%),
+    radial-gradient(circle at 85% 30%, rgba(255, 111, 0, 0.22), transparent 55%),
+    radial-gradient(circle at 50% 90%, rgba(255, 255, 255, 0.25), transparent 60%);
+}
+
+.programs-band.band-premium::after {
+  background:
+    radial-gradient(circle at 10% 80%, rgba(0, 0, 0, 0.06), transparent 55%),
+    radial-gradient(circle at 90% 70%, rgba(0, 0, 0, 0.05), transparent 55%);
+  animation: programsGlowDrift 10s ease-in-out infinite;
+}
+
+/* Band 2: white */
+.programs-band.band-white {
+  background: #fff;
+}
+
+/* Band 3: tiffany/mint */
+.programs-band.band-tiffany {
+  background: linear-gradient(
+    135deg,
+    rgba(167, 245, 237, 0.92),
+    rgba(167, 245, 237, 0.68)
+  );
+}
+
+/* Optional: white surface card inside colored bands */
+.programs-surface {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 22px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  padding: 22px;
+}
+
+/* =========================
+   STICKY QUICK NAV
+   ========================= */
+
+.pg-sticky-nav {
+  position: sticky;
+  top: calc(var(--nav-h) + 10px); /* ✅ stays below navbar */
+  z-index: 20;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  max-width: var(--maxw);
+  margin: 0 auto 0.9rem;
+  padding: 0.55rem 0.6rem;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+.pg-nav-pill {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+  font-weight: 900;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.pg-nav-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.pg-nav-pill.strong {
+  background: linear-gradient(90deg, rgba(255, 111, 0, 0.92), rgba(255, 64, 129, 0.92));
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 520px) {
+  .pg-sticky-nav {
+    border-radius: 18px;
+    padding: 0.55rem;
+  }
+  .pg-nav-pill {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+/* =========================
+   HERO (inside a band)
+   ========================= */
+
+.pg-hero {
   padding: clamp(1rem, 2vw, 1.8rem);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.72);
@@ -63,14 +202,8 @@
 }
 
 @keyframes pgFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .pg-kicker {
@@ -103,9 +236,10 @@
 
 .pg-hero-cta {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 0.75rem;
-  margin-top: 1.1rem;
+  margin-top: 1.2rem;
 }
 
 .pg-btn {
@@ -138,40 +272,80 @@
   box-shadow: 0 22px 50px rgba(0, 0, 0, 0.16);
 }
 
-.pg-badges {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+@media (max-width: 480px) {
+  .pg-hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pg-hero-cta .pg-btn {
+    width: 100%;
+    max-width: 260px;
+  }
 }
 
-.pg-pill {
-  font-size: 0.9rem;
+/* =========================
+   DROPDOWN (LEVELS)
+   ========================= */
+
+.levels-dropdown {
+  margin-top: 0.85rem;
+  position: relative;
+  z-index: 1;
+}
+
+.levels-label {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-weight: 950;
+  font-size: 0.95rem;
+  color: #111;
+  opacity: 0.9;
+}
+
+.levels-select {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.92);
   font-weight: 800;
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
-  animation: pillFloat 3.2s ease-in-out infinite;
+  color: #111;
+  outline: none;
+  transition: box-shadow 0.16s ease, transform 0.16s ease;
 }
 
-@keyframes pillFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
+.levels-select:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
 }
+
+/* =========================
+   SECTIONS
+   ========================= */
 
 .pg-section {
-  max-width: 1100px;
-  margin: 1.2rem auto 0;
+  margin-top: 1.2rem;
 }
 
-/* Learning path cards */
+.pg-section h2,
+.pg-section h3 {
+  margin: 0 0 10px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  color: var(--lumino-ink);
+}
+
+.pg-section .lead {
+  margin: 0 0 14px;
+  color: var(--lumino-muted);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+/* =========================
+   LEARNING PATH CARDS
+   ========================= */
+
 .lp-grid {
   display: grid;
   gap: 1rem;
@@ -189,7 +363,7 @@
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--lumino-shadow);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   position: relative;
   overflow: hidden;
@@ -199,7 +373,8 @@
   content: "";
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle at 20% 10%, rgba(255, 222, 89, 0.55), transparent 35%),
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 222, 89, 0.55), transparent 35%),
     radial-gradient(circle at 80% 0%, rgba(167, 245, 237, 0.45), transparent 38%);
   transform: rotate(8deg);
   opacity: 0.55;
@@ -207,7 +382,8 @@
 }
 
 .lp-card.core::before {
-  background: radial-gradient(circle at 20% 10%, rgba(255, 111, 0, 0.35), transparent 38%),
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 111, 0, 0.35), transparent 38%),
     radial-gradient(circle at 80% 0%, rgba(255, 64, 129, 0.3), transparent 40%),
     radial-gradient(circle at 40% 90%, rgba(167, 245, 237, 0.35), transparent 45%);
 }
@@ -225,22 +401,11 @@
   z-index: 1;
 }
 
-.lp-icon {
-  font-size: 1.35rem;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
-}
-
 .lp-title {
   margin: 0;
   font-size: 1.15rem;
   font-weight: 950;
   color: #111;
-}
-
-.lp-sub {
-  font-weight: 900;
-  opacity: 0.7;
-  margin-left: 0.25rem;
 }
 
 .lp-list {
@@ -269,15 +434,41 @@
   font-weight: 800;
   font-size: 0.9rem;
 }
+/* =========================
+   BADGE COLORS (lock them)
+   ========================= */
 
-.lp-note {
-  margin: 1rem 0 0;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #1d1d1d;
+/* shared badge base (optional but nice) */
+.course-badge {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 900;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.55rem;
 }
 
-/* Course cards (re-use your existing classes, but add extra polish) */
+/* ✅ Number Ninjas = green (mint) */
+.b-math {
+  background: rgba(125, 207, 182, 0.45);
+}
+
+/* ✅ Word Wizards = lavender/purple */
+.b-lang {
+  background: rgba(217, 184, 243, 0.5);
+}
+
+/* ✅ Code Explorers = orange */
+.b-cs {
+  background: rgba(242, 110, 38, 0.28);
+}
+
+/* =========================
+   COURSES GRID
+   ========================= */
+
 .courses-container.three-column {
   display: grid;
   gap: 1rem;
@@ -295,7 +486,7 @@
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--lumino-shadow);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   position: relative;
   overflow: hidden;
@@ -305,7 +496,8 @@
   content: "";
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle at 20% 10%, rgba(255, 222, 89, 0.55), transparent 35%),
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 222, 89, 0.55), transparent 35%),
     radial-gradient(circle at 80% 0%, rgba(167, 245, 237, 0.45), transparent 38%);
   transform: rotate(8deg);
   opacity: 0.55;
@@ -317,84 +509,11 @@
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.12);
 }
 
-.course-top {
-  position: relative;
-  z-index: 1;
-}
-
-.course-badge {
-  display: inline-flex;
-  font-weight: 900;
-  font-size: 0.78rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  margin-bottom: 0.55rem;
-}
-
-.b-math {
-  background: rgba(125, 207, 182, 0.45);
-}
-.b-lang {
-  background: rgba(217, 184, 243, 0.5);
-}
-.b-cs {
-  background: rgba(242, 110, 38, 0.28);
-}
-
 .course-name {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 950;
   color: #111;
-}
-
-.course-tagline {
-  margin: 0.35rem 0 0;
-  font-weight: 800;
-  color: #333;
-}
-
-.course-description {
-  margin-top: 0.75rem;
-  line-height: 1.7;
-  color: #222;
-  position: relative;
-  z-index: 1;
-}
-
-.course-subscriptions {
-  margin-top: 0.9rem;
-  display: grid;
-  gap: 0.6rem;
-  position: relative;
-  z-index: 1;
-}
-
-.subscription-pill {
-  border-radius: 14px;
-  padding: 0.75rem 0.85rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
-}
-
-.subscription-pill.alt {
-  background: rgba(255, 255, 255, 0.78);
-}
-
-.subscription-pill h4 {
-  margin: 0;
-  font-weight: 950;
-  font-size: 0.95rem;
-  color: #111;
-}
-
-.subscription-pill p {
-  margin: 0.35rem 0 0;
-  color: #333;
-  line-height: 1.55;
-  font-size: 0.95rem;
 }
 
 .course-actions {
@@ -433,7 +552,25 @@
   color: #111;
   opacity: 0.9;
 }
-/* ========= MODAL FIX (NO OVERLAP + SCROLL) ========= */
+
+.mini-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .course-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mini-link {
+    text-align: center;
+  }
+}
+
+/* =========================
+   MODAL FIX (NO OVERLAP + SCROLL)
+   ========================= */
 
 .modal-overlay {
   position: fixed;
@@ -443,13 +580,12 @@
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
 
-  /* Center + allow scrolling if modal is taller than viewport */
   display: flex;
   align-items: center;
   justify-content: center;
 
   padding: 16px;
-  overflow-y: auto;          /* ✅ overlay scroll */
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -457,8 +593,8 @@
   position: relative;
 
   width: min(720px, 92vw);
-  max-height: calc(100vh - 32px); /* ✅ never exceed viewport */
-  overflow-y: auto;               /* ✅ modal scroll */
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
   border-radius: 18px;
@@ -467,7 +603,6 @@
   background: #fff;
   box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
 
-  /* Optional: smoother */
   animation: modalPop 0.18s ease-out;
 }
 
@@ -476,9 +611,8 @@
   to   { transform: translateY(0px); opacity: 1; }
 }
 
-/* Keep the X visible even when scrolling */
 .modal-close {
-  position: sticky;   /* ✅ stays visible at top while modal scrolls */
+  position: sticky;
   top: 0;
   margin-left: auto;
 
@@ -502,12 +636,10 @@
   z-index: 2;
 }
 
-/* Prevent content from hiding behind the sticky close button */
 .modal-content h2 {
   margin-top: 8px;
 }
 
-/* Mobile tuning */
 @media (max-width: 480px) {
   .modal-overlay {
     padding: 10px;
@@ -528,23 +660,236 @@
   }
 }
 
+/* =========================
+   RESPONSIVE (Tuition-style)
+   ========================= */
 
-.mini-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+@media (max-width: 900px) {
+  .programs-inner {
+    width: calc(100% - 26px);
+  }
+
+  .programs-surface {
+    padding: 18px;
+    border-radius: 18px;
+  }
 }
 
-/* Mobile tweaks */
-@media (max-width: 480px) {
-  .pg-hero-cta {
-    flex-direction: column;
-    align-items: stretch;
+@media (max-width: 560px) {
+  .programs-page {
+    padding-top: calc(var(--nav-h) + 14px);
+    padding-bottom: 50px;
   }
-  .course-actions {
-    flex-direction: column;
-    align-items: stretch;
+
+  .programs-band {
+    padding: 18px 0;
   }
-  .mini-link {
-    text-align: center;
+
+  .programs-inner {
+    width: calc(100% - 22px);
   }
+
+  .programs-surface {
+    padding: 14px;
+  }
+}
+
+/* =========================
+   Animations (Tuition-style)
+   ========================= */
+
+@keyframes programsGradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes programsGlowDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(10px, -8px, 0) scale(1.02); }
+}
+/* ============================================================
+   Programs.css PATCH — restore missing styles from old version
+   Add this at the END of Programs.css
+   ============================================================ */
+
+/* ====== Hero badges row (was in old CSS) ====== */
+.pg-badges {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pg-pill {
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+/* ====== Course card “top” block (tagline/spacing) ====== */
+.course-top {
+  position: relative;
+  z-index: 1;
+}
+
+.course-tagline {
+  margin: 0.35rem 0 0;
+  font-weight: 800;
+  color: #333;
+}
+
+.course-description {
+  margin-top: 0.75rem;
+  line-height: 1.7;
+  color: #222;
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== Subscription blocks (missing in new CSS) ====== */
+.course-subscriptions {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.subscription-pill {
+  border-radius: 14px;
+  padding: 0.75rem 0.85rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+.subscription-pill.alt {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.subscription-pill h4 {
+  margin: 0;
+  font-weight: 950;
+  font-size: 0.95rem;
+  color: #111;
+}
+
+.subscription-pill p {
+  margin: 0.35rem 0 0;
+  color: #333;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+/* ====== Modal UI (row + pills + button) ====== */
+.modal-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.modal-level-title {
+  font-weight: 950;
+  color: #111;
+  opacity: 0.9;
+}
+
+.modal-subtitle {
+  margin: 0.35rem 0 0.85rem;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.modal-topics {
+  margin-top: 0.8rem;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 222, 89, 0.25),
+    rgba(167, 245, 237, 0.18)
+  );
+}
+
+.modal-topics-title {
+  margin: 0 0 8px;
+  font-weight: 950;
+  color: #111;
+}
+
+.modal-topics-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modal-topic-pill {
+  padding: 0.38rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #111;
+}
+
+.modal-sample,
+.modal-description,
+.modal-extra,
+.modal-achievement {
+  margin-top: 0.85rem;
+  color: #222;
+  line-height: 1.7;
+}
+
+.modal-achievement {
+  font-weight: 950;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(167, 245, 237, 0.25);
+}
+
+/* Modal action button (missing in new CSS) */
+.modal-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  margin-top: 14px;
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.85rem 1.05rem;
+  border-radius: 999px;
+  font-weight: 950;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.modal-btn.primary {
+  color: #111;
+  background: linear-gradient(90deg, var(--lumino-sun), rgba(255, 222, 89, 0.85));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+  filter: saturate(1.05);
 }
