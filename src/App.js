@@ -21,6 +21,7 @@ import FlameChatBot from "./components/LuminoFlameBot";
 import About from "./pages/About"; // /our-story
 import Programs from "./pages/Programs"; // /programs
 import Tuition from "./pages/Tuition"; // /tuition
+import LuminoPro from "./pages/LuminoPro"; // /luminopro
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/our-story" element={<About />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/tuition" element={<Tuition />} />
+            <Route path="/luminopro" element={<LuminoPro />} />
 
             {/* Legacy pages */}
             <Route path="/stem" element={<Stem />} />

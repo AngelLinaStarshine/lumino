@@ -72,6 +72,14 @@ export default function Navbar() {
           Plans &amp; Tuition
         </NavLink>
 
+        <NavLink
+          to="/luminopro"
+          className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
+          onClick={closeMenu}
+        >
+          LuminoPro
+        </NavLink>
+
         {/* My Space (cookie-based) */}
         <NavLink to="/account" className="nav-item" onClick={handleMySpaceClick}>
           My Space

@@ -13,7 +13,7 @@ function PersonalAccount() {
     return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
   }, []);
 
-  const [expanded, setExpanded] = useState("overview");
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   // ✅ Student Links (from YOUR DB: public.student_links)
   const [studentLinks, setStudentLinks] = useState(null);
@@ -45,10 +45,6 @@ function PersonalAccount() {
     document.body.appendChild(script);
     return () => document.body.removeChild(script);
   }, []);
-
-  const toggleSection = (section) => {
-    setExpanded((prev) => (prev === section ? null : section));
-  };
 
   // ✅ Safe progress summary
   const progressSummary = useMemo(() => {
@@ -239,9 +235,10 @@ function PersonalAccount() {
 
   const fullName = user.full_name || "LuminoLearn Family";
   const subscription = user.subscription || "No active subscription yet";
-  const paymentCount = Array.isArray(user.paymentHistory)
-    ? user.paymentHistory.length
-    : 0;
+  const paymentHistory = Array.isArray(user.paymentHistory)
+    ? user.paymentHistory
+    : [];
+  const paymentCount = paymentHistory.length;
 
   const hasGC = !!studentLinks?.google_classroom_url;
   const hasMeet = !!studentLinks?.class_meeting_url;
@@ -286,27 +283,130 @@ function PersonalAccount() {
         </div>
       </section>
 
-      {/* Main layout */}
-      <div className="account-grid">
-        {/* LEFT */}
-        <div className="account-column">
-          {/* My Information */}
-          <section className="account-card">
+      {/* LMS-style shell with sidebar navigation */}
+      <div className="account-shell">
+        <aside className="account-sidebar">
+          <p className="account-nav-title">My space</p>
+          <div className="account-nav-list">
             <button
-              onClick={() => toggleSection("info")}
-              className="account-section-header"
               type="button"
+              className={`account-nav-item ${
+                activeTab === "dashboard" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("dashboard")}
             >
-              <div>
-                <span className="section-icon">👤</span>
-                <span className="section-title">My Information</span>
-              </div>
-              <span className="section-toggle-indicator">
-                {expanded === "info" ? "−" : "+"}
-              </span>
+              Overview
             </button>
+            <button
+              type="button"
+              className={`account-nav-item ${
+                activeTab === "info" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("info")}
+            >
+              My information
+            </button>
+            <button
+              type="button"
+              className={`account-nav-item ${
+                activeTab === "classes" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("classes")}
+            >
+              Classes & links
+            </button>
+            <button
+              type="button"
+              className={`account-nav-item ${
+                activeTab === "progress" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("progress")}
+            >
+              Progress
+            </button>
+            <button
+              type="button"
+              className={`account-nav-item ${
+                activeTab === "work" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("work")}
+            >
+              Uploads & work
+            </button>
+            <button
+              type="button"
+              className={`account-nav-item ${
+                activeTab === "payments" ? "is-active" : ""
+              }`}
+              onClick={() => setActiveTab("payments")}
+            >
+              Payments
+            </button>
+          </div>
+        </aside>
 
-            {expanded === "info" && (
+        <main className="account-main">
+          {activeTab === "dashboard" && (
+            <div className="account-column">
+              <section className="account-card">
+                <div className="account-section-header">
+                  <div>
+                    <span className="section-icon">📊</span>
+                    <span className="section-title">Quick snapshot</span>
+                  </div>
+                </div>
+                <div className="account-section-body">
+                  {progressReport ? (
+                    <>
+                      <div className="progress-summary">
+                        <div className="progress-chip">
+                          <span className="progress-label">Overall</span>
+                          <span className="progress-value">
+                            {progressSummary?.overallStatus || "—"}
+                          </span>
+                        </div>
+                        <div className="progress-chip">
+                          <span className="progress-label">Attendance</span>
+                          <span className="progress-value">
+                            {progressSummary?.attendancePct || "—"}
+                          </span>
+                        </div>
+                        <div className="progress-chip">
+                          <span className="progress-label">GPA</span>
+                          <span className="progress-value">
+                            {progressSummary?.gpa || "—"}
+                          </span>
+                        </div>
+                        <div className="progress-chip">
+                          <span className="progress-label">Updated</span>
+                          <span className="progress-value">
+                            {progressSummary?.lastUpdated || "—"}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="account-hint">
+                        This is a summary view. Open the{" "}
+                        <strong>Progress</strong> tab for course-level details.
+                      </p>
+                    </>
+                  ) : loadingProgress ? (
+                    <p>Loading progress summary…</p>
+                  ) : (
+                    <p>No progress report is available yet.</p>
+                  )}
+                </div>
+              </section>
+            </div>
+          )}
+
+          {activeTab === "info" && (
+            <section className="account-card">
+              <div className="account-section-header">
+                <div>
+                  <span className="section-icon">👤</span>
+                  <span className="section-title">My information</span>
+                </div>
+              </div>
               <div className="account-section-body">
                 <p>
                   <strong>Name:</strong> {fullName}
@@ -324,30 +424,21 @@ function PersonalAccount() {
                 <hr className="account-divider" />
 
                 <p className="account-hint">
-                  Tip: Your teacher can add your Google Classroom + meeting link
-                  directly to your account.
+                  If any of this information is incorrect, please contact the
+                  LuminoLearn team so we can update it on your behalf.
                 </p>
               </div>
-            )}
-          </section>
+            </section>
+          )}
 
-          {/* ✅ Class Links (DB-backed) */}
-          <section className="account-card">
-            <button
-              onClick={() => toggleSection("classes")}
-              className="account-section-header"
-              type="button"
-            >
-              <div>
-                <span className="section-icon">🏫</span>
-                <span className="section-title">Class Links</span>
+          {activeTab === "classes" && (
+            <section className="account-card">
+              <div className="account-section-header">
+                <div>
+                  <span className="section-icon">🏫</span>
+                  <span className="section-title">Classes & links</span>
+                </div>
               </div>
-              <span className="section-toggle-indicator">
-                {expanded === "classes" ? "−" : "+"}
-              </span>
-            </button>
-
-            {expanded === "classes" && (
               <div className="account-section-body">
                 {loadingLinks ? (
                   <p>Loading your links…</p>
@@ -377,7 +468,7 @@ function PersonalAccount() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Join Class Meeting ↗
+                        Join class meeting ↗
                       </a>
                     ) : (
                       <p>No class meeting link yet.</p>
@@ -386,27 +477,27 @@ function PersonalAccount() {
                 ) : (
                   <p>No links found yet.</p>
                 )}
-              </div>
-            )}
-          </section>
 
-          {/* Progress Report */}
-          <section className="account-card">
-            <button
-              onClick={() => toggleSection("progress")}
-              className="account-section-header"
-              type="button"
-            >
-              <div>
-                <span className="section-icon">📈</span>
-                <span className="section-title">Progress Report & Review</span>
-              </div>
-              <span className="section-toggle-indicator">
-                {expanded === "progress" ? "−" : "+"}
-              </span>
-            </button>
+                <hr className="account-divider" />
 
-            {expanded === "progress" && (
+                <p className="account-hint">
+                  These links are managed by your teacher or program lead. If
+                  anything looks out of date, please let us know.
+                </p>
+              </div>
+            </section>
+          )}
+
+          {activeTab === "progress" && (
+            <section className="account-card">
+              <div className="account-section-header">
+                <div>
+                  <span className="section-icon">📈</span>
+                  <span className="section-title">
+                    Progress report & review
+                  </span>
+                </div>
+              </div>
               <div className="account-section-body">
                 {loadingProgress ? (
                   <p>Loading progress report…</p>
@@ -480,29 +571,17 @@ function PersonalAccount() {
                   <p>No progress report found yet.</p>
                 )}
               </div>
-            )}
-          </section>
-        </div>
+            </section>
+          )}
 
-        {/* RIGHT */}
-        <div className="account-column">
-          {/* Upload Work */}
-          <section className="account-card">
-            <button
-              onClick={() => toggleSection("upload")}
-              className="account-section-header"
-              type="button"
-            >
-              <div>
-                <span className="section-icon">📤</span>
-                <span className="section-title">Upload Student Work</span>
+          {activeTab === "work" && (
+            <section className="account-card">
+              <div className="account-section-header">
+                <div>
+                  <span className="section-icon">📤</span>
+                  <span className="section-title">Upload student work</span>
+                </div>
               </div>
-              <span className="section-toggle-indicator">
-                {expanded === "upload" ? "−" : "+"}
-              </span>
-            </button>
-
-            {expanded === "upload" && (
               <div className="account-section-body">
                 <form className="upload-form" onSubmit={handleUpload}>
                   <label className="upload-label">
@@ -550,7 +629,7 @@ function PersonalAccount() {
 
                 <hr className="account-divider" />
 
-                <h3 className="mini-title">Previous Submissions</h3>
+                <h3 className="mini-title">Previous submissions</h3>
 
                 {loadingSubs ? (
                   <p>Loading submissions…</p>
@@ -583,9 +662,62 @@ function PersonalAccount() {
                   <p>No submissions yet.</p>
                 )}
               </div>
-            )}
-          </section>
-        </div>
+            </section>
+          )}
+
+          {activeTab === "payments" && (
+            <section className="account-card">
+              <div className="account-section-header">
+                <div>
+                  <span className="section-icon">💳</span>
+                  <span className="section-title">Payments & billing</span>
+                </div>
+              </div>
+              <div className="account-section-body">
+                {paymentHistory.length > 0 ? (
+                  <ul className="payment-list">
+                    {paymentHistory.map((p, idx) => {
+                      const status = (p.status || "pending").toLowerCase();
+                      const statusClass =
+                        status === "paid"
+                          ? "payment-status-paid"
+                          : status === "failed"
+                          ? "payment-status-failed"
+                          : "payment-status-pending";
+                      return (
+                        <li
+                          key={p.id || idx}
+                          className="payment-list-item"
+                        >
+                          <span className="payment-date">
+                            {p.date || p.createdAt || "—"}
+                          </span>
+                          <span className="payment-amount">
+                            {p.amount || p.total || "—"}
+                          </span>
+                          <span
+                            className={`payment-status ${statusClass}`}
+                          >
+                            {p.status || "Pending"}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p>No payments recorded yet.</p>
+                )}
+
+                <hr className="account-divider" />
+
+                <p className="account-hint">
+                  For any billing questions or receipt copies, please reach out
+                  to us by email and we&apos;ll be happy to help.
+                </p>
+              </div>
+            </section>
+          )}
+        </main>
       </div>
     </div>
   );

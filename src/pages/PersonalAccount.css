@@ -98,9 +98,68 @@
 /* =========================
    GRID LAYOUT
    ========================= */
-.account-grid {
+/* New shell for LMS-style layout */
+.account-shell {
   display: grid;
   gap: 1.4rem;
+  grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+  align-items: flex-start;
+}
+
+.account-sidebar {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  position: sticky;
+  top: 1rem;
+}
+
+.account-nav-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  opacity: 0.7;
+  margin: 0 0 0.4rem 0;
+}
+
+.account-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.account-nav-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+
+.account-nav-item:hover {
+  background: rgba(204, 181, 249, 0.18);
+  color: #111827;
+}
+
+.account-nav-item.is-active {
+  background: rgba(125, 207, 182, 0.24);
+  color: #0f172a;
+  transform: translateX(1px);
+}
+
+.account-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
 }
 
 .account-column {
@@ -109,10 +168,27 @@
   gap: 1.1rem;
 }
 
-@media (min-width: 900px) {
-  .account-grid {
-    grid-template-columns: 1.05fr 1fr;
-    align-items: start;
+@media (max-width: 900px) {
+  .account-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .account-sidebar {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .account-nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .account-nav-item {
+    flex: 1 1 auto;
+    text-align: center;
   }
 }
 

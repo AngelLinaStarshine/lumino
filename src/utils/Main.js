@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -22,64 +22,41 @@ import starImg from '../assets/star.svg';
 
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
 const headings = [
-  'Class syllabus',
-  'Lesson notes and presentations',
-  'Collaboration board',
-  'Assignments and due dates',
-  'Study guides and review materials',
-  'Collaboration board'
+  'Class home base',
+  'Lesson slides & replays',
+  'Shared space for ideas',
+  'Assignments at a glance',
+  'Gentle review before tests',
+  'Projects we are proud of'
 ];
+
 const descriptions = [
-  'A clear roadmap of learning goals and timelines to keep students and parents informed.',
-  'Accessible and well-organized lesson content to reinforce classroom instruction.',
-  'Interactive space for peer discussion, feedback, and collaborative learning.',
-  'Track assignments, deadlines, and submissions all in one place.',
-  'Targeted resources to support test preparation and concept mastery.',
-  'Foster meaningful collaboration through shared projects and group activities.'
+  'A simple place to see what we are working on this week and what is coming next.',
+  'Key lesson moments, slides, and notes your child can revisit in their own time.',
+  'A calm corner for questions, reflections, and little “aha” moments to be shared.',
+  'Assignments and due dates laid out clearly so nothing feels like a surprise.',
+  'Light-touch practice and review so your child feels ready, not rushed.',
+  'A gallery of small wins and projects that celebrate real progress.'
 ];
 
 function Main() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const text = 'LuminoLearn Academy';
-    const element = document.getElementById('typed-brand');
-    let index = 0;
-    let interval;
-
-    const type = () => {
-      if (!element) return;
-      element.textContent = '';
-      index = 0;
-      interval = setInterval(() => {
-        element.textContent += text.charAt(index);
-        index++;
-        if (index === text.length) {
-          clearInterval(interval);
-          setTimeout(type, 4000);
-        }
-      }, 150);
-    };
-
-    type();
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="App">
       <div className="welcome-section" style={{ position: 'relative' }}>
         <h1 className="welcome-heading text-4xl md:text-5xl font-extrabold text-gray-800 leading-snug mb-6">
-          <br />
-          <span id="typed-brand" className="brand-name highlight text-indigo-700"></span>
+          <span className="brand-name highlight text-indigo-700">
+            LuminoLearn Academy
+          </span>
         </h1>
 
         <p className="welcome-subtext text-lg md:text-xl text-gray-800 leading-relaxed mb-2">
-          We don’t just teach — we craft futures.
+          A warm, small-group space where curious kids build skills, confidence, and calm.
         </p>
 
         <p className="welcome-tagline text-3xl italic text-gray-700 animate-fadeIn delay-200">
-          Fueling Wonder. Empowering Minds.
+          Real teachers. Real connection. Screen-light, human-first learning.
         </p>
       </div>
 
