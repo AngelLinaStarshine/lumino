@@ -1,6 +1,7 @@
 // src/pages/About.js
 import React from "react";
 import "./About.css";
+import AboutImage from "../assets/About.svg";
 
 export default function About() {
   return (
@@ -32,6 +33,11 @@ export default function About() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Lumino image – below Our Story text, no text overlaid */}
+      <section className="about-image-section">
+        <img src={AboutImage} alt="LuminoLearn" className="about-story-image" />
       </section>
 
       {/* =========================

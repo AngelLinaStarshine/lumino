@@ -16,7 +16,7 @@ export default function Navbar() {
     e.preventDefault();
     if (authLoading) return; // prevent bounce while auth is loading
 
-    if (user) navigate("/account");
+    if (user) navigate("/lms"); // Lumino LMS (role-based: teacher or student)
     else navigate("/login");
 
     closeMenu();
@@ -39,12 +39,14 @@ export default function Navbar() {
       </div>
 
       <button
-        className="hamburger"
+        className={`hamburger ${menuOpen ? "is-open" : ""}`}
         onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle navigation"
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
       >
-        ☰
+        <span className="hamburger-icon" aria-hidden="true">
+          {menuOpen ? "×" : "☰"}
+        </span>
       </button>
 
       <div className={`nav-links ${menuOpen ? "open" : ""}`}>

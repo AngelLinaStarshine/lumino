@@ -95,6 +95,63 @@
   color: #111827;
 }
 
+/* Overview course-specific */
+.account-course-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(217, 184, 243, 0.35), rgba(125, 207, 182, 0.3));
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.account-overview-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.account-overview-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.account-overview-stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.account-overview-stat-value {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.account-inline-link {
+  background: none;
+  border: none;
+  color: #7c3aed;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.account-inline-link:hover {
+  color: #5b21b6;
+}
+
 /* =========================
    GRID LAYOUT
    ========================= */

@@ -1,0 +1,302 @@
+/* ============================================================
+   MAIN PAGE - User-friendly & Tech Progressive
+   Lumino brand: #7dcfb6, #d9b8f3, #ffde59, #f97316
+   ============================================================ */
+
+/* Hero - Clean, welcoming */
+.main-hero {
+  position: relative;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.main-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 100% 80% at 50% -20%, rgba(217, 184, 243, 0.18), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 80% 80%, rgba(125, 207, 182, 0.12), transparent 50%);
+  pointer-events: none;
+}
+
+.main-hero-inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.main-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(125, 207, 182, 0.25);
+  border: 1px solid rgba(125, 207, 182, 0.4);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.main-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
+  animation: slideUp 0.6s ease-out;
+}
+
+.main-hero h1 .main-hero-brand {
+  background: linear-gradient(135deg, #f97316, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-hero-lead {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.65;
+  color: #334155;
+  margin: 0 0 1.5rem 0;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.main-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  animation: fadeIn 0.8s ease-out 0.3s both;
+}
+
+.main-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+
+.main-hero-btn.primary {
+  background: linear-gradient(135deg, #ffde59, #ff9a3d);
+  color: #0f172a;
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25);
+}
+
+.main-hero-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.3);
+}
+
+.main-hero-btn.secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.main-hero-btn.secondary:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Value props - Bento-style grid */
+.main-value-section {
+  padding: 3rem 1.5rem 4rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(249, 250, 251, 0.8) 100%);
+}
+
+.main-value-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.main-value-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+}
+
+.main-value-sub {
+  text-align: center;
+  color: #64748b;
+  font-size: 1rem;
+  margin: 0 0 2rem 0;
+}
+
+.main-value-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .main-value-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.main-value-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.main-value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.main-value-card-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.main-value-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+  color: #0f172a;
+}
+
+.main-value-card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Learning paths CTA block */
+.main-lp-block {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(217, 184, 243, 0.12), rgba(125, 207, 182, 0.1));
+  border-radius: 24px;
+  margin: 0 1.5rem 3rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(217, 184, 243, 0.25);
+}
+
+.main-lp-block .about-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7c3aed;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.main-lp-block .about-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  margin-bottom: 1rem;
+}
+
+.main-lp-block .courses-intro {
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #475569;
+}
+
+.main-lp-block .home-cta {
+  padding: 0.9rem 1.75rem;
+  font-size: 1rem;
+}
+
+/* Carousel - full width */
+.main-carousel-wrap {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 3rem 0;
+  padding: 0;
+}
+
+.main-carousel-wrap .essentials-carousel {
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.main-carousel-wrap .swiper-slide {
+  min-height: 220px;
+}
+
+@media (min-width: 768px) {
+  .main-carousel-wrap .swiper-slide {
+    min-height: 260px;
+  }
+}
+
+/* Images section - cleaner */
+.main-images-section {
+  padding: 2rem 1.5rem 3rem;
+}
+
+.main-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.main-images-section .main-images-grid img,
+.main-images-section .skills-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.main-images-section .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.main-images-grid img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Contact - tighter */
+.main-contact-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

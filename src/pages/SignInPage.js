@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import "../pages/sign.css";
 import { AuthContext } from "../auth/AuthContext";
@@ -9,9 +9,9 @@ const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  // ✅ Use API_BASE from AuthContext (single source of truth)
-  const { refreshAuth, API_BASE } = useContext(AuthContext);
+  const { setUserFromLogin, API_BASE } = useContext(AuthContext);
 
   const isValidEmail = (value) => /\S+@\S+\.\S+/.test(value);
 
@@ -19,8 +19,9 @@ const SignInPage = () => {
     e.preventDefault();
 
     const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
 
-    if (!cleanEmail || !password) {
+    if (!cleanEmail || !cleanPassword) {
       Swal.fire("Error", "Both fields are required.", "error");
       return;
     }
@@ -37,14 +38,15 @@ const SignInPage = () => {
     try {
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
-        credentials: "include", // cookie optional; keep it
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: cleanEmail, password }),
+        body: JSON.stringify({
+          email: cleanEmail,
+          password: cleanPassword,
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
-      console.log("LOGIN RESPONSE:", data);
-
 
       if (!res.ok) {
         Swal.fire(
@@ -55,22 +57,22 @@ const SignInPage = () => {
         return;
       }
 
-      // ✅ Store JWT token fallback (works even when cookies fail)
       if (data?.token) {
         sessionStorage.setItem("ll_token", data.token);
       } else {
-        // If token missing, still clear any old token
         sessionStorage.removeItem("ll_token");
       }
 
-      // ✅ update AuthContext from /me (AuthContext will use Bearer token)
-      await refreshAuth();
+      setUserFromLogin(data?.user || null);
 
       await Swal.fire("Success", "You are logged in.", "success");
 
-      // ✅ strongest navigation with HashRouter
-      window.location.assign(`${window.location.origin}/#/account`);
+      const role = (data?.user?.role || "").toLowerCase();
+      const targetPath =
+        role === "teacher" || role === "admin" ? "/teacher" : "/account";
+      navigate(targetPath, { replace: true });
     } catch (error) {
+      console.error("LOGIN ERROR:", error);
       Swal.fire(
         "Server Error",
         "Unable to reach the server. Please try again later.",

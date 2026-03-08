@@ -94,6 +94,21 @@ body {
   animation: aboutGlowDrift 10s ease-in-out infinite;
 }
 
+/* Lumino image – below Our Story text */
+.about-image-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.about-story-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
 /* Band 2: white */
 .about-band.band-white {
   background: #fff;

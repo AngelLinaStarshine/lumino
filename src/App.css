@@ -1254,62 +1254,133 @@ body {
 }
 
 /* ============================= */
-/* BEYOND SECTION                */
+/* BEYOND SECTION – Vision, Mission, Values (high-tech, interactive) */
 /* ============================= */
 
-.beyond-section {
+.beyond-section.beyond-vmv {
+  padding: 3rem 1.5rem 4rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(217, 184, 243, 0.1) 50%, rgba(125, 207, 182, 0.08) 100%);
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
 
-.beyond-wrapper {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 40px;
+.beyond-section.beyond-vmv::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
-.beyond-image {
-  max-width: 820px;
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+.beyond-vmv-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.beyond-column {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+.beyond-vmv-title {
+  text-align: center;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  margin: 0 0 2rem 0;
+  color: #0f172a;
 }
 
-.beyond-thumb {
-  max-width: 560px;
-  width: 100%;
-  border-radius: 10px;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-.beyond-thumb:hover {
-  transform: scale(1.03);
-}
-
-.beyond-grid {
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  flex-wrap: wrap;
-  margin-top: 40px;
+/* 3 blocks – glassmorphism, glow, interactive */
+.beyond-vmv-canvas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  perspective: 1000px;
 }
 
 @media (max-width: 768px) {
-  .beyond-image {
-    width: 90%;
-    max-width: 400px;
+  .beyond-vmv-canvas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.beyond-vmv-block {
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem 1.5rem;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.beyond-vmv-block:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.beyond-vmv-left {
+  background: linear-gradient(135deg, #d9b8f3, #ccb5f9);
+  color: #1e1b4b;
+  box-shadow: 0 8px 32px rgba(217, 184, 243, 0.35);
+}
+
+.beyond-vmv-left:hover {
+  box-shadow: 0 20px 48px rgba(217, 184, 243, 0.45);
+}
+
+.beyond-vmv-center {
+  background: linear-gradient(135deg, #7dcfb6, #5bb8a0);
+  color: #0f172a;
+  box-shadow: 0 8px 32px rgba(125, 207, 182, 0.35);
+}
+
+.beyond-vmv-center:hover {
+  box-shadow: 0 20px 48px rgba(125, 207, 182, 0.45);
+}
+
+.beyond-vmv-right {
+  background: linear-gradient(135deg, #ffde59, #ff9a3d);
+  color: #1e1b4b;
+  box-shadow: 0 8px 32px rgba(255, 222, 89, 0.35);
+}
+
+.beyond-vmv-right:hover {
+  box-shadow: 0 20px 48px rgba(249, 115, 22, 0.4);
+}
+
+.beyond-vmv-content {
+  position: relative;
+  z-index: 1;
+}
+
+.beyond-vmv-content h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 0.6rem 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.beyond-vmv-content p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+  .beyond-section.beyond-vmv {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .beyond-vmv-block {
+    min-height: 200px;
   }
 }
 
@@ -1453,7 +1524,7 @@ body {
   --accent-2: #ff9a3d;
 
   position: relative;
-  padding: clamp(1.25rem, 2vw, 2rem);
+  padding: clamp(1.25rem, 2vw, 2rem) clamp(1.25rem, 2vw, 2rem) clamp(2.5rem, 4vw, 4rem);
   border-radius: 16px;
   background: radial-gradient(
       1200px 400px at -20% -60%,
@@ -1464,7 +1535,7 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   text-align: center;
-  margin-bottom: 2.75rem; /* extra space so phone line never feels covered by footer */
+  margin-bottom: 3.5rem; /* extra space so phone is never covered by footer */
 }
 
 .contact-section::before,
@@ -1534,9 +1605,16 @@ body {
 }
 
 .contact-img {
-  width: 520px;
-  height: 520px;
+  max-width: 320px;
+  width: 100%;
+  height: auto;
   object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .contact-img {
+    max-width: 400px;
+  }
 }
 
 .contact-details {

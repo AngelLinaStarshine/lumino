@@ -3,19 +3,22 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const pool = require("./db");
 
 const app = express();
 
 /* =========================
-   DB
+   Startup check
 ========================= */
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+pool
+  .query("SELECT NOW()")
+  .then(() => console.log("✅ Database connected"))
+  .catch((err) => console.error("❌ Database connection error:", err.message));
 
 /* =========================
    CORS
@@ -26,14 +29,13 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5000",
   "http://localhost:5001",
+  "http://localhost:5002",
 ];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (curl, Postman)
     if (!origin) return callback(null, true);
 
-    // ✅ Allow ALL localhost ports in development
     if (
       process.env.NODE_ENV !== "production" &&
       origin.startsWith("http://localhost:")
@@ -41,12 +43,10 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    // ✅ Allow known production origins
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    // ❌ Block everything else
     return callback(new Error("CORS blocked: " + origin));
   },
   credentials: true,
@@ -59,7 +59,6 @@ const corsOptions = {
 ========================= */
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -72,7 +71,6 @@ function getCookieOptions() {
   const secure =
     (process.env.COOKIE_SECURE ?? (isProd ? "true" : "false")) === "true";
 
-  // ✅ With Netlify /api proxy, cookie is first-party → lax is correct
   const sameSite = (process.env.COOKIE_SAMESITE || "lax").toLowerCase();
 
   return { secure, sameSite };
@@ -85,13 +83,13 @@ function setSessionCookie(res, token) {
     httpOnly: true,
     secure,
     sameSite,
-    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    maxAge: 1000 * 60 * 60 * 24 * 7,
     path: "/",
   });
 }
 
 /* =========================
-   Auth middleware (cookie OR bearer)
+   Auth middleware
 ========================= */
 function requireAuth(req, res, next) {
   try {
@@ -120,6 +118,14 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+function requireTeacher(req, res, next) {
+  const role = req.user?.role;
+  if (role !== "teacher" && role !== "admin") {
+    return res.status(403).json({ error: "Teacher or admin access required" });
+  }
+  next();
+}
+
 /* =========================
    Debug cookie route
 ========================= */
@@ -132,17 +138,15 @@ app.get("/api/debug-cookie", (req, res) => {
 });
 
 /* =========================
-   Static uploads folder (local storage)
-   NOTE: On Render, local disk may reset on deploy/restart.
+   Static uploads
 ========================= */
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
-// Serve uploaded files
 app.use("/uploads", express.static(uploadDir));
 
 /* =========================
-   Multer (file upload)
+   Multer
 ========================= */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
@@ -154,80 +158,81 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
+  limits: { fileSize: 15 * 1024 * 1024 },
 });
 
 /* =========================
-   Routes: Student Links
+   Student links routes
 ========================= */
 const studentLinksRoutes = require("./routes/studentLinks")(pool);
 app.use("/api/student-links", studentLinksRoutes);
 
 /* =========================
-   Routes: Submissions (UPLOAD + LIST)
-   Frontend uses:
-   - POST /api/submissions/upload
-   - GET  /api/submissions/:email
+   Submissions
 ========================= */
+app.post(
+  "/api/submissions/upload",
+  requireAuth,
+  upload.single("file"),
+  async (req, res) => {
+    try {
+      const { email, title, note } = req.body;
 
-// Upload student work
-app.post("/api/submissions/upload", requireAuth, upload.single("file"), async (req, res) => {
-  try {
-    const { email, title, note } = req.body;
+      if (!email || !title) {
+        return res.status(400).json({ error: "Missing email or title." });
+      }
 
-    if (!email || !title) {
-      return res.status(400).json({ error: "Missing email or title." });
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded." });
+      }
+
+      const requesterEmail = String(req.user?.email || "").toLowerCase();
+      const targetEmail = String(email || "").toLowerCase();
+
+      if (req.user?.role !== "admin" && requesterEmail !== targetEmail) {
+        return res
+          .status(403)
+          .json({ error: "You can only upload for your own account." });
+      }
+
+      const storageKey = req.file.filename;
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const fileUrl = `${baseUrl}/uploads/${storageKey}`;
+
+      const result = await pool.query(
+        `INSERT INTO public.student_submissions
+         (student_email, title, note, file_name, file_type, file_size, storage_key, file_url, status)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'Pending')
+         RETURNING *`,
+        [
+          targetEmail,
+          title.trim(),
+          note?.trim() || null,
+          req.file.originalname,
+          req.file.mimetype,
+          req.file.size,
+          storageKey,
+          fileUrl,
+        ]
+      );
+
+      return res.json({ submission: result.rows[0] });
+    } catch (err) {
+      console.error("UPLOAD ERROR:", err);
+      return res.status(500).json({ error: "Upload failed." });
     }
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded." });
-    }
-
-    // ✅ Security: student can only upload for their own email (unless admin)
-    const requesterEmail = String(req.user?.email || "").toLowerCase();
-    const targetEmail = String(email || "").toLowerCase();
-    if (req.user?.role !== "admin" && requesterEmail !== targetEmail) {
-      return res.status(403).json({ error: "You can only upload for your own account." });
-    }
-
-    const storageKey = req.file.filename;
-
-    // Build a URL
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-    const fileUrl = `${baseUrl}/uploads/${storageKey}`;
-
-    const result = await pool.query(
-      `INSERT INTO public.student_submissions
-       (student_email, title, note, file_name, file_type, file_size, storage_key, file_url, status)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'Pending')
-       RETURNING *`,
-      [
-        targetEmail,
-        title.trim(),
-        note?.trim() || null,
-        req.file.originalname,
-        req.file.mimetype,
-        req.file.size,
-        storageKey,
-        fileUrl,
-      ]
-    );
-
-    return res.json({ submission: result.rows[0] });
-  } catch (err) {
-    console.error("UPLOAD ERROR:", err);
-    return res.status(500).json({ error: "Upload failed." });
   }
-});
+);
 
-// List student submissions
 app.get("/api/submissions/:email", requireAuth, async (req, res) => {
   try {
     const targetEmail = String(req.params.email || "").toLowerCase();
-
-    // ✅ Security: student can only view their own (unless admin)
     const requesterEmail = String(req.user?.email || "").toLowerCase();
+
     if (req.user?.role !== "admin" && requesterEmail !== targetEmail) {
-      return res.status(403).json({ error: "You can only view your own submissions." });
+      return res
+        .status(403)
+        .json({ error: "You can only view your own submissions." });
     }
 
     const r = await pool.query(
@@ -251,32 +256,50 @@ app.get("/api/submissions/:email", requireAuth, async (req, res) => {
 ========================= */
 app.get("/health", (req, res) => res.json({ ok: true }));
 app.get("/api/health", (req, res) => res.json({ ok: true }));
+app.get("/ping", (req, res) => res.send("backend works"));
 
 /* =========================
-   AUTH ROUTES
+   Auth
 ========================= */
-
-// LOGIN (returns token)
 app.post("/api/auth/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = String(req.body.email || "").toLowerCase().trim();
+    const password = String(req.body.password || "").trim();
+
+    console.log("LOGIN ATTEMPT EMAIL:", email);
+    console.log("JWT_SECRET EXISTS:", !!process.env.JWT_SECRET);
 
     const r = await pool.query(
-      "SELECT id,email,role,status,password_hash FROM users WHERE email=$1 LIMIT 1",
-      [String(email || "").toLowerCase()]
+      "SELECT id, full_name, email, role, status, password_hash FROM users WHERE email=$1 LIMIT 1",
+      [email]
     );
 
+    console.log("USER QUERY ROWS:", r.rows.length);
+
     if (!r.rows.length) {
+      console.log("NO USER FOUND");
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = r.rows[0];
 
+    console.log("USER FOUND:", {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      status: user.status,
+      hasPasswordHash: !!user.password_hash,
+      passwordHashPreview: user.password_hash?.slice(0, 10) || null,
+    });
+
     if (user.status !== "active") {
+      console.log("USER NOT ACTIVE");
       return res.status(403).json({ error: "Account not active" });
     }
 
     const ok = await bcrypt.compare(password, user.password_hash || "");
+    console.log("PASSWORD MATCH:", ok);
+
     if (!ok) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
@@ -287,49 +310,143 @@ app.post("/api/auth/login", async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
     );
 
+    console.log("TOKEN CREATED");
+
     setSessionCookie(res, token);
     res.setHeader("Cache-Control", "no-store");
 
     return res.json({
       ok: true,
       token,
-      user: { id: user.id, email: user.email, role: user.role },
+      user: { id: user.id, full_name: user.full_name, email: user.email, role: user.role },
     });
   } catch (e) {
-    console.error("LOGIN ERROR:", e);
+    console.error("LOGIN ERROR FULL:", e);
     return res.status(500).json({ error: "Server error" });
   }
 });
 
-// ME
 app.get("/api/auth/me", requireAuth, async (req, res) => {
   try {
     const r = await pool.query(
-      "SELECT id, full_name, email, role, status FROM users WHERE id=$1 LIMIT 1",
+      "SELECT id, full_name, email, role, status FROM users WHERE id = $1 LIMIT 1",
       [req.user.id]
     );
-
     return res.json({ user: r.rows[0] || null });
   } catch (e) {
-    console.error("ME ERROR:", e);
+    console.error("AUTH ME ERROR:", e);
     return res.status(500).json({ error: "Server error" });
   }
 });
 
-// LOGOUT
-app.post("/api/auth/logout", (req, res) => {
-  const { secure, sameSite } = getCookieOptions();
-
-  res.clearCookie("ll_session", {
-    path: "/",
-    secure,
-    sameSite,
-  });
-
-  return res.json({ ok: true });
+/* =========================
+   Teacher LMS API (teacher or admin only)
+========================= */
+app.get("/api/teacher/students", requireAuth, requireTeacher, async (req, res) => {
+  try {
+    const r = await pool.query(
+      `SELECT id, full_name, email, status, created_at FROM users WHERE role = 'student' ORDER BY full_name ASC NULLS LAST, email ASC`
+    );
+    return res.json({ students: r.rows });
+  } catch (e) {
+    console.error("TEACHER STUDENTS ERROR:", e);
+    return res.status(500).json({ error: "Failed to load students" });
+  }
 });
 
-// ADMIN: create user
+app.get("/api/teacher/student-links", requireAuth, requireTeacher, async (req, res) => {
+  try {
+    const r = await pool.query(
+      `SELECT student_email, google_classroom_url, class_meeting_url, updated_at FROM public.student_links ORDER BY updated_at DESC NULLS LAST`
+    );
+    return res.json({ links: r.rows });
+  } catch (e) {
+    console.error("TEACHER STUDENT-LINKS ERROR:", e);
+    return res.status(500).json({ error: "Failed to load student links" });
+  }
+});
+
+app.post("/api/teacher/student-links/upsert", requireAuth, requireTeacher, async (req, res) => {
+  try {
+    const { student_email, google_classroom_url, class_meeting_url } = req.body;
+    if (!student_email) return res.status(400).json({ error: "student_email is required" });
+    const email = String(student_email).toLowerCase();
+    const result = await pool.query(
+      `INSERT INTO public.student_links (student_email, google_classroom_url, class_meeting_url)
+       VALUES ($1, $2, $3) ON CONFLICT (student_email)
+       DO UPDATE SET google_classroom_url = EXCLUDED.google_classroom_url,
+         class_meeting_url = EXCLUDED.class_meeting_url, updated_at = NOW()
+       RETURNING student_email, google_classroom_url, class_meeting_url, updated_at`,
+      [email, google_classroom_url || null, class_meeting_url || null]
+    );
+    return res.json({ ok: true, row: result.rows[0] });
+  } catch (e) {
+    console.error("TEACHER UPSERT LINKS ERROR:", e);
+    return res.status(500).json({ error: "Failed to save links" });
+  }
+});
+
+/* =========================
+   Debug routes
+========================= */
+app.get("/api/debug-db-user/:email", async (req, res) => {
+  try {
+    const email = String(req.params.email || "").toLowerCase().trim();
+
+    const r = await pool.query(
+      "SELECT id, full_name, email, role, status, password_hash FROM users WHERE email=$1 LIMIT 1",
+      [email]
+    );
+
+    let dbHost = null;
+    try {
+      dbHost = new URL(process.env.DATABASE_URL).host;
+    } catch {
+      dbHost = "invalid DATABASE_URL";
+    }
+
+    return res.json({
+      dbHost,
+      found: r.rows.length > 0,
+      user: r.rows[0] || null,
+    });
+  } catch (e) {
+    console.error("DEBUG DB USER ERROR:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+app.post("/api/debug-password-check", async (req, res) => {
+  try {
+    const email = String(req.body.email || "").toLowerCase().trim();
+    const password = String(req.body.password || "").trim();
+
+    const r = await pool.query(
+      "SELECT email, status, password_hash FROM users WHERE email=$1 LIMIT 1",
+      [email]
+    );
+
+    if (!r.rows.length) {
+      return res.json({ found: false });
+    }
+
+    const user = r.rows[0];
+    const passwordMatch = await bcrypt.compare(password, user.password_hash || "");
+
+    return res.json({
+      found: true,
+      status: user.status,
+      passwordMatch,
+    });
+  } catch (e) {
+    console.error("DEBUG PASSWORD ERROR:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/* =========================
+   Admin
+========================= */
 app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) => {
   try {
     const { full_name, email, role = "student" } = req.body;
@@ -338,9 +455,12 @@ app.post("/api/admin/create-user", requireAuth, requireAdmin, async (req, res) =
       `INSERT INTO users (full_name, email, role, status)
        VALUES ($1, $2, $3, 'invited')
        ON CONFLICT (email) DO UPDATE
-       SET full_name=EXCLUDED.full_name, role=EXCLUDED.role, status='invited', updated_at=now()
+       SET full_name = EXCLUDED.full_name,
+           role = EXCLUDED.role,
+           status = 'invited',
+           updated_at = now()
        RETURNING id, email, role, status`,
-      [full_name, String(email || "").toLowerCase(), role]
+      [full_name, String(email || "").toLowerCase().trim(), role]
     );
 
     return res.json({ ok: true, user: created.rows[0] });

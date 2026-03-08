@@ -1,0 +1,382 @@
+/* StudentLMS.css – Classroom + Canva style */
+.lms-student {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.lms-student-hero {
+  margin-bottom: 2rem;
+  padding: 1.8rem 1.6rem 2rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #7dcfb6, #d9b8f3);
+  color: #0f172a;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.lms-student-kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 0.35rem 0;
+}
+
+.lms-student-title {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 900;
+}
+
+.lms-student-name {
+  background: linear-gradient(90deg, #ffde59, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lms-student-sub {
+  margin: 0.55rem 0 0 0;
+  font-size: 0.98rem;
+  max-width: 680px;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+.lms-student-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.lms-student-sidebar {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  position: sticky;
+  top: 1rem;
+}
+
+.lms-student-nav-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin: 0 0 0.5rem 0;
+}
+
+.lms-student-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lms-student-nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #334155;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lms-student-nav-item:hover {
+  background: rgba(125, 207, 182, 0.35);
+  color: #0f172a;
+}
+
+.lms-student-nav-item.is-active {
+  background: linear-gradient(135deg, rgba(125, 207, 182, 0.5), rgba(217, 184, 243, 0.3));
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.lms-student-nav-secondary {
+  font-size: 0.88rem;
+  opacity: 0.85;
+}
+
+.lms-student-divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 1rem 0;
+}
+
+.lms-student-main {
+  min-height: 400px;
+}
+
+.lms-student-content {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  padding: 1.5rem 1.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.lms-student-section-title {
+  margin: 0 0 1.2rem 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* Stream – Classroom style */
+.lms-student-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.lms-student-post {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+.lms-student-post-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.lms-student-post-icon {
+  font-size: 1.8rem;
+}
+
+.lms-student-post-meta {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0.2rem 0 0 0;
+}
+
+.lms-student-post-body {
+  margin: 0;
+  line-height: 1.6;
+  color: #334155;
+}
+
+.lms-student-quick-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.lms-student-quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.2rem 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #0f172a;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lms-student-quick-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+}
+
+.lms-student-card-gc {
+  background: linear-gradient(135deg, rgba(125, 207, 182, 0.4), rgba(217, 184, 243, 0.3));
+  border: 1px solid rgba(125, 207, 182, 0.5);
+}
+
+.lms-student-card-meet {
+  background: linear-gradient(135deg, rgba(255, 222, 89, 0.4), rgba(249, 115, 22, 0.2));
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.lms-student-quick-icon {
+  font-size: 2rem;
+}
+
+.lms-student-quick-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.lms-student-quick-sub {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Class grid – Canva card style */
+.lms-student-class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.lms-student-class-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.4rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #0f172a;
+  min-height: 160px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lms-student-class-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+}
+
+.lms-student-class-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.lms-student-class-title {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.lms-student-class-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #64748b;
+  flex-grow: 1;
+}
+
+.lms-student-class-cta {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+/* Upload form */
+.lms-student-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 420px;
+  margin-bottom: 1.5rem;
+}
+
+.lms-student-upload-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.lms-student-upload-form input[type="text"],
+.lms-student-upload-form textarea {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.lms-student-upload-form button {
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(135deg, #7dcfb6, #5bb8a0);
+  color: #0f172a;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lms-student-upload-msg {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.lms-student-sub-heading {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.lms-student-sub-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.lms-student-sub-list li {
+  margin-bottom: 0.5rem;
+}
+
+.lms-student-error {
+  color: #dc2626;
+}
+
+/* Progress tab */
+.lms-student-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.lms-student-progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(135deg, rgba(125, 207, 182, 0.25), rgba(217, 184, 243, 0.2));
+  border-radius: 14px;
+  border: 1px solid rgba(125, 207, 182, 0.4);
+}
+
+.lms-student-progress-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.lms-student-progress-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.lms-student-course-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.lms-student-course-item {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.lms-student-teacher-note {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0.25rem 0 0 0;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .lms-student-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .lms-student-sidebar {
+    position: static;
+  }
+}

@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   authLoading: true,
   refreshAuth: async () => {},
+  setUserFromLogin: () => {},
   logout: async () => {},
   API_BASE: "",
 });
@@ -13,23 +14,30 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // ✅ Production: "" so calls go to "/api/..." (Netlify redirects)
-  // ✅ Local: set REACT_APP_API_BASE=http://localhost:5000
   const API_BASE = useMemo(() => {
     return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
   }, []);
+
+  const setUserFromLogin = (userData) => {
+    setUser(userData || null);
+    setAuthLoading(false);
+  };
 
   const refreshAuth = async () => {
     setAuthLoading(true);
 
     try {
       const token = sessionStorage.getItem("ll_token");
+      console.log("refreshAuth API_BASE:", API_BASE);
+      console.log("refreshAuth token exists:", !!token);
 
       const res = await fetch(`${API_BASE}/api/auth/me`, {
         method: "GET",
-        credentials: "include", // cookie optional
+        credentials: "include",
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
+
+      console.log("refreshAuth status:", res.status);
 
       if (!res.ok) {
         setUser(null);
@@ -37,8 +45,11 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await res.json();
+      console.log("refreshAuth data:", data);
+
       setUser(data?.user || null);
     } catch (err) {
+      console.error("refreshAuth error:", err);
       setUser(null);
     } finally {
       setAuthLoading(false);
@@ -52,9 +63,8 @@ export const AuthProvider = ({ children }) => {
         credentials: "include",
       });
     } catch (err) {
-      // ignore
+      console.error("logout error:", err);
     } finally {
-      // ✅ clear token too
       sessionStorage.removeItem("ll_token");
       setUser(null);
     }
@@ -72,6 +82,7 @@ export const AuthProvider = ({ children }) => {
         isLoggedIn: !!user,
         authLoading,
         refreshAuth,
+        setUserFromLogin,
         logout,
         API_BASE,
       }}

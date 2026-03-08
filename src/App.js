@@ -22,6 +22,7 @@ import About from "./pages/About"; // /our-story
 import Programs from "./pages/Programs"; // /programs
 import Tuition from "./pages/Tuition"; // /tuition
 import LuminoPro from "./pages/LuminoPro"; // /luminopro
+import LMS from "./pages/LMS"; // /lms – role-based (teacher vs student)
 
 function App() {
   return (
@@ -54,12 +55,22 @@ function App() {
             {/* Optional: keep if you want an unprotected version */}
             <Route path="/personalaccount" element={<PersonalAccount />} />
 
-            {/* Protected account */}
+            {/* Protected: Personal account (info, payments, etc.) */}
             <Route
               path="/account"
               element={
                 <RequireAuth>
                   <PersonalAccount />
+                </RequireAuth>
+              }
+            />
+
+            {/* Protected: Lumino LMS (teacher or student, role-based) */}
+            <Route
+              path="/lms"
+              element={
+                <RequireAuth>
+                  <LMS />
                 </RequireAuth>
               }
             />

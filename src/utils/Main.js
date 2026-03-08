@@ -8,27 +8,23 @@ import 'swiper/css/pagination';
 
 import contactImg from '../assets/contact.png';
 import HomeImage from '../assets/Home.svg';
-import AboutImage from '../assets/About.svg';
 import studyImg from '../assets/study.jpg';
 import homeworkImg from '../assets/homework.jpg';
 import monthlyImg from '../assets/monthly.jpg';
-import beyondImg from '../assets/beyond.jpg';
-import atHomeImg from '../assets/at-home.png';
-import shelfImg from '../assets/shelf.png';
 import arrowImg from '../assets/arrowImg.svg';
-import wanderImg from '../assets/wander.png';
-import HeartIcon from '../assets/heart.svg';
-import starImg from '../assets/star.svg';
+import '../pages/Main.css';
+
+const valueProps = [
+  { icon: '🏠', title: 'Class home base', desc: 'See what we\'re working on this week and what\'s coming next.' },
+  { icon: '📚', title: 'Lesson slides & replays', desc: 'Key moments and notes your child can revisit anytime.' },
+  { icon: '💡', title: 'Shared space for ideas', desc: 'A calm corner for questions, reflections, and "aha" moments.' },
+  { icon: '📋', title: 'Assignments at a glance', desc: 'Due dates laid out clearly—nothing feels like a surprise.' },
+  { icon: '✨', title: 'Gentle review before tests', desc: 'Light-touch practice so your child feels ready, not rushed.' },
+  { icon: '🏆', title: 'Projects we\'re proud of', desc: 'A gallery of small wins and projects that celebrate progress.' },
+];
 
 const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
-const headings = [
-  'Class home base',
-  'Lesson slides & replays',
-  'Shared space for ideas',
-  'Assignments at a glance',
-  'Gentle review before tests',
-  'Projects we are proud of'
-];
+const headings = valueProps.map((v) => v.title);
 
 const descriptions = [
   'A simple place to see what we are working on this week and what is coming next.',
@@ -43,24 +39,24 @@ function Main() {
   const navigate = useNavigate();
 
   return (
-    <div className="App">
-      <div className="welcome-section" style={{ position: 'relative' }}>
-        <h1 className="welcome-heading text-4xl md:text-5xl font-extrabold text-gray-800 leading-snug mb-6">
-          <span className="brand-name highlight text-indigo-700">
-            LuminoLearn Academy
-          </span>
-        </h1>
-
-        <p className="welcome-subtext text-lg md:text-xl text-gray-800 leading-relaxed mb-2">
-          A warm, small-group space where curious kids build skills, confidence, and calm.
-        </p>
-
-        <p className="welcome-tagline text-3xl italic text-gray-700 animate-fadeIn delay-200">
-          Real teachers. Real connection. Screen-light, human-first learning.
-        </p>
-      </div>
-
-      <br />
+    <div className="App main-page">
+      <section className="main-hero">
+        <div className="main-hero-inner">
+          <span className="main-hero-badge">Small groups · Real teachers</span>
+          <h1>
+            Where curious kids build <span className="main-hero-brand">skills, confidence, and calm</span>
+          </h1>
+          <p className="main-hero-lead">
+            LuminoLearn is a warm, human-first learning space. Real connection. Screen-light.
+            Math, English, and Computer Science—with clarity and care.
+          </p>
+          <div className="main-hero-actions">
+            <button className="main-hero-btn primary" onClick={() => navigate('/programs')}>
+              Explore Learning Paths
+            </button>
+          </div>
+        </div>
+      </section>
 
       <header className="header">
         <img src={HomeImage} alt="Home" className="header-image" />
@@ -73,52 +69,24 @@ function Main() {
         </div>
       </header>
 
-<section id="about" className="about-section about-fullbleed">
-  <div className="about-image-wrapper">
-    <img src={AboutImage} alt="About section" className="about-image" />
-    <img src={HeartIcon} alt="Heart icon" className="heart-icon-centered" />
-  </div>
-</section>
+      {/* Value props - bento grid */}
+      <section className="main-value-section" id="essentials">
+        <div className="main-value-inner">
+          <h2 className="main-value-title">What you get with Lumino</h2>
+          <p className="main-value-sub">Everything in one calm, organized space</p>
+          <div className="main-value-grid">
+            {valueProps.map((v, i) => (
+              <div key={i} className="main-value-card">
+                <div className="main-value-card-icon">{v.icon}</div>
+                <h3>{v.title}</h3>
+                <p>{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-
-{/* ======================= MINIMAL COURSES TEASER ======================= */}
-<section id="courses" className="courses-section">
-
-  <p className="about-kicker">Learning Paths</p>
-
-  <h2 className="about-title">
-    <span className="brand-name brand-highlight">LuminoLearn</span>
-    <span className="about-title-rest"> learning paths.</span>
-  </h2>
-
-  <p className="courses-intro">
-    Every meaningful learning journey begins with clarity.
-    <br /><br />
-    Start with <strong>LuminoStart™</strong>, a short, carefully designed placement experience that
-    identifies your child’s level, strengths, and learning pace. From there, continue into
-    <strong> LuminoCore™</strong>, our <strong>12-week certified learning cycle</strong>, where understanding
-    deepens through guided instruction, hands-on projects, and clear progress reporting.
-    <br /><br />
-    Choose <strong>Math</strong>, <strong>English</strong>, or <strong>Computer Science</strong> or thoughtfully
-    combine paths to create a balanced, future-ready STEM foundation.
-  </p>
-
-  <div className="home-cta-row">
-    <button
-      className="home-cta primary"
-      onClick={() => navigate("/programs")}
-    >
-      Explore Learning Paths
-    </button>
-  </div>
-
-
-</section>
-
-{/* ===================== END MINIMAL COURSES TEASER ===================== */}
-
-      <div className="section essentials-section" id="essentials">
-        <br /> <br /> <br />
+      <div className="section essentials-section main-carousel-wrap">
         <div className="essentials-carousel">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
@@ -149,26 +117,39 @@ function Main() {
         </div>
       </div>
 
-      <div className="beyond-section">
-        <img src={starImg} alt="Star" className="animated-star" />
-        <div className="beyond-wrapper">
-          <img src={beyondImg} alt="Beyond" className="beyond-image" />
-          <div className="beyond-column">
-            <img src={atHomeImg} alt="At Home" className="beyond-thumb" />
-            <img src={shelfImg} alt="Shelf" className="beyond-thumb" />
-            <img src={wanderImg} alt="Wander" className="beyond-thumb" />
+      <section className="beyond-section beyond-vmv">
+        <div className="beyond-vmv-inner">
+          <h2 className="beyond-vmv-title">Beyond the classroom</h2>
+
+          <div className="beyond-vmv-canvas">
+            <div className="beyond-vmv-block beyond-vmv-left">
+              <div className="beyond-vmv-content">
+                <h3>Vision</h3>
+                <p>Every child learns with confidence and clarity—supported by strong skills, real progress, and caring instruction.</p>
+              </div>
+            </div>
+            <div className="beyond-vmv-block beyond-vmv-center">
+              <div className="beyond-vmv-content">
+                <h3>Mission</h3>
+                <p>To provide structured, measurable, tech-safe learning paths that make growth visible and keep families informed every step of the way.</p>
+              </div>
+            </div>
+            <div className="beyond-vmv-block beyond-vmv-right">
+              <div className="beyond-vmv-content">
+                <h3>Values</h3>
+                <p>Calm structure, caring instruction, visible growth—and learning that extends beyond the classroom into home and life.</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       
 
-      <section id="contact" className="contact-section">
+      <section id="contact" className="contact-section main-contact-wrap">
         <h2>Get in Touch</h2>
-        <p>Have questions or need assistance? Our team is here to help.</p>
-
+        <p>Have questions? Our team is here to help.</p>
         <div className="contact-content">
-          <img src={contactImg} alt="Contact Us" className="contact-img" />
           <div className="contact-details">
             <p>
               📧 Email:{' '}
@@ -178,6 +159,7 @@ function Main() {
               📞 Phone: <a href="tel:+14374241380">+1 (437) 424-1380</a>
             </p>
           </div>
+          <img src={contactImg} alt="Contact Us" className="contact-img" />
         </div>
       </section>
     </div>
