@@ -1,5 +1,5 @@
 // src/pages/StudentLMS.js – Classroom + Canva style student LMS
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./StudentLMS.css";
 import { AuthContext } from "../auth/AuthContext";
