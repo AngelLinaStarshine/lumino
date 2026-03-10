@@ -19,9 +19,8 @@ const SignInPage = () => {
     e.preventDefault();
 
     const cleanEmail = email.trim().toLowerCase();
-    const cleanPassword = password.trim();
 
-    if (!cleanEmail || !cleanPassword) {
+    if (!cleanEmail || !password.trim()) {
       Swal.fire("Error", "Both fields are required.", "error");
       return;
     }
@@ -35,6 +34,11 @@ const SignInPage = () => {
       return;
     }
 
+    if (!API_BASE) {
+      Swal.fire("Configuration Error", "API URL is missing.", "error");
+      return;
+    }
+
     try {
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
@@ -42,7 +46,7 @@ const SignInPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: cleanEmail,
-          password: cleanPassword,
+          password: password,
         }),
       });
 
@@ -70,13 +74,17 @@ const SignInPage = () => {
       const role = (data?.user?.role || "").toLowerCase();
       const targetPath =
         role === "teacher" || role === "admin" ? "/lms" : "/account";
+
       navigate(targetPath, { replace: true });
     } catch (error) {
       console.error("LOGIN ERROR:", error);
+
       const msg =
-        error?.message?.includes("Failed to fetch") || error?.name === "TypeError"
+        error?.message?.includes("Failed to fetch") ||
+        error?.name === "TypeError"
           ? "Could not reach the server. Check your connection or try again later."
           : "An error occurred. Please try again.";
+
       Swal.fire("Connection Error", msg, "error");
     }
   };
