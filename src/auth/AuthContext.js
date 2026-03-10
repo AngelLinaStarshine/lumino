@@ -1,4 +1,11 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export const AuthContext = createContext({
   user: null,
@@ -13,67 +20,120 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const abortRef = useRef(null);
 
   const API_BASE = useMemo(() => {
-    return (process.env.REACT_APP_API_BASE || "").replace(/\/$/, "");
+    const base =
+      process.env.REACT_APP_API_BASE ||
+      "https://lumino-backend.onrender.com";
+
+    return base.replace(/\/+$/, "");
   }, []);
 
-  const setUserFromLogin = (userData) => {
+  const clearSession = useCallback(() => {
+    sessionStorage.removeItem("ll_token");
+    setUser(null);
+  }, []);
+
+  const setUserFromLogin = useCallback((userData) => {
     setUser(userData || null);
     setAuthLoading(false);
-  };
+  }, []);
 
-  const refreshAuth = async () => {
+  const refreshAuth = useCallback(async () => {
+    if (!API_BASE) {
+      console.error("API base URL is missing.");
+      clearSession();
+      setAuthLoading(false);
+      return;
+    }
+
+    if (abortRef.current) {
+      abortRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     setAuthLoading(true);
 
     try {
       const token = sessionStorage.getItem("ll_token");
-      console.log("refreshAuth API_BASE:", API_BASE);
-      console.log("refreshAuth token exists:", !!token);
+
+      const headers = {
+        Accept: "application/json",
+      };
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
 
       const res = await fetch(`${API_BASE}/api/auth/me`, {
         method: "GET",
         credentials: "include",
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers,
+        signal: controller.signal,
       });
 
-      console.log("refreshAuth status:", res.status);
+      const contentType = res.headers.get("content-type") || "";
+      const isJson = contentType.includes("application/json");
+      const data = isJson ? await res.json() : null;
+
+      if (res.status === 401 || res.status === 403) {
+        clearSession();
+        return;
+      }
 
       if (!res.ok) {
+        console.error("refreshAuth failed:", res.status, data);
         setUser(null);
         return;
       }
 
-      const data = await res.json();
-      console.log("refreshAuth data:", data);
-
       setUser(data?.user || null);
     } catch (err) {
+      if (err.name === "AbortError") return;
+
       console.error("refreshAuth error:", err);
       setUser(null);
     } finally {
       setAuthLoading(false);
     }
-  };
+  }, [API_BASE, clearSession]);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
+      const token = sessionStorage.getItem("ll_token");
+
+      const headers = {
+        Accept: "application/json",
+      };
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
       await fetch(`${API_BASE}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
+        headers,
       });
     } catch (err) {
       console.error("logout error:", err);
     } finally {
-      sessionStorage.removeItem("ll_token");
-      setUser(null);
+      clearSession();
     }
-  };
+  }, [API_BASE, clearSession]);
 
   useEffect(() => {
     refreshAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    return () => {
+      if (abortRef.current) {
+        abortRef.current.abort();
+      }
+    };
+  }, [refreshAuth]);
 
   return (
     <AuthContext.Provider
