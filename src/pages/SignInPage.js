@@ -69,15 +69,15 @@ const SignInPage = () => {
 
       const role = (data?.user?.role || "").toLowerCase();
       const targetPath =
-        role === "teacher" || role === "admin" ? "/teacher" : "/account";
+        role === "teacher" || role === "admin" ? "/lms" : "/account";
       navigate(targetPath, { replace: true });
     } catch (error) {
       console.error("LOGIN ERROR:", error);
-      Swal.fire(
-        "Server Error",
-        "Unable to reach the server. Please try again later.",
-        "error"
-      );
+      const msg =
+        error?.message?.includes("Failed to fetch") || error?.name === "TypeError"
+          ? "Could not reach the server. Check your connection or try again later."
+          : "An error occurred. Please try again.";
+      Swal.fire("Connection Error", msg, "error");
     }
   };
 

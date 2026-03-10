@@ -15,6 +15,10 @@ const app = express();
 /* =========================
    Startup check
 ========================= */
+if (!process.env.JWT_SECRET) {
+  console.error("❌ JWT_SECRET is not set. Set it in Render Dashboard > Environment.");
+}
+
 pool
   .query("SELECT NOW()")
   .then(() => console.log("✅ Database connected"))
@@ -44,6 +48,11 @@ const corsOptions = {
     }
 
     if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Allow Netlify deployments (*.netlify.app)
+    if (origin.endsWith(".netlify.app") || origin.includes(".netlify.app")) {
       return callback(null, true);
     }
 
@@ -297,7 +306,17 @@ app.post("/api/auth/login", async (req, res) => {
       return res.status(403).json({ error: "Account not active" });
     }
 
-    const ok = await bcrypt.compare(password, user.password_hash || "");
+    if (!user.password_hash || user.password_hash.length < 10) {
+      console.error("LOGIN: user has no valid password hash");
+      return res.status(500).json({ error: "Account setup incomplete. Contact admin." });
+    }
+
+    if (!process.env.JWT_SECRET) {
+      console.error("LOGIN: JWT_SECRET not configured");
+      return res.status(500).json({ error: "Server misconfigured. Contact admin." });
+    }
+
+    const ok = await bcrypt.compare(password, user.password_hash);
     console.log("PASSWORD MATCH:", ok);
 
     if (!ok) {
@@ -321,7 +340,8 @@ app.post("/api/auth/login", async (req, res) => {
       user: { id: user.id, full_name: user.full_name, email: user.email, role: user.role },
     });
   } catch (e) {
-    console.error("LOGIN ERROR FULL:", e);
+    console.error("LOGIN ERROR:", e?.message || e);
+    console.error("LOGIN STACK:", e?.stack);
     return res.status(500).json({ error: "Server error" });
   }
 });
