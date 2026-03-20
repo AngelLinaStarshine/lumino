@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -15,15 +15,15 @@ import arrowImg from '../assets/arrowImg.svg';
 import '../pages/Main.css';
 
 const valueProps = [
-  { icon: '🏠', title: 'Class home base', desc: 'See what we\'re working on this week and what\'s coming next.' },
-  { icon: '📚', title: 'Lesson slides & replays', desc: 'Key moments and notes your child can revisit anytime.' },
-  { icon: '💡', title: 'Shared space for ideas', desc: 'A calm corner for questions, reflections, and "aha" moments.' },
-  { icon: '📋', title: 'Assignments at a glance', desc: 'Due dates laid out clearly—nothing feels like a surprise.' },
-  { icon: '✨', title: 'Gentle review before tests', desc: 'Light-touch practice so your child feels ready, not rushed.' },
-  { icon: '🏆', title: 'Projects we\'re proud of', desc: 'A gallery of small wins and projects that celebrate progress.' },
+  { icon: '🏠', title: 'Class home base', desc: 'See what we\'re working on this week and what\'s coming next.', tip: 'Parents stay in the loop without extra emails.' },
+  { icon: '📚', title: 'Lesson slides & replays', desc: 'Key moments and notes your child can revisit anytime.', tip: 'Reinforce learning at your child\'s own pace.' },
+  { icon: '💡', title: 'Shared space for ideas', desc: 'A calm corner for questions, reflections, and "aha" moments.', tip: 'Build confidence through safe, guided discussion.' },
+  { icon: '📋', title: 'Assignments at a glance', desc: 'Due dates laid out clearly—nothing feels like a surprise.', tip: 'Reduce stress with clear expectations.' },
+  { icon: '✨', title: 'Gentle review before tests', desc: 'Light-touch practice so your child feels ready, not rushed.', tip: 'Test prep that builds confidence, not anxiety.' },
+  { icon: '🏆', title: 'Projects we\'re proud of', desc: 'A gallery of small wins and projects that celebrate progress.', tip: 'Visible growth keeps motivation high.' },
 ];
 
-const colors = ['#d9b8f3', '#7dcfb6', '#f26e26', '#d9b8f3', '#7dcfb6', '#f26e26'];
+const colors = ['#d9b8f3', '#7dcfb6', '#ffde59', '#f97316', '#7dcfb6', '#d9b8f3'];
 const headings = valueProps.map((v) => v.title);
 
 const descriptions = [
@@ -37,6 +37,7 @@ const descriptions = [
 
 function Main() {
   const navigate = useNavigate();
+  const [expandedCard, setExpandedCard] = useState(null);
 
   return (
     <div className="App main-page">
@@ -69,19 +70,49 @@ function Main() {
         </div>
       </header>
 
-      {/* Value props - bento grid */}
+      {/* Value props - interactive bento grid */}
       <section className="main-value-section" id="essentials">
         <div className="main-value-inner">
           <h2 className="main-value-title">What you get with Lumino</h2>
-          <p className="main-value-sub">Everything in one calm, organized space</p>
+          <p className="main-value-sub">Everything in one calm, organized space — click any card to learn more</p>
           <div className="main-value-grid">
             {valueProps.map((v, i) => (
-              <div key={i} className="main-value-card">
+              <div
+                key={i}
+                className={`main-value-card ${expandedCard === i ? 'expanded' : ''}`}
+                onClick={() => setExpandedCard(expandedCard === i ? null : i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setExpandedCard(expandedCard === i ? null : i);
+                  }
+                }}
+                aria-expanded={expandedCard === i}
+              >
                 <div className="main-value-card-icon">{v.icon}</div>
                 <h3>{v.title}</h3>
-                <p>{v.desc}</p>
+                <p className="main-value-card-desc">{v.desc}</p>
+                {expandedCard === i && (
+                  <div className="main-value-card-tip">
+                    <span className="main-value-tip-label">Why it matters</span>
+                    <p>{v.tip}</p>
+                    <button
+                      className="main-value-card-cta"
+                      onClick={(e) => { e.stopPropagation(); navigate('/programs'); }}
+                    >
+                      Explore programs →
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
+          </div>
+          <div className="main-value-section-cta">
+            <button className="main-hero-btn primary" onClick={() => navigate('/programs')}>
+              See all learning paths
+            </button>
           </div>
         </div>
       </section>

@@ -1,7 +1,15 @@
 /* ============================================================
    MAIN PAGE - User-friendly & Tech Progressive
-   Lumino brand: #7dcfb6, #d9b8f3, #ffde59, #f97316
+   Lumino brand palette (used site-wide)
    ============================================================ */
+.main-page {
+  --lumino-mint: #7dcfb6;
+  --lumino-lavender: #d9b8f3;
+  --lumino-yellow: #ffde59;
+  --lumino-orange: #f97316;
+  --lumino-navbar-start: #a7f5ed;
+  --lumino-navbar-end: #f3a7f3;
+}
 
 /* Hero - Clean, welcoming */
 .main-hero {
@@ -159,17 +167,56 @@
   padding: 1.25rem 1.35rem;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  animation: mainValueCardIn 0.5s ease-out both;
+}
+.main-value-card:nth-child(1) { animation-delay: 0.05s; }
+.main-value-card:nth-child(2) { animation-delay: 0.1s; }
+.main-value-card:nth-child(3) { animation-delay: 0.15s; }
+.main-value-card:nth-child(4) { animation-delay: 0.2s; }
+.main-value-card:nth-child(5) { animation-delay: 0.25s; }
+.main-value-card:nth-child(6) { animation-delay: 0.3s; }
+
+.main-value-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--lumino-mint), var(--lumino-lavender));
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .main-value-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 28px rgba(125, 207, 182, 0.15), 0 12px 28px rgba(217, 184, 243, 0.08);
+}
+.main-value-card:hover::before {
+  opacity: 1;
+}
+
+.main-value-card.expanded {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(125, 207, 182, 0.2), 0 16px 40px rgba(217, 184, 243, 0.1);
+  border-color: rgba(125, 207, 182, 0.5);
+}
+.main-value-card.expanded::before {
+  opacity: 1;
 }
 
 .main-value-card-icon {
   font-size: 1.75rem;
   margin-bottom: 0.6rem;
+  transition: transform 0.3s ease;
+}
+.main-value-card:hover .main-value-card-icon,
+.main-value-card.expanded .main-value-card-icon {
+  transform: scale(1.1);
 }
 
 .main-value-card h3 {
@@ -179,11 +226,66 @@
   color: #0f172a;
 }
 
+.main-value-card-desc,
 .main-value-card p {
   font-size: 0.9rem;
   line-height: 1.5;
   color: #64748b;
   margin: 0;
+}
+
+.main-value-card-tip {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  animation: mainValueTipIn 0.3s ease-out;
+}
+.main-value-tip-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lumino-mint);
+  margin-bottom: 0.4rem;
+}
+.main-value-card-tip p {
+  font-size: 0.9rem;
+  color: #475569;
+  margin: 0 0 0.75rem 0;
+  font-weight: 500;
+}
+.main-value-card-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: linear-gradient(135deg, rgba(125, 207, 182, 0.3), rgba(217, 184, 243, 0.2));
+  border: 1px solid var(--lumino-mint);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.main-value-card-cta:hover {
+  background: linear-gradient(135deg, rgba(125, 207, 182, 0.45), rgba(217, 184, 243, 0.3));
+  box-shadow: 0 4px 12px rgba(125, 207, 182, 0.25);
+  transform: translateX(2px);
+}
+
+.main-value-section-cta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+@keyframes mainValueCardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes mainValueTipIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Learning paths CTA block */

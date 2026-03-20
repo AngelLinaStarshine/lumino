@@ -1,0 +1,213 @@
+/* ============================================================
+   LuminoPro — Extends Main.css
+   Aligned with main page: same hero, cards, gradients, animations
+   ============================================================ */
+
+/* Hero — uses main-hero from Main.css, subtle override if needed */
+.luminopro-hero .main-hero-inner {
+  max-width: 720px;
+}
+
+/* Audience cards — use main-value-card, add list styling */
+.luminopro-audience-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .luminopro-audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .luminopro-audience-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.luminopro-card-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.luminopro-card-list li {
+  margin-bottom: 0.25rem;
+}
+
+/* What We Offer — 2x2 grid, same card style */
+.luminopro-offer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .luminopro-offer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.luminopro-offer-card {
+  border-left: 4px solid var(--lumino-mint);
+}
+
+.luminopro-offer-card h3 {
+  font-size: 1rem;
+}
+
+/* How It Works — stepper layout, numbers aligned */
+.luminopro-process-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .luminopro-process-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+}
+
+.luminopro-step {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.luminopro-process-section .luminopro-step.main-value-card {
+  height: 100%;
+}
+
+.luminopro-step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.luminopro-step-num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--lumino-mint), var(--lumino-lavender));
+  border-radius: 50%;
+}
+
+.luminopro-step h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: #0f172a;
+}
+
+/* Why LuminoPro */
+.luminopro-why-content {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.luminopro-why-lead {
+  text-align: center !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.luminopro-why-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #64748b;
+}
+
+.luminopro-why-list li {
+  margin-bottom: 0.5rem;
+}
+
+.luminopro-why-list strong {
+  color: #0f172a;
+}
+
+/* CTA section */
+.luminopro-cta-section .home-cta-row {
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.luminopro-cta-note {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+  margin: 0;
+}
+
+/* Staggered animations for LuminoPro cards */
+.luminopro-audience-grid .main-value-card {
+  animation: mainValueCardIn 0.5s ease-out both;
+}
+
+.luminopro-audience-grid .main-value-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.luminopro-audience-grid .main-value-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.luminopro-audience-grid .main-value-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.luminopro-offer-grid .luminopro-offer-card {
+  animation: mainValueCardIn 0.5s ease-out both;
+}
+
+.luminopro-offer-grid .luminopro-offer-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.luminopro-offer-grid .luminopro-offer-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.luminopro-offer-grid .luminopro-offer-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.luminopro-offer-grid .luminopro-offer-card:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.luminopro-process-steps .luminopro-step {
+  animation: mainValueCardIn 0.5s ease-out both;
+}
+
+.luminopro-process-steps .luminopro-step:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.luminopro-process-steps .luminopro-step:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.luminopro-process-steps .luminopro-step:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .luminopro-cta-section .home-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .luminopro-cta-section .main-hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

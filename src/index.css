@@ -6,7 +6,7 @@
    ============================================================ */
 
 :root {
-  --nav-h: 72px;
+  --nav-h: 36px;
   --footer-h: 0px; /* set this ONLY if footer is fixed (e.g., 56px) */
   --page-gutter: 14px; /* extra breathing room for anchor scroll */
 }
@@ -46,19 +46,19 @@ body {
    Adds bottom breathing space so last line never feels "covered". */
 .main-content {
   flex: 1;
-  padding-bottom: 48px;
+  padding-bottom: 12px;
 }
 
 /* ✅ Keep navbar height in sync with your breakpoints (single source of truth) */
 @media (max-width: 900px) {
   :root {
-    --nav-h: 70px;
+    --nav-h: 34px;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --nav-h: 66px;
+    --nav-h: 32px;
   }
 }
 

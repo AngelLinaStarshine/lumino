@@ -3,7 +3,7 @@
    ============================================================ */
 
 :root {
-  --nav-h: 72px;        /* navbar height (desktop) */
+  --nav-h: 36px;        /* navbar height (desktop) */
   --footer-h: 0px;      /* set ONLY if footer is fixed */
   --page-gap: 14px;     /* extra breathing room for scroll targets */
 }
@@ -34,11 +34,11 @@ body {
 
 /* Sync with your navbar breakpoints */
 @media (max-width: 900px) {
-  :root { --nav-h: 70px; }
+  :root { --nav-h: 34px; }
 }
 
 @media (max-width: 768px) {
-  :root { --nav-h: 66px; }
+  :root { --nav-h: 32px; }
 }
 
 /* ============================================================
@@ -62,10 +62,10 @@ body {
   min-height: 100vh;
 }
 
-/* ✅ Keeps footer from crowding content but not overly huge */
+/* ✅ Keeps footer from crowding content */
 .main-content {
   flex: 1;
-  padding-bottom: 48px;
+  padding-bottom: 12px;
 }
 
 /* ============================================================
@@ -280,12 +280,40 @@ body {
   --angle: 145deg;
   background: linear-gradient(var(--angle), #a7f5ed, #f3a7f3);
   animation: spinGradient 12s linear infinite;
-  padding: 10px 16px;
-  font-size: 0.85rem;
-  text-align: center;
+  padding: 5px 12px;
+  font-size: 0.74rem;
   letter-spacing: 0.3px;
   border-top: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.footer .social-media-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  flex-shrink: 0;
+}
+.footer .social-media-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.footer-copyright {
+  margin: 0;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
+}
+.footer-spacer {
+  flex: 1;
+  min-width: 0;
 }
 
 @keyframes spinGradient {
@@ -605,16 +633,20 @@ body {
 /* ============================================================
    SOCIAL MEDIA ICONS
    ============================================================ */
-.social-media-links {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 10px;
+.footer .social-media-links img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
-
+.footer .social-media-links .linkedin-icon {
+  width: 32px;
+  height: 32px;
+}
 .social-media-links img {
-  width: 40px;
-  height: 40px;
+  width: 22px;
+  height: 22px;
   transition: transform 0.3s ease-in-out;
   border-radius: 50%;
 }
@@ -625,8 +657,8 @@ body {
 }
 
 .linkedin-icon {
-  width: 70px;
-  height: 70px;
+  width: 30px;
+  height: 30px;
   padding: 1px;
 }
 
@@ -637,8 +669,8 @@ body {
   }
 
   .social-media-links img {
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -657,8 +689,8 @@ body {
 
 @media (max-width: 480px) {
   .social-media-links img {
-    width: 30px;
-    height: 30px;
+    width: 18px;
+    height: 18px;
   }
 
   .learn-more-button {

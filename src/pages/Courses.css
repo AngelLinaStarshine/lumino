@@ -169,17 +169,34 @@
     font-family: "Lobster Two", serif;
     font-weight: 400;
     font-style: normal;
-    padding: 10px 0;
-    text-align: center;
+    padding: 5px 12px;
     z-index: 1000;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
   
-  .social-media-links {
+  .footer .social-media-links {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
+    gap: 10px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .footer .social-media-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+  .footer .social-media-links img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
   }
   
   .social-media-links a {
@@ -192,8 +209,11 @@
     color: #61dafb;
   }
   
-  .footer p {
-    font-size: 0.9rem;
+  .footer p,
+  .footer .footer-copyright {
+    margin: 0;
+    font-size: 0.74rem;
+    text-align: left;
   }
   
   /* ============================= */

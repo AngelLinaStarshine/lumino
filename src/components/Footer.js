@@ -33,6 +33,11 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer className="footer">
+      <p className="footer-copyright">
+        ©2025 LuminoLearn Academy.
+        <br />
+        All rights reserved.
+      </p>
       <div className="social-media-links">
         {socialLinks.map((item, index) => (
           <a key={index} href={item.href} target="_blank" rel="noopener noreferrer">
@@ -40,8 +45,7 @@ const Footer = () => {
           </a>
         ))}
       </div>
-
-      <p>©2025 LuminoLearn Academy. All rights reserved.</p>
+      <span className="footer-spacer" aria-hidden="true" />
     </footer>
   );
 };
