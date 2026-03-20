@@ -197,15 +197,33 @@
 }
 
 @media (max-width: 480px) {
+  .signin-wrapper {
+    padding: 20px 12px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0));
+  }
+
   .signin-form {
     width: 94vw;
+    max-width: 94vw;
     border-radius: 16px;
     padding: 18px 14px;
   }
+
   .auth-input {
     border-radius: 14px;
   }
+
   .auth-button {
     border-radius: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .signin-form {
+    padding: 16px 12px;
+  }
+
+  .signin-form h2 {
+    font-size: 1.4rem;
   }
 }

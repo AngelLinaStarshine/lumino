@@ -644,6 +644,39 @@ body {
   width: 32px;
   height: 32px;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
+
+  .footer-copyright {
+    order: 1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .footer .social-media-links {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-spacer {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer .social-media-links img,
+  .footer .social-media-links .linkedin-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
 .social-media-links img {
   width: 22px;
   height: 22px;
@@ -1338,18 +1371,31 @@ body {
 
 .beyond-vmv-block {
   position: relative;
-  min-height: 220px;
+  min-height: 200px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.75rem 1.5rem;
-  border-radius: 20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.25rem;
+  border-radius: 18px;
   overflow: hidden;
   cursor: default;
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
     box-shadow 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(8px);
+}
+
+.beyond-vmv-img {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .beyond-vmv-block:hover {
@@ -1389,18 +1435,20 @@ body {
 .beyond-vmv-content {
   position: relative;
   z-index: 1;
+  flex: 1;
+  min-width: 0;
 }
 
 .beyond-vmv-content h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  margin: 0 0 0.6rem 0;
+  margin: 0 0 0.5rem 0;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .beyond-vmv-content p {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
   opacity: 0.95;
@@ -1412,7 +1460,15 @@ body {
   }
 
   .beyond-vmv-block {
-    min-height: 200px;
+    min-height: 180px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .beyond-vmv-img {
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
   }
 }
 

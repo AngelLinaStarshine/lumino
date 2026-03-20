@@ -50,34 +50,34 @@ export default function About() {
 
   return (
     <div className="App main-page about-story-page" id="about-top">
-      {/* Hero — LuminoPro-style */}
-      <section className="main-hero about-hero">
-        <div className="main-hero-inner">
-          <span className="main-hero-badge">Our Story</span>
-          <h1>
-            <span className="main-hero-brand">LuminoLearn</span>
-            {" "}
-            is a learning academy for modern families
-          </h1>
-          <p className="main-hero-lead">
-            We focus on <strong>strong skills</strong>, <strong>clear progress</strong>, and{" "}
-            <strong>tech-safe learning</strong> so kids grow with confidence and parents always know
-            what's next.
-          </p>
-          <div className="main-hero-actions">
-            <Link to="/programs" className="main-hero-btn primary">
-              Explore learning paths
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Fixed image — stays in place; content scrolls above it */}
+      <div className="about-image-fixed" aria-hidden="true">
+        <img src={AboutImage} alt="" className="about-image-fixed-img" />
+      </div>
 
-      {/* Image */}
-      <section className="about-image-section">
-        <img src={AboutImage} alt="LuminoLearn" className="about-story-image" />
-      </section>
+      {/* Text block — above image, scrolls away */}
+      <div className="about-hero-text-block" aria-labelledby="about-hero-heading">
+        <span className="main-hero-badge about-hero-badge">Our Story</span>
+        <h1 id="about-hero-heading">
+          <span className="main-hero-brand">LuminoLearn</span>
+          {" "}
+          is a learning academy for modern families
+        </h1>
+        <p className="main-hero-lead">
+          We focus on <strong>strong skills</strong>, <strong>clear progress</strong>, and{" "}
+          <strong>tech-safe learning</strong> so kids grow with confidence and parents always know
+          what's next.
+        </p>
+        <Link to="/programs" className="main-hero-btn primary about-hero-cta">
+          Explore learning paths
+        </Link>
+      </div>
 
-      {/* Differentiators — main-value-section + main-value-card */}
+      {/* Spacer — user scrolls through to see full image; then content enters */}
+      <div className="about-image-spacer" aria-hidden="true" />
+
+      {/* Content wrapper — ensures content scrolls ABOVE the fixed image */}
+      <div className="about-content-layer">
       <section className="main-value-section about-diff-section" id="what-makes-us-different" aria-labelledby="diff-heading">
         <div className="main-value-inner">
           <h2 id="diff-heading" className="main-value-title">
@@ -173,6 +173,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

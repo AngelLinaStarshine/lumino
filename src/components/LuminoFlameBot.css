@@ -1,7 +1,7 @@
 .lumino-chatbot-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0));
+  right: calc(20px + env(safe-area-inset-right, 0));
   z-index: 9999;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -62,8 +62,9 @@
 }
 
 .chat-window {
-  width: 280px;
-  height: 380px;
+  width: min(280px, calc(100vw - 32px));
+  height: min(380px, calc(100vh - 120px));
+  max-height: 380px;
   background-color: #fff;
   border: 2px solid #ff6f00;
   border-radius: 12px;
@@ -140,4 +141,36 @@
   width: 20px;
   height: 20px;
   margin-right: 8px;
+}
+
+/* Responsive — phones and small screens */
+@media (max-width: 480px) {
+  .lumino-chatbot-container {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0));
+    right: calc(12px + env(safe-area-inset-right, 0));
+  }
+
+  .lumino-flame-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .chat-window {
+    width: calc(100vw - 24px);
+    max-width: 280px;
+    height: min(360px, calc(100vh - 100px));
+    bottom: 72px;
+    right: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .lumino-flame-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .chat-window {
+    bottom: 62px;
+  }
 }

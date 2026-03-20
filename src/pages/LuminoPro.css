@@ -199,8 +199,8 @@
   animation-delay: 0.15s;
 }
 
-/* Mobile */
-@media (max-width: 767px) {
+/* Tablet & phone */
+@media (max-width: 768px) {
   .luminopro-cta-section .home-cta-row {
     flex-direction: column;
     align-items: stretch;
@@ -209,5 +209,42 @@
   .luminopro-cta-section .main-hero-btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .luminopro-process-steps {
+    gap: 0.875rem;
+  }
+
+  .luminopro-step-num {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .luminopro-hero .main-hero-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .luminopro-offer-grid {
+    gap: 0.875rem;
+  }
+
+  .luminopro-audience-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .luminopro-step-header {
+    gap: 0.5rem;
+  }
+
+  .luminopro-step-num {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
   }
 }

@@ -18,70 +18,189 @@ html {
   scroll-padding-top: calc(var(--nav-h) + 14px);
 }
 
-/* =========================
-   HERO
-   ========================= */
+/* ============================================================
+   HERO — Fixed image + text block. Content scrolls ABOVE image.
+   ============================================================ */
 
-.about-hero .main-hero-inner {
-  max-width: 720px;
+/* Fixed image layer — stays in place, z-index low */
+.about-image-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
 }
 
-.about-hero .main-hero-btn,
+.about-image-fixed-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Text block — above image, scrolls away; matches site background */
+.about-hero-text-block {
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--nav-h) + clamp(2rem, 5vw, 4rem)) 1.5rem clamp(2rem, 5vw, 4rem);
+  text-align: center;
+  background: #fdfaf0;
+}
+
+.about-hero-badge {
+  background: rgba(125, 207, 182, 0.25) !important;
+  border-color: rgba(125, 207, 182, 0.4) !important;
+  color: #0f172a !important;
+}
+
+.about-hero-text-block h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem);
+  margin: 0 0 1rem 0;
+  color: #0f172a;
+}
+
+.about-hero-text-block h1 .main-hero-brand {
+  background: linear-gradient(135deg, #f97316, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-hero-text-block .main-hero-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.75;
+  max-width: 720px;
+  margin: 0 auto;
+  color: #334155;
+}
+
+.about-hero-text-block .main-hero-lead strong {
+  color: #0f172a;
+}
+
+.about-hero-text-block .about-hero-cta {
+  margin-top: 2rem;
+  font-size: 1.05rem;
+  padding: 1rem 1.75rem;
+}
+
+.about-hero-text-block .main-hero-btn,
 .about-cta-section .main-hero-btn {
   text-decoration: none;
 }
 
-/* =========================
-   IMAGE SECTION
-   ========================= */
-
-.about-image-section {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+/* Spacer — scroll space; image visible here */
+.about-image-spacer {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-.about-story-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
+/* Content layer — wraps all sections; MUST scroll above fixed image */
+.about-content-layer {
+  position: relative;
+  z-index: 10;
+  isolation: isolate;
+}
+
+.about-content-layer .about-diff-section,
+.about-content-layer .about-promise-section,
+.about-content-layer .about-cta-section {
+  background: rgba(253, 250, 240, 0.72);
+  backdrop-filter: blur(8px);
 }
 
 /* =========================
-   DIFFERENTIATORS (main-value-card)
+   DIFFERENTIATORS — Larger fonts, more spread
    ========================= */
+
+.about-diff-section {
+  padding: 4rem 2rem 5rem;
+}
+
+.about-diff-section .main-value-inner {
+  max-width: 1200px;
+}
+
+.about-diff-section .main-value-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  margin-bottom: 0.75rem;
+}
+
+.about-diff-section .main-value-sub {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
 
 .about-diff-grid {
   grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 @media (min-width: 640px) {
   .about-diff-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-diff-grid {
+    gap: 2.5rem;
   }
 }
 
 .about-diff-card {
   border-left: 4px solid var(--lumino-mint);
+  padding: 1.5rem 1.5rem 1.6rem;
+}
+
+.about-diff-card .main-value-card-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-diff-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-diff-card .main-value-card-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 .about-pathline {
   display: inline-block;
-  margin: 0.35rem 0 0;
-  padding: 0.25rem 0.6rem;
+  margin: 0.5rem 0 0;
+  padding: 0.35rem 0.75rem;
   border-radius: 999px;
   background: rgba(217, 184, 243, 0.25);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #0f172a;
 }
 
 .about-card-mini {
-  margin-top: 0.4rem !important;
+  margin-top: 0.5rem !important;
+  font-size: 1rem !important;
   opacity: 0.9;
+}
+
+.about-diff-card .main-value-card-tip {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.about-diff-card .main-value-card-tip p {
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 /* Staggered card entrance */
@@ -95,27 +214,45 @@ html {
 .about-diff-grid .main-value-card:nth-child(4) { animation-delay: 0.2s; }
 
 /* =========================
-   PROMISE — Interactive chips
+   PROMISE — Larger fonts, more spread
    ========================= */
 
+.about-promise-section {
+  padding: 4rem 2rem 5rem;
+}
+
+.about-promise-section .main-value-inner {
+  max-width: 1200px;
+}
+
+.about-promise-section .main-value-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  margin-bottom: 0.75rem;
+}
+
+.about-promise-section .main-value-sub {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
 .about-promise-content {
-  max-width: 640px;
+  max-width: 900px;
   margin: 0 auto;
   text-align: left;
 }
 
 .about-promise-lead {
   text-align: center;
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.7;
+  margin: 0 0 2rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
   color: #64748b;
 }
 
 .about-promise-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-content: center;
 }
 
@@ -124,9 +261,9 @@ html {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 
-  padding: 0.9rem 1.2rem;
+  padding: 1.1rem 1.5rem;
   border-radius: 14px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   background: rgba(255, 255, 255, 0.95);
@@ -173,32 +310,90 @@ html {
 }
 
 .about-chip-label {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #0f172a;
 }
 
 .about-chip-desc {
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.98rem;
+  line-height: 1.6;
   color: #64748b;
   animation: mainValueTipIn 0.3s ease-out;
 }
 
 /* =========================
-   CTA SECTION
+   CTA SECTION — Larger, more spread
    ========================= */
+
+.about-cta-section {
+  padding: 4rem 2rem 5rem;
+}
+
+.about-cta-section .main-value-inner {
+  max-width: 1200px;
+}
+
+.about-cta-section .main-value-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  margin-bottom: 0.75rem;
+}
+
+.about-cta-section .main-value-sub {
+  font-size: 1.15rem;
+  margin-bottom: 2.5rem;
+}
 
 .about-cta-section .home-cta-row {
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.about-cta-section .main-hero-btn {
+  font-size: 1.05rem;
+  padding: 1rem 1.75rem;
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE — All devices
    ========================= */
 
-@media (max-width: 767px) {
+/* Tablet portrait (768px and below) */
+@media (max-width: 768px) {
+  .about-hero-text-block {
+    padding: calc(var(--nav-h) + 1.5rem) 1rem 1.5rem;
+  }
+
+  .about-hero-text-block h1 {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+  }
+
+  .about-hero-text-block .main-hero-lead {
+    font-size: 0.95rem;
+  }
+
+  .about-hero-text-block .about-hero-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1.25rem;
+  }
+
+  .about-diff-section,
+  .about-promise-section,
+  .about-cta-section {
+    padding: 3rem 1.25rem 4rem;
+  }
+
+  .about-diff-section .main-value-title,
+  .about-promise-section .main-value-title,
+  .about-cta-section .main-value-title {
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+  }
+
+  .about-diff-card {
+    padding: 1.25rem 1.25rem 1.35rem;
+  }
+
   .about-cta-section .home-cta-row {
     flex-direction: column;
     align-items: stretch;
@@ -215,5 +410,76 @@ html {
 
   .about-promise-chip {
     width: 100%;
+  }
+}
+
+/* Phone (480px and below) */
+@media (max-width: 480px) {
+  .about-hero-text-block {
+    padding: calc(var(--nav-h) + 1.25rem) 0.75rem 1.25rem;
+  }
+
+  .about-hero-text-block h1 {
+    font-size: clamp(1.5rem, 2rem, 1.8rem);
+  }
+
+  .about-hero-text-block .main-hero-lead {
+    font-size: 0.9rem;
+  }
+
+  .about-hero-badge {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+
+  .about-diff-section,
+  .about-promise-section,
+  .about-cta-section {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .about-diff-section .main-value-sub,
+  .about-promise-section .main-value-sub,
+  .about-cta-section .main-value-sub {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-diff-grid {
+    gap: 1rem;
+  }
+
+  .about-promise-lead {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-image-spacer {
+    min-height: 80vh;
+  }
+}
+
+/* Extra small phones (380px and below) */
+@media (max-width: 380px) {
+  .about-hero-text-block h1 {
+    font-size: 1.4rem;
+  }
+
+  .about-hero-text-block .main-hero-lead {
+    font-size: 0.85rem;
+  }
+
+  .about-diff-section,
+  .about-promise-section,
+  .about-cta-section {
+    padding: 2rem 0.75rem 2.5rem;
+  }
+}
+
+/* Reduce backdrop-filter on low-end devices for performance */
+@media (max-width: 768px) {
+  .about-content-layer .about-diff-section,
+  .about-content-layer .about-promise-section,
+  .about-content-layer .about-cta-section {
+    backdrop-filter: blur(4px);
   }
 }

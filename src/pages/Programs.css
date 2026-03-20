@@ -27,6 +27,7 @@ html {
 .programs-page {
   padding-top: var(--nav-h);
   padding-bottom: 60px;
+  overflow-x: hidden;
 }
 
 /* Hero */
@@ -58,10 +59,32 @@ html {
 }
 
 /* CTA section */
+.programs-cta-heading-block {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.programs-cta-heading-block .main-value-title {
+  margin-bottom: 0.5rem;
+}
+
+.programs-cta-heading-block .main-value-sub {
+  margin: 0;
+}
+
 .programs-cta-section .home-cta-row {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem;
+  align-items: center;
+}
+
+.programs-cta-secondary-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .programs-cta-section .main-hero-btn {
@@ -72,10 +95,62 @@ html {
   .programs-cta-section .home-cta-row {
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
   }
   .programs-cta-section .main-hero-btn {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     justify-content: center;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+    padding: 0.85rem 1rem;
+  }
+  .programs-cta-secondary-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .programs-cta-secondary-group .main-hero-btn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+    padding: 0.85rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .programs-cta-section .main-value-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .programs-cta-section .main-hero-btn,
+  .programs-cta-secondary-group .main-hero-btn {
+    font-size: 0.9rem;
+    padding: 0.8rem 0.9rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .programs-cta-section .main-value-inner {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .programs-cta-section .main-hero-btn,
+  .programs-cta-secondary-group .main-hero-btn {
+    font-size: 0.85rem;
+    padding: 0.75rem 0.75rem;
   }
 }
 
@@ -258,17 +333,40 @@ html {
 }
 
 /* =========================
-   COURSES GRID
+   COURSES GRID — Choose your direction
    ========================= */
+
+.programs-courses-section .main-value-inner {
+  max-width: 1100px;
+}
+
+@media (min-width: 1024px) {
+  .programs-courses-section .main-value-inner {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .programs-courses-section .main-value-inner {
+    max-width: 1400px;
+  }
+}
 
 .courses-container.three-column {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 980px) {
   .courses-container.three-column {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .courses-container.three-column {
+    gap: 2rem;
   }
 }
 
@@ -648,10 +746,12 @@ html {
 @media (max-width: 480px) {
   .modal-overlay {
     padding: 12px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal-content {
     width: 96vw;
+    max-width: 96vw;
     max-height: calc(100vh - 24px);
     border-radius: 16px;
   }
@@ -670,6 +770,27 @@ html {
     height: 34px;
     border-radius: 10px;
     font-size: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 0.875rem 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
   }
 }
 
@@ -704,6 +825,24 @@ html {
 
   .programs-surface {
     padding: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .programs-page {
+    padding-bottom: 40px;
+  }
+
+  .programs-inner {
+    width: calc(100% - 16px);
+  }
+
+  .programs-surface {
+    padding: 12px;
+  }
+
+  .programs-hero .main-hero-actions .main-hero-btn {
+    max-width: 100%;
   }
 }
 

@@ -490,20 +490,27 @@ export default function Programs() {
       {/* CTA — LuminoPro-style */}
       <section className="main-value-section programs-cta-section" id="get-started" aria-labelledby="programs-cta-heading">
         <div className="main-value-inner">
-          <h2 id="programs-cta-heading" className="main-value-title">Ready to get started?</h2>
-          <p className="main-value-sub">
-            Book a free meeting to discuss placement, or explore tuition options.
-          </p>
+          <div className="programs-cta-heading-block">
+            <h2 id="programs-cta-heading" className="main-value-title">Ready to get started?</h2>
+            <p className="main-value-sub">
+              Book a free meeting to discuss placement, or explore tuition options.
+            </p>
+          </div>
           <div className="main-value-section-cta home-cta-row">
             <button className="main-hero-btn primary" type="button" onClick={handleBookMeeting}>
               Book a Free Meeting
             </button>
-            <Link to="/tuition" className="main-hero-btn secondary">
-              View tuition
-            </Link>
-            <Link to="/our-story" className="main-hero-btn secondary">
-              Our story
-            </Link>
+            <div className="programs-cta-secondary-group">
+              <Link to="/programs#courses" className="main-hero-btn secondary">
+                Learning paths
+              </Link>
+              <Link to="/tuition" className="main-hero-btn secondary">
+                View tuition
+              </Link>
+              <Link to="/our-story" className="main-hero-btn secondary">
+                Our story
+              </Link>
+            </div>
           </div>
         </div>
       </section>

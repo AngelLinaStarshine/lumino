@@ -12,6 +12,9 @@ import studyImg from '../assets/study.jpg';
 import homeworkImg from '../assets/homework.jpg';
 import monthlyImg from '../assets/monthly.jpg';
 import arrowImg from '../assets/arrowImg.svg';
+import visionImg from '../assets/vision.png';
+import missionImg from '../assets/mission.png';
+import valuesImg from '../assets/values.png';
 import '../pages/Main.css';
 
 const valueProps = [
@@ -154,18 +157,27 @@ function Main() {
 
           <div className="beyond-vmv-canvas">
             <div className="beyond-vmv-block beyond-vmv-left">
+              <div className="beyond-vmv-img-wrap">
+                <img src={visionImg} alt="" className="beyond-vmv-img" aria-hidden />
+              </div>
               <div className="beyond-vmv-content">
                 <h3>Vision</h3>
                 <p>Every child learns with confidence and clarity—supported by strong skills, real progress, and caring instruction.</p>
               </div>
             </div>
             <div className="beyond-vmv-block beyond-vmv-center">
+              <div className="beyond-vmv-img-wrap">
+                <img src={missionImg} alt="" className="beyond-vmv-img" aria-hidden />
+              </div>
               <div className="beyond-vmv-content">
                 <h3>Mission</h3>
                 <p>To provide structured, measurable, tech-safe learning paths that make growth visible and keep families informed every step of the way.</p>
               </div>
             </div>
             <div className="beyond-vmv-block beyond-vmv-right">
+              <div className="beyond-vmv-img-wrap">
+                <img src={valuesImg} alt="" className="beyond-vmv-img" aria-hidden />
+              </div>
               <div className="beyond-vmv-content">
                 <h3>Values</h3>
                 <p>Calm structure, caring instruction, visible growth—and learning that extends beyond the classroom into home and life.</p>
