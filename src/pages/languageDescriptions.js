@@ -1,5 +1,5 @@
 const languageDescriptions = {
-  "Early Readers / Ages 3–5": `
+  "Early Readers / Ages 3-5": `
 **Overview**
 Young learners are introduced to language through playful phonics, rhyme, and visual storytelling.
 
@@ -19,7 +19,7 @@ Young learners are introduced to language through playful phonics, rhyme, and vi
 - Building confidence in oral expression
   `,
 
-  "Primary Language / Ages 6–8": `
+  "Primary Language / Ages 6-8": `
 **Overview**
 Learners explore sentence structure, story patterns, and expressive reading skills.
 
@@ -38,7 +38,7 @@ Learners explore sentence structure, story patterns, and expressive reading skil
 - Word families and sight words
   `,
 
-  "Literary Explorers / Ages 9–11": `
+  "Literary Explorers / Ages 9-11": `
 **Overview**
 Students delve into structured writing, deeper reading comprehension, and literary elements.
 
@@ -57,7 +57,7 @@ Students delve into structured writing, deeper reading comprehension, and litera
 - Complex sentences and conjunctions
   `,
 
-  "Emerging Writers / Ages 12–14": `
+  "Emerging Writers / Ages 12-14": `
 **Overview**
 Focus on academic writing, creative expression, and understanding author intent.
 
@@ -76,7 +76,7 @@ Focus on academic writing, creative expression, and understanding author intent.
 - Sentence variety and cohesion
   `,
 
-  "Language & Society / Ages 15–17": `
+  "Language & Society / Ages 15-17": `
 **Overview**
 Advanced learners examine global literature, debate, and professional writing.
 

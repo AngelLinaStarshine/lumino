@@ -35,31 +35,31 @@ function Science() {
 
   const courses = [
     {
-      title: "Early Learners / Ages 3–5",
+      title: "Early Learners / Ages 3-5",
       description: "Explore science and nature through sensory-based experiments and play-based discovery.",
       color: "#ffb6b9",
       formLink: "https://forms.gle/EAxVGZartfL7CJKL6"
     },
     {
-      title: "Primary Learners / Ages 6–8",
+      title: "Primary Learners / Ages 6-8",
       description: "Beginner science and geography exploration through maps, plants, weather and ecosystems.",
       color: "#f9971d",
       formLink: "https://forms.gle/nmskVUnXWjhz2TV18"
     },
     {
-      title: "Intermediate Learners / Ages 9–11",
+      title: "Intermediate Learners / Ages 9-11",
       description: "Hands-on projects to investigate life, earth, and physical science topics in more depth.",
       color: "#7DCFB6",
       formLink: "https://forms.gle/7dToZW1wFbHrgbyt7"
     },
     {
-      title: "Emerging Teens / Ages 12–14",
+      title: "Emerging Teens / Ages 12-14",
       description: "Build critical thinking through inquiry-based labs and global geography case studies.",
       color: "#d9b8f3",
       formLink: "https://forms.gle/idAivrySZrDrT8Vb9"
     },
     {
-      title: "Future Pathways / Ages 15–17",
+      title: "Future Pathways / Ages 15-17",
       description: "Deep dive into applied sciences, sustainability, environmental issues, and climate strategy.",
       color: "#0571d3",
       formLink: "https://forms.gle/utPVf1p1KAVycG1H7"
@@ -91,12 +91,12 @@ function Science() {
   return (
     <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
       <h1 className="text-4xl font-extrabold text-green-800 mb-8 text-center tracking-tight">
-        Science & Geography – Course Registration
+        Science & Geography: Course Registration
       </h1>
 
-      <p className="custom-welcome">At LuminoLearn, we believe <span className="green font-bold">curiosity is a compass</span> — and science is the map. Every learner embarks on a <span className="pink">personal discovery journey</span>, guided by passionate <span className="purple">educators</span> and enriched with <span className="yellow">real-world inquiry</span>.</p>
+      <p className="custom-welcome">At LuminoLearn, we believe <span className="green font-bold">curiosity is a compass</span>, and science is the map. Every learner embarks on a <span className="pink">personal discovery journey</span>, guided by passionate <span className="purple">educators</span> and enriched with <span className="yellow">real-world inquiry</span>.</p>
 
-      <p className="custom-welcome">Our Science & Geography curriculum is designed to foster <span className="indigo">systems thinking</span>, <span className="blue">environmental awareness</span>, and <span className="green">global understanding</span>. Students explore Earth's wonders — from water cycles to weather systems, ecosystems to ethical geography — all while building scientific literacy.</p>
+      <p className="custom-welcome">Our Science & Geography curriculum is designed to foster <span className="indigo">systems thinking</span>, <span className="blue">environmental awareness</span>, and <span className="green">global understanding</span>. Students explore Earth's wonders, from water cycles to weather systems, ecosystems to ethical geography, all while building scientific literacy.</p>
 
       <div className="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
         <h2 className="text-2xl font-bold mb-3">🛠️ How Registration Works</h2>

@@ -7,11 +7,11 @@ import btnReg  from '../assets/btn_reg.png'; // Button image
 
 export default function LanguageAndLiterature() {
   const tiles = [
-    { title: 'Explorers (3–5)',    topics: ['Shapes', 'Patterns', 'Seasons', 'Animal', 'Worlds'],         formLink: 'https://forms.gle/EAxVGZartfL7CJKL6', to: '/stem' },
-    { title: 'Builders (6–8)',     topics: ['Number logic', 'Earth science', 'Experiments'],               formLink: 'https://forms.gle/nmskVUnXWjhz2TV18',  to: '/art-and-craft' },
-    { title: 'Thinkers (9–11)',    topics: ['Geometry', 'Forces', 'Historical timelines'],                 formLink: 'https://forms.gle/7dToZW1wFbHrgbyt7',  to: '/language-and-literature' },
-    { title: 'Analysts (12–14)',   topics: ['Algebra', 'Chemistry', 'Global systems'],                     formLink: 'https://forms.gle/idAivrySZrDrT8Vb9',  to: '/science' },
-    { title: 'Innovators (15–18)', topics: ['Research', 'Calculus', 'Labs', 'Theory-to-practice'],         formLink: 'https://forms.gle/utPVf1p1KAVycG1H7',  to: '/language-and-literature' },
+    { title: 'Explorers (3-5)',    topics: ['Shapes', 'Patterns', 'Seasons', 'Animal', 'Worlds'],         formLink: 'https://forms.gle/EAxVGZartfL7CJKL6', to: '/stem' },
+    { title: 'Builders (6-8)',     topics: ['Number logic', 'Earth science', 'Experiments'],               formLink: 'https://forms.gle/nmskVUnXWjhz2TV18',  to: '/art-and-craft' },
+    { title: 'Thinkers (9-11)',    topics: ['Geometry', 'Forces', 'Historical timelines'],                 formLink: 'https://forms.gle/7dToZW1wFbHrgbyt7',  to: '/language-and-literature' },
+    { title: 'Analysts (12-14)',   topics: ['Algebra', 'Chemistry', 'Global systems'],                     formLink: 'https://forms.gle/idAivrySZrDrT8Vb9',  to: '/science' },
+    { title: 'Innovators (15-18)', topics: ['Research', 'Calculus', 'Labs', 'Theory-to-practice'],         formLink: 'https://forms.gle/utPVf1p1KAVycG1H7',  to: '/language-and-literature' },
   ];
 
   const open = useCallback((url) => {
@@ -186,7 +186,7 @@ export default function LanguageAndLiterature() {
       {/* Quote */}
       <p className="quote">
         “The important thing is not to stop questioning. Curiosity has its own reason for existing.”
-        <b>– Albert Einstein</b>
+        <b>Albert Einstein</b>
       </p>
 
       {/* Five taller blocks spanning the entire screen width */}
@@ -198,7 +198,7 @@ export default function LanguageAndLiterature() {
               className="tile"
               role="listitem"
               tabIndex={0}
-              aria-label={`${t.title} — Open registration form`}
+              aria-label={`${t.title} Open registration form`}
               onClick={() => open(t.formLink)}
               onKeyDown={(e) => handleKey(e, t.formLink)}
             >
@@ -271,35 +271,35 @@ function Stem() {
 
   const courses = [
      {
-    title: "Early Learners (Ages 3–5)",
-    description: "Our Early Learners program offers a playful, sensory-rich introduction to STEM for children ages 3–5...",
+    title: "Early Learners (Ages 3-5)",
+    description: "Our Early Learners program offers a playful, sensory-rich introduction to STEM for children ages 3-5...",
     color: "#ed98c5ff",
     formLink: "https://forms.gle/EAxVGZartfL7CJKL6",
     image: stemImg
   },
     {
-      title: "Primary Learners (Ages 6–8)",
+      title: "Primary Learners (Ages 6-8)",
       description: "This stage nurtures growing minds with hands-on STEM challenges that build logical thinking and early problem-solving skills. Students explore patterns, measurements, and simple coding while investigating the world around them through fun science experiments and basic engineering tasks. It’s a playful, structured foundation that sparks curiosity and confidence.",
       color: "#f9971d",
       formLink: "https://forms.gle/nmskVUnXWjhz2TV18",
         image: stemImg1
     },
     {
-      title: "Intermediate Learners (Ages 9–11)",
+      title: "Intermediate Learners (Ages 9-11)",
       description: "Enhance STEM foundations with collaborative experiments and problem-solving challenges.",
       color: "#7DCFB6",
       formLink: "https://forms.gle/7dToZW1wFbHrgbyt7",
         image: stemImg2
     },
     {
-      title: "Emerging Teens (Ages 12–14)",
+      title: "Emerging Teens (Ages 12-14)",
       description: "Dive into coding, electronics, and ethical technology use.",
       color: "#d9b8f3",
       formLink: "https://forms.gle/idAivrySZrDrT8Vb9",
         image: stemImg3
     },
     {
-      title: "Future Pathways (Ages 15–17)",
+      title: "Future Pathways (Ages 15-17)",
       description: "Explore AI, cybersecurity, and future-ready STEM applications.",
       color: "#0571d3",
       formLink: "https://forms.gle/utPVf1p1KAVycG1H7",
@@ -332,11 +332,11 @@ function Stem() {
   return (
     <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
       <h1 className="text-4xl font-extrabold text-blue-800 mb-8 text-center tracking-tight">
-        STEM – Course Registration
+        STEM: Course Registration
       </h1>
 
      <p class="custom-welcome">
-    Every learner begins a <span class="pink"> customized journey</span> — 
+    Every learner begins a <span class="pink"> customized journey</span>, 
     guided by caring <span class="purple">educators</span>, supported in their 
     <span class="green"> individual strengths</span>, and encouraged to become more 
     <span class="indigo"> independent thinkers</span>.
@@ -344,7 +344,7 @@ function Stem() {
 
   <p class="custom-welcome">
     We teach students to use 
-    <span class="blue"> AI as a creative tool</span>, not a leader — integrating it meaningfully into their explorations of 
+    <span class="blue"> AI as a creative tool</span>, not a leader, integrating it meaningfully into their explorations of 
     <span class="blue"> STEM</span>, <span class="yellow"> Art & Craft</span>, 
     <span class="green"> Science</span>, and <span class="red"> Language</span>.
   </p>
@@ -352,13 +352,13 @@ function Stem() {
   <p class="custom-welcome">
     With <span class="indigo">critical thinking</span> as their compass, 
     <span class="pink">creative expression</span> as their voice, and 
-    <span class="green">real-world impact</span> as their goal — 
-    our students don’t just follow the path — 
+    <span class="green">real-world impact</span> as their goal, 
+    our students don’t just follow the path, 
     <span class="indigo font-bold">they illuminate it</span>.
   </p>
 
   <p class="custom-welcome">
-    At <span class="indigo font-semibold">LuminoLearn</span>, our STEM curriculum is crafted for learners aged 3–17, 
+    At <span class="indigo font-semibold">LuminoLearn</span>, our STEM curriculum is crafted for learners aged 3-17, 
     equipping them with <span class="yellow">future-ready skills</span> through 
     fun, structured, and developmentally appropriate programs.
   </p>

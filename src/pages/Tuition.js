@@ -164,7 +164,7 @@ export default function Tuition() {
                       <td>LuminoPath™ 3</td>
                       <td>3 months</td>
                       <td>1 LuminoCore™</td>
-                      <td><span className="price-main">$1,150–$1,200</span><span className="price-note">depends on subject</span></td>
+                      <td><span className="price-main">$1,150-$1,200</span><span className="price-note">depends on subject</span></td>
                     </tr>
                     <tr>
                       <td>LuminoPath™ 6</td>

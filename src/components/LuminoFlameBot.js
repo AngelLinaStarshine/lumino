@@ -139,7 +139,7 @@ function LuminoFlameBot() {
     }
 
     if (saidNo) {
-      addBotMessage("➡️ No problem — let’s start with a quick free meeting.");
+      addBotMessage("➡️ No problem, let’s start with a quick complimentary consultation.");
       setStage("booking");
       openBooking();
       addBotMessage("If you want, you can also message us on WhatsApp for quick questions.");
@@ -184,7 +184,7 @@ function LuminoFlameBot() {
     }
 
     if (intent === "meeting") {
-      addBotMessage("✅ Perfect — here’s the free meeting link.");
+      addBotMessage("✅ Perfect, here’s the complimentary consultation link.");
       openBooking();
       addBotMessage("If you prefer messaging first, you can also reach us on WhatsApp:");
       addWhatsAppMessage();
@@ -203,9 +203,9 @@ function LuminoFlameBot() {
     }
 
     // Fallback (agent-ready)
-    addBotMessage("I can help with Programs, Tuition, or booking a free meeting.");
+    addBotMessage("I can help with Programs, Tuition, or booking a complimentary consultation.");
     addBotMessage("What would you like to do?");
-    addBotMessage("• Type: Programs  • Tuition  • Book a meeting");
+    addBotMessage("• Type: Programs  • Tuition  • Complimentary consultation");
   };
 
   const handleSend = () => {

@@ -81,7 +81,7 @@ emailjs
       to_email: recipientEmail,
       user_name: recipientName,
       subject: 'Your LuminoLearn Password Was Reset',
-      message: `Hello ${recipientName},\n\nThis is to confirm that your LuminoLearn password was successfully reset.\n\nIf you did not initiate this change, please contact our support team immediately at support@luminolearn.org.\n\nThank you,\n— The LuminoLearn Security Team`
+      message: `Hello ${recipientName},\n\nThis is to confirm that your LuminoLearn password was successfully reset.\n\nIf you did not initiate this change, please contact our support team immediately at support@luminolearn.org.\n\nThank you,\nThe LuminoLearn Security Team`
     },
     'P7BJMiXc8d3y4XOha'
   )

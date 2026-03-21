@@ -31,14 +31,79 @@ html {
 }
 
 /* Hero */
+.programs-hero {
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 4rem) 3rem;
+}
+
+@media (min-width: 1024px) {
+  .programs-hero {
+    padding-left: clamp(2.5rem, 6vw, 6rem);
+    padding-right: clamp(2.5rem, 6vw, 6rem);
+  }
+}
+
 .programs-hero .main-hero-inner {
-  max-width: 960px;
+  max-width: 1400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .programs-hero .main-hero-inner {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .programs-page .main-value-section {
+    padding-left: clamp(2rem, 5vw, 5rem);
+    padding-right: clamp(2rem, 5vw, 5rem);
+  }
+  .programs-path-section .main-value-inner,
+  .programs-page .main-value-section .main-value-inner {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .programs-hero .main-hero-lead {
-  max-width: 860px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.75;
+}
+
+.programs-hero-sub {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: #334155;
+}
+
+.programs-hero h1 {
+  font-size: clamp(2.4rem, 5.5vw, 3.75rem);
+  max-width: 100%;
+}
+
+.main-hero-actions-label {
+  margin: 2rem 0 0.5rem 0;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  color: #0f172a;
+}
+
+.main-hero-lead-small {
+  margin: 0 0 1.25rem 0;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .programs-hero {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 .programs-hero .main-hero-actions {
@@ -58,20 +123,132 @@ html {
   }
 }
 
-/* CTA section */
-.programs-cta-heading-block {
+/* CTA section — full-width, aligned with Our Programs section */
+.programs-cta-section.programs-cta-full {
+  width: 100%;
+  max-width: 100%;
+  padding: 4rem 1.5rem 5rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(217, 184, 243, 0.12) 30%, rgba(125, 207, 182, 0.1) 100%);
   text-align: center;
-  margin-bottom: 1.5rem;
 }
 
-.programs-cta-heading-block .main-value-title {
-  margin-bottom: 0.5rem;
+.programs-cta-full-inner {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.programs-cta-heading-block .main-value-sub {
+/* programs-cta-full-inner also has main-value-inner for alignment */
+
+/* CTA uses main-value-inner for alignment with How It Works & Code Explorers */
+
+.programs-cta-hero-title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin: 0 0 1.5rem 0;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.programs-cta-lead {
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  line-height: 1.6;
+  color: #334155;
+  margin: 0 0 2.5rem 0;
+  font-weight: 600;
+}
+
+.programs-cta-lead strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.programs-cta-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0 auto 3rem auto;
+  text-align: left;
+  max-width: 560px;
+}
+
+.programs-cta-benefit {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.65;
+  color: #475569;
   margin: 0;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 14px;
+  border-left: 4px solid var(--lumino-mint);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.programs-cta-benefit:hover {
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px rgba(125, 207, 182, 0.2);
+}
+
+.programs-philosophy-full {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.programs-philosophy-full .programs-philosophy-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+  font-weight: 900;
+  margin: 0 0 1.25rem 0;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.programs-philosophy-full .programs-philosophy-text {
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+  color: #334155;
+  font-weight: 500;
+}
+
+@media (min-width: 1024px) {
+  .programs-philosophy-full .programs-philosophy-text {
+    max-width: 90%;
+  }
+}
+
+.philosophy-highlight {
+  display: inline-block;
+  cursor: default;
+  margin: 0 0.05em;
+  background: linear-gradient(135deg, #7dcfb6, #d9b8f3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  padding: 0 0.15em;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.philosophy-highlight:hover {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 768px) {
+  .programs-cta-section.programs-cta-full {
+    padding: 3rem 1.25rem 4rem;
+  }
+  .programs-cta-benefit {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Legacy CTA row (kept for any other uses) */
 .programs-cta-section .home-cta-row {
   justify-content: center;
   flex-wrap: wrap;
@@ -217,15 +394,51 @@ html {
    LUMINOSTART + LUMINOCORE CARDS
    ========================= */
 
-.programs-lp-grid {
+.programs-lp-grid,
+.programs-how-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
 
+.programs-how-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1rem;
+}
+
+.programs-how-step {
+  text-align: center;
+  cursor: default;
+}
+
+.programs-how-step .main-value-card-icon {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--lumino-mint), var(--lumino-lavender));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.programs-how-step h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 800;
+}
+
+.programs-how-step .main-value-card-desc {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.65;
+}
+
 @media (min-width: 640px) {
   .programs-lp-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .programs-how-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -336,21 +549,7 @@ html {
    COURSES GRID — Choose your direction
    ========================= */
 
-.programs-courses-section .main-value-inner {
-  max-width: 1100px;
-}
-
-@media (min-width: 1024px) {
-  .programs-courses-section .main-value-inner {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .programs-courses-section .main-value-inner {
-    max-width: 1400px;
-  }
-}
+/* Max-width for courses inner is set with CTA above for alignment */
 
 .courses-container.three-column {
   display: grid;
@@ -371,6 +570,8 @@ html {
 }
 
 .course-card {
+  display: flex;
+  flex-direction: column;
   border-radius: 16px;
   padding: 1.25rem 1.35rem;
   background: rgba(255, 255, 255, 0.95);
@@ -430,7 +631,8 @@ html {
 }
 
 .course-actions {
-  margin-top: 0.95rem;
+  margin-top: auto;
+  padding-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -935,5 +1137,52 @@ html {
   color: #333;
   line-height: 1.55;
   font-size: 0.95rem;
+}
+
+.course-gains-label,
+.course-options-label {
+  margin: 1rem 0 0.4rem 0;
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: #111;
+}
+
+.course-gains-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #444;
+}
+
+.course-gains-list li {
+  margin-bottom: 0.25rem;
+}
+
+.course-consult-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.programs-philosophy {
+  margin-top: 2.5rem;
+  padding-top: 0;
+  text-align: center;
+}
+
+.programs-philosophy-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.programs-philosophy-text {
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 480px;
 }
 

@@ -123,7 +123,7 @@ const SignUpPage = () => {
             <ol>
               <li>
                 <strong>Protecting Course Content:</strong> You will not share, redistribute, or publish any course
-                materials—including assessments, videos, and downloads—without prior written consent.
+                materials, including assessments, videos, and downloads, without prior written consent.
               </li>
               <li>
                 <strong>Academic Integrity:</strong> Use of Large Language Models (e.g., ChatGPT, Bard, Claude) to complete

@@ -11,7 +11,7 @@ const differentiatorCards = [
     icon: "🧭",
     title: "Clear structure",
     desc: "A simple roadmap that keeps learning calm and consistent:",
-    pathline: "LuminoStart™ (4 weeks) - LuminoCore™ (12 weeks)",
+    pathline: "LuminoStart™ (4 weeks) • LuminoCore™ (12 weeks)",
     mini: "No guesswork, just a path that makes sense from day one.",
     tip: "Every family knows exactly where they are and what comes next.",
   },
@@ -45,7 +45,7 @@ export default function About() {
   const promiseChips = [
     { id: "calm", label: "Calm structure", desc: "No overwhelm. A clear path that builds step by step." },
     { id: "caring", label: "Caring instruction", desc: "Teachers who meet kids where they are and build confidence." },
-    { id: "visible", label: "Visible growth", desc: "Progress you can see—projects, feedback, and milestones." },
+    { id: "visible", label: "Visible growth", desc: "Progress you can see: projects, feedback, and milestones." },
   ];
 
   return (

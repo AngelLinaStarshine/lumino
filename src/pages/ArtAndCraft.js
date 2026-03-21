@@ -7,31 +7,31 @@ import btnReg  from '../assets/btn_reg.png'; // Button image
 export default function LanguageAndLiterature() {
   const tiles = [
     {
-      title: 'Explorers (3–5)',
+      title: 'Explorers (3-5)',
       topics: ['Vocabulary games', 'Storytelling'],
       formLink: 'https://forms.gle/EAxVGZartfL7CJKL6',
       to: '/stem',
     },
     {
-      title: 'Builders (6–8)',
+      title: 'Builders (6-8)',
       topics: ['Sentence creation', 'Expressive reading'],
       formLink: 'https://forms.gle/nmskVUnXWjhz2TV18',
       to: '/art-and-craft',
     },
     {
-      title: 'Thinkers (9–11)',
+      title: 'Thinkers (9-11)',
       topics: ['Essay structure', 'Oral presentations'],
       formLink: 'https://forms.gle/7dToZW1wFbHrgbyt7',
       to: '/language-and-literature',
     },
     {
-      title: 'Analysts (12–14)',
+      title: 'Analysts (12-14)',
       topics: ['Argumentation', 'Speech writing', 'Journalism'],
       formLink: 'https://forms.gle/idAivrySZrDrT8Vb9',
       to: '/science',
     },
     {
-      title: 'Innovators (15–18)',
+      title: 'Innovators (15-18)',
       topics: ['TED-style talks', 'Cultural literature'],
       formLink: 'https://forms.gle/utPVf1p1KAVycG1H7',
       to: '/language-and-literature',
@@ -225,7 +225,7 @@ export default function LanguageAndLiterature() {
       {/* Quote */}
       <p className="quote">
         “To speak a language is to take on a world, a culture.”
-        <b>– Frantz Fanon</b>
+        <b>Frantz Fanon</b>
       </p>
 
       {/* Five taller blocks spanning the entire screen width */}
@@ -237,7 +237,7 @@ export default function LanguageAndLiterature() {
               className="tile"
               role="listitem"
               tabIndex={0}
-              aria-label={`${t.title} — Open registration form`}
+              aria-label={`${t.title} Open registration form`}
               onClick={() => open(t.formLink)}
               onKeyDown={(e) => handleKey(e, t.formLink)}
             >
@@ -308,31 +308,31 @@ function ArtAndCraft() {
 
   const courses = [
     {
-      title: "Creative Starters / Ages 3–5",
+      title: "Creative Starters / Ages 3-5",
       description: "Hands-on sensory art play: colors, textures, shapes and safe craft tools.",
       color: "#f6c0d0",
       formLink: "https://forms.gle/EAxVGZartfL7CJKL6"
     },
     {
-      title: "Mini Makers / Ages 6–8",
+      title: "Mini Makers / Ages 6-8",
       description: "Painting, cutting, folding, and gluing: creative exercises and guided imagination.",
       color: "#f9971d",
       formLink: "https://forms.gle/nmskVUnXWjhz2TV18"
     },
     {
-      title: "Young Designers / Ages 9–11",
+      title: "Young Designers / Ages 9-11",
       description: "Learn about color theory, basic design, mixed media, and create personal portfolios.",
       color: "#7DCFB6",
       formLink: "https://forms.gle/7dToZW1wFbHrgbyt7"
     },
     {
-      title: "Teen Creators / Ages 12–14",
+      title: "Teen Creators / Ages 12-14",
       description: "Master techniques like shading, perspective, and sculpture using real artist tools.",
       color: "#d9b8f3",
       formLink: "https://forms.gle/idAivrySZrDrT8Vb9"
     },
     {
-      title: "Portfolio Prep / Ages 15–17",
+      title: "Portfolio Prep / Ages 15-17",
       description: "Build portfolios for college, learn digital art, and exhibit personal masterpieces.",
       color: "#0571d3",
       formLink: "https://forms.gle/utPVf1p1KAVycG1H7"
@@ -363,7 +363,7 @@ function ArtAndCraft() {
 
   return (
     <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
-      <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center">Art & Craft Courses – Express & Enroll</h1>
+      <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center">Art & Craft Courses: Express & Enroll</h1>
 
       <p className="custom-welcome">
         Our Art & Craft curriculum sparks imagination, supports motor development, and builds a strong design foundation. Learners explore drawing, 3D building, digital art, and portfolio creation across every age.

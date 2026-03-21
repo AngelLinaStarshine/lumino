@@ -13,7 +13,7 @@ const audienceCards = [
   {
     icon: "🏫",
     title: "School & district leaders",
-    desc: "For principals, PD directors, and coordinators who want coherent professional learning—not one-off workshops.",
+    desc: "For principals, PD directors, and coordinators who want coherent professional learning, not one-off workshops.",
     items: [
       "Aligned PD series in math, literacy, and CS/STEM",
       "Implementation coaching for new initiatives",
@@ -46,14 +46,14 @@ const audienceCards = [
 ];
 
 const offerItems = [
-  { title: "Focused PD series", desc: "Multi-session programs in math, literacy, and CS/STEM—aligned to your goals." },
+  { title: "Focused PD series", desc: "Multi-session programs in math, literacy, and CS/STEM, aligned to your goals." },
   { title: "Implementation coaching", desc: "Ongoing support as you roll out new practices and tools." },
   { title: "Ready-to-use resources", desc: "Lesson ideas, routines, and templates you can adapt immediately." },
-  { title: "AI & digital literacy", desc: "Short courses for educators and parents—practical, not theoretical." },
+  { title: "AI & digital literacy", desc: "Short courses for educators and parents, practical, not theoretical." },
 ];
 
 const processSteps = [
-  { num: 1, title: "Discovery & needs", desc: "We listen first—to your context, priorities, and existing initiatives—before suggesting any pathway." },
+  { num: 1, title: "Discovery & needs", desc: "We listen first, to your context, priorities, and existing initiatives, before suggesting any pathway." },
   { num: 2, title: "Program PD design", desc: "We co-design a focused series of sessions with clear outcomes and practical artifacts." },
   { num: 3, title: "Ongoing support", desc: "Optional coaching, office hours, and reflection spaces help teams translate ideas into everyday practice." },
 ];
@@ -82,7 +82,7 @@ export default function LuminoPro() {
             for schools, teachers & adult learners
           </h1>
           <p className="main-hero-lead">
-            Clear, structured professional development—designed for real classrooms and workplaces.
+            Clear, structured professional development, designed for real classrooms and workplaces.
             No jargon. No fluff. Just practical learning you can use the next day.
           </p>
           <div className="main-hero-actions">
@@ -220,10 +220,10 @@ export default function LuminoPro() {
               We focus on clarity, practicality, and real classroom use. No jargon. No fluff.
             </p>
             <ul className="luminopro-why-list">
-              <li><strong>Clear structure</strong> — Every session has defined outcomes and takeaway artifacts.</li>
-              <li><strong>Practical from day one</strong> — Ideas you can use the next day, not someday.</li>
-              <li><strong>Designed for real classrooms</strong> — We work with your context, not generic templates.</li>
-              <li><strong>Calm, supportive tone</strong> — Learning happens best when people feel safe to try.</li>
+              <li><strong>Clear structure</strong>: Every session has defined outcomes and takeaway artifacts.</li>
+              <li><strong>Practical from day one</strong>: Ideas you can use the next day, not someday.</li>
+              <li><strong>Designed for real classrooms</strong>: We work with your context, not generic templates.</li>
+              <li><strong>Calm, supportive tone</strong>: Learning happens best when people feel safe to try.</li>
             </ul>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function LuminoPro() {
             Start a conversation
           </h2>
           <p className="main-value-sub">
-            Share a bit about your school or context. We&apos;ll respond with a short, concrete proposal—no pressure, just a conversation.
+            Share a bit about your school or context. We&apos;ll respond with a short, concrete proposal, no pressure, just a conversation.
           </p>
           <div className="main-value-section-cta home-cta-row">
             <button className="main-hero-btn primary" type="button" onClick={openCalendar}>

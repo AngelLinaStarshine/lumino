@@ -1,7 +1,7 @@
 // extendedDescriptions.js
 
 const extendedDescriptions = {
-  "Early Learners (Ages 3–5)": `At this critical developmental stage, children explore STEM through sensory play and storytelling.
+  "Early Learners (Ages 3-5)": `At this critical developmental stage, children explore STEM through sensory play and storytelling.
 
 **🔬 Science & Exploration**
 
@@ -24,13 +24,13 @@ const extendedDescriptions = {
 
 Our Early Learners program is a joyful introduction to the world of STEM, thoughtfully designed for children ages 3 to 5. Through playful exploration, sensory-rich activities, and guided discovery, we lay the foundation for essential cognitive and motor skills.
 
-Children learn by doing — building, touching, observing, and asking questions — all in a safe, nurturing space where curiosity is celebrated and every moment sparks imagination.
+Children learn by doing, building, touching, observing, and asking questions, all in a safe, nurturing space where curiosity is celebrated and every moment sparks imagination.
 
-We believe that fun fuels focus — and that imagination, joyful learning, and purposeful play are the most powerful tools to help children develop deeper thinking, stronger memory, and a lifelong love of learning.
+We believe that fun fuels focus, and that imagination, joyful learning, and purposeful play are the most powerful tools to help children develop deeper thinking, stronger memory, and a lifelong love of learning.
 
 🎉 Ready to turn learning into an adventure? Enroll now and let your child discover the joy of STEM through games, creativity, and wonder at LuminoLearn!`,
 
-  "Primary Learners (Ages 6–8)": `**🧠 Overview**
+  "Primary Learners (Ages 6-8)": `**🧠 Overview**
 
 Young learners build logical thinking through early math, coding, and engineering play.
 
@@ -53,7 +53,7 @@ Our Primary Learners program is designed to spark curiosity and build foundation
 
 At this stage, learners begin to think critically, recognize patterns, and apply logic to real-world challenges.
 
-Hands-on experiments, interactive games, and collaborative tasks encourage exploration, teamwork, and creative thinking — all in a vibrant, supportive environment where every question leads to discovery.
+Hands-on experiments, interactive games, and collaborative tasks encourage exploration, teamwork, and creative thinking, all in a vibrant, supportive environment where every question leads to discovery.
 
 **🧩 Key Components:**
 
@@ -63,7 +63,7 @@ Hands-on experiments, interactive games, and collaborative tasks encourage explo
 - **🧠 Technology Exposure:** Age-appropriate apps and early programming games
 - **📚 Literacy Connection:** Journaling, STEM-themed storybooks, and discussion prompts`,
 
-  "Intermediate Learners (Ages 9–11)": `**🧠 Overview**
+  "Intermediate Learners (Ages 9-11)": `**🧠 Overview**
 
 At this stage, students solve problems through applied experiments, coding, and robotics.
 
@@ -86,7 +86,7 @@ At this stage, students solve problems through applied experiments, coding, and 
 
 - Intro to spreadsheets and safe research online`,
 
-  "Emerging Teens (Ages 12–14)": `**🧠 Overview**
+  "Emerging Teens (Ages 12-14)": `**🧠 Overview**
 
 Teens explore advanced coding, real-world tech ethics, and collaborative engineering challenges.
 
@@ -105,7 +105,7 @@ Teens explore advanced coding, real-world tech ethics, and collaborative enginee
 - Climate models, city planning with math
 - Simulations using block-based tools and graphing calculators`,
 
-  "Future Pathways (Ages 15–17)": `**🧠 Overview**
+  "Future Pathways (Ages 15-17)": `**🧠 Overview**
 
 Students prepare for post-secondary and careers through advanced courses in AI, cybersecurity, and PQC.
 

@@ -46,14 +46,14 @@ function PersonalAccount() {
     if (!progressReport?.summary) return null;
     const s = progressReport.summary;
     return {
-      overallStatus: s.overallStatus || "—",
+      overallStatus: s.overallStatus || "…",
       attendancePct:
-        typeof s.attendancePct === "number" ? `${s.attendancePct}%` : "—",
-      gpa: s.gpa ?? "—",
-      lastUpdated: s.lastUpdated || "—",
+        typeof s.attendancePct === "number" ? `${s.attendancePct}%` : "…",
+      gpa: s.gpa ?? "…",
+      lastUpdated: s.lastUpdated || "…",
       completionPct:
-        typeof s.completionPct === "number" ? `${s.completionPct}%` : progressReport?.courses?.[0]?.progressPct != null ? `${progressReport.courses[0].progressPct}%` : "—",
-      score: s.score ?? progressReport?.courses?.[0]?.grade ?? "—",
+        typeof s.completionPct === "number" ? `${s.completionPct}%` : progressReport?.courses?.[0]?.progressPct != null ? `${progressReport.courses[0].progressPct}%` : "…",
+      score: s.score ?? progressReport?.courses?.[0]?.grade ?? "…",
     };
   }, [progressReport]);
 
@@ -123,7 +123,7 @@ function PersonalAccount() {
           Welcome back, <span className="account-hero-name">{fullName}</span>
         </h1>
         <p className="account-hero-sub">
-          Your course overview, profile, and payments — all in one calm space.
+          Your course overview, profile, and payments, all in one calm space.
         </p>
 
         <div className="account-hero-badges">
@@ -215,25 +215,25 @@ function PersonalAccount() {
                       <div className="account-overview-stat">
                         <span className="account-overview-stat-label">Score</span>
                         <span className="account-overview-stat-value">
-                          {progressSummary?.score ?? progressSummary?.gpa ?? "—"}
+                          {progressSummary?.score ?? progressSummary?.gpa ?? "…"}
                         </span>
                       </div>
                       <div className="account-overview-stat">
                         <span className="account-overview-stat-label">Completion</span>
                         <span className="account-overview-stat-value">
-                          {progressSummary?.completionPct ?? "—"}
+                          {progressSummary?.completionPct ?? "…"}
                         </span>
                       </div>
                       <div className="account-overview-stat">
                         <span className="account-overview-stat-label">Achievement</span>
                         <span className="account-overview-stat-value">
-                          {progressSummary?.overallStatus ?? "—"}
+                          {progressSummary?.overallStatus ?? "…"}
                         </span>
                       </div>
                       <div className="account-overview-stat">
                         <span className="account-overview-stat-label">Updated</span>
                         <span className="account-overview-stat-value">
-                          {progressSummary?.lastUpdated ?? "—"}
+                          {progressSummary?.lastUpdated ?? "…"}
                         </span>
                       </div>
                     </div>
@@ -260,10 +260,10 @@ function PersonalAccount() {
                   <strong>Name:</strong> {fullName}
                 </p>
                 <p>
-                  <strong>Email:</strong> {user.email || "—"}
+                  <strong>Email:</strong> {user.email || "…"}
                 </p>
                 <p>
-                  <strong>Role:</strong> {user.role || "—"}
+                  <strong>Role:</strong> {user.role || "…"}
                 </p>
                 <p>
                   <strong>Subscription:</strong> {subscription}
@@ -304,10 +304,10 @@ function PersonalAccount() {
                           className="payment-list-item"
                         >
                           <span className="payment-date">
-                            {p.date || p.createdAt || "—"}
+                            {p.date || p.createdAt || "…"}
                           </span>
                           <span className="payment-amount">
-                            {p.amount || p.total || "—"}
+                            {p.amount || p.total || "…"}
                           </span>
                           <span
                             className={`payment-status ${statusClass}`}

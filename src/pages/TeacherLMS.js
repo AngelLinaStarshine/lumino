@@ -191,9 +191,9 @@ export default function TeacherLMS() {
                         const hasLinks = !!(row?.google_classroom_url || row?.class_meeting_url);
                         return (
                           <tr key={s.id}>
-                            <td>{s.full_name || "—"}</td>
+                            <td>{s.full_name || "…"}</td>
                             <td>{s.email}</td>
-                            <td>{hasLinks ? "✓" : "—"}</td>
+                            <td>{hasLinks ? "✓" : "…"}</td>
                             <td>
                               <button
                                 type="button"
@@ -282,7 +282,7 @@ export default function TeacherLMS() {
                                     Open ↗
                                   </a>
                                 ) : (
-                                  "—"
+                                  "…"
                                 )}
                               </td>
                               <td>
@@ -295,7 +295,7 @@ export default function TeacherLMS() {
                                     Join ↗
                                   </a>
                                 ) : (
-                                  "—"
+                                  "…"
                                 )}
                               </td>
                               <td>

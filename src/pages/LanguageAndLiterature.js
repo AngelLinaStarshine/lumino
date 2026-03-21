@@ -7,31 +7,31 @@ import btnReg  from '../assets/btn_reg.png'; // Button image
 export default function InnovationAndCreation() {
   const tiles = [
     {
-      title: 'Explorers (3–5)',
+      title: 'Explorers (3-5)',
       topics: ['Building blocks', 'Color mixing', 'Tech toys'],
       formLink: 'https://forms.gle/EAxVGZartfL7CJKL6',
       to: '/stem',
     },
     {
-      title: 'Builders (6–8)',
+      title: 'Builders (6-8)',
       topics: ['Scratch coding', 'Basic painting', 'Digital storytelling'],
       formLink: 'https://forms.gle/nmskVUnXWjhz2TV18',
       to: '/art-and-craft',
     },
     {
-      title: 'Thinkers (9–11)',
+      title: 'Thinkers (9-11)',
       topics: ['Game design', 'Intro to cybersecurity', 'Mixed media'],
       formLink: 'https://forms.gle/7dToZW1wFbHrgbyt7',
       to: '/language-and-literature',
     },
     {
-      title: 'Analysts (12–14)',
+      title: 'Analysts (12-14)',
       topics: ['Web design', 'Ethical hacking basics', 'Product design'],
       formLink: 'https://forms.gle/idAivrySZrDrT8Vb9',
       to: '/science',
     },
     {
-      title: 'Innovators (15–18)',
+      title: 'Innovators (15-18)',
       topics: ['AI tools', 'Personal finance', 'Digital portfolio'],
       formLink: 'https://forms.gle/utPVf1p1KAVycG1H7',
       to: '/language-and-literature',
@@ -228,7 +228,7 @@ export default function InnovationAndCreation() {
       {/* Quote */}
       <p className="quote">
         “The best way to predict the future is to invent it.”
-        <b>– Alan Kay</b>
+        <b>Alan Kay</b>
       </p>
 
       {/* Five taller blocks spanning the entire screen width */}
@@ -240,7 +240,7 @@ export default function InnovationAndCreation() {
               className="tile"
               role="listitem"
               tabIndex={0}
-              aria-label={`${t.title} — Open registration form`}
+              aria-label={`${t.title} Open registration form`}
               onClick={() => open(t.formLink)}
               onKeyDown={(e) => handleKey(e, t.formLink)}
             >
@@ -312,31 +312,31 @@ function LanguageAndLiterature() {
 
   const courses = [
     {
-      title: "Early Readers / Ages 3–5",
+      title: "Early Readers / Ages 3-5",
       description: "Phonics, rhymes, and early word recognition to nurture a love for books.",
       color: "#f4d35e",
       formLink: "https://forms.gle/EAxVGZartfL7CJKL6"
     },
     {
-      title: "Primary Language / Ages 6–8",
+      title: "Primary Language / Ages 6-8",
       description: "Explore basic grammar, storytelling, and reading fluency through engaging activities.",
       color: "#7dcfb6",
       formLink: "https://forms.gle/nmskVUnXWjhz2TV18"
     },
     {
-      title: "Literary Explorers / Ages 9–11",
+      title: "Literary Explorers / Ages 9-11",
       description: "Dive into short stories, reading comprehension, and writing fundamentals.",
       color: "#f9971d",
       formLink: "https://forms.gle/7dToZW1wFbHrgbyt7"
     },
     {
-      title: "Emerging Writers / Ages 12–14",
+      title: "Emerging Writers / Ages 12-14",
       description: "Sharpen creative and academic writing skills, from essays to poetry.",
       color: "#d9b8f3",
       formLink: "https://forms.gle/idAivrySZrDrT8Vb9"
     },
     {
-      title: "Language & Society / Ages 15–17",
+      title: "Language & Society / Ages 15-17",
       description: "Study classical literature, critical analysis, debate, and language for global use.",
       color: "#0571d3",
       formLink: "https://forms.gle/utPVf1p1KAVycG1H7"
@@ -365,7 +365,7 @@ function LanguageAndLiterature() {
 
   return (
     <div className="course-page px-4 md:px-10 py-12 max-w-5xl mx-auto bg-white rounded-xl shadow-md">
-      <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center">Languages & Literature – Read, Write, Excel</h1>
+      <h1 className="text-4xl font-extrabold text-indigo-800 mb-8 text-center">Languages & Literature: Read, Write, Excel</h1>
 
       <p className="custom-welcome">
         Our language program inspires confident readers, expressive writers, and strong communicators. From phonics to public speaking, each course builds literacy for life.

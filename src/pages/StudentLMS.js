@@ -300,7 +300,7 @@ export default function StudentLMS() {
                     <div className="lms-student-progress-card">
                       <span className="lms-student-progress-label">Score</span>
                       <span className="lms-student-progress-value">
-                        {progressSummary?.score ?? progressSummary?.gpa ?? progressReport?.courses?.[0]?.grade ?? "—"}
+                        {progressSummary?.score ?? progressSummary?.gpa ?? progressReport?.courses?.[0]?.grade ?? "…"}
                       </span>
                     </div>
                     <div className="lms-student-progress-card">
@@ -310,19 +310,19 @@ export default function StudentLMS() {
                           ? progressSummary.completionPct
                           : progressReport?.courses?.[0]?.progressPct != null
                           ? `${progressReport.courses[0].progressPct}%`
-                          : "—"}
+                          : "…"}
                       </span>
                     </div>
                     <div className="lms-student-progress-card">
                       <span className="lms-student-progress-label">Achievement</span>
                       <span className="lms-student-progress-value">
-                        {progressSummary?.overallStatus ?? "—"}
+                        {progressSummary?.overallStatus ?? "…"}
                       </span>
                     </div>
                     <div className="lms-student-progress-card">
                       <span className="lms-student-progress-label">Attendance</span>
                       <span className="lms-student-progress-value">
-                        {progressSummary?.attendancePct ?? "—"}
+                        {progressSummary?.attendancePct ?? "…"}
                       </span>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default function StudentLMS() {
                           <li key={p.classId || i} className="lms-student-course-item">
                             <strong>{p.className || "Class"}</strong>
                             <span>
-                              {typeof p.progressPct === "number" ? `${p.progressPct}%` : "—"} complete
+                              {typeof p.progressPct === "number" ? `${p.progressPct}%` : "…"} complete
                             </span>
                             {p.teacherNote && <p className="lms-student-teacher-note">{p.teacherNote}</p>}
                           </li>
@@ -389,7 +389,7 @@ export default function StudentLMS() {
                 <ul className="lms-student-sub-list">
                   {submissions.map((s, i) => (
                     <li key={s.id || i}>
-                      <strong>{s.title || "Untitled"}</strong> — {s.status || "Pending"}
+                      <strong>{s.title || "Untitled"}</strong> {s.status || "Pending"}
                     </li>
                   ))}
                 </ul>

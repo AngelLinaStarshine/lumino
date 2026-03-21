@@ -1,5 +1,5 @@
 const artDescriptions = {
-  "Creative Starters / Ages 3–5": `
+  "Creative Starters / Ages 3-5": `
 **Overview**
 Young artists explore creativity through playful, sensory experiences.
 
@@ -19,7 +19,7 @@ Young artists explore creativity through playful, sensory experiences.
 - Following simple craft steps
   `,
 
-  "Mini Makers / Ages 6–8": `
+  "Mini Makers / Ages 6-8": `
 **Overview**
 Students expand their creative thinking with guided arts and craft activities.
 
@@ -38,7 +38,7 @@ Students expand their creative thinking with guided arts and craft activities.
 - Connecting art with emotions and stories
   `,
 
-  "Young Designers / Ages 9–11": `
+  "Young Designers / Ages 9-11": `
 **Overview**
 Students learn foundational design principles, experiment with media, and develop personal projects.
 
@@ -58,7 +58,7 @@ Students learn foundational design principles, experiment with media, and develo
 - Combining art and storytelling
   `,
 
-  "Teen Creators / Ages 12–14": `
+  "Teen Creators / Ages 12-14": `
 **Overview**
 Young artists develop advanced technical skills and explore self-expression across media.
 
@@ -77,7 +77,7 @@ Young artists develop advanced technical skills and explore self-expression acro
 - Preparing for exhibitions and competitions
   `,
 
-  "Portfolio Prep / Ages 15–17": `
+  "Portfolio Prep / Ages 15-17": `
 **Overview**
 Advanced learners refine their art for college and personal achievement.
 
