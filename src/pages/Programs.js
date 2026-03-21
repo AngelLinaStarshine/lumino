@@ -23,8 +23,9 @@ export default function Programs() {
   const openLevel = (level) => setActiveLevel(level);
   const closeLevel = () => setActiveLevel(null);
 
-  const handleOpenIntakeForm = () => {
-    window.open(INTAKE_FORM_URL, "_blank", "noopener,noreferrer");
+  const handleOpenIntakeForm = (formUrl) => {
+    const url = formUrl || INTAKE_FORM_URL;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleBookMeeting = () => {
@@ -56,6 +57,7 @@ export default function Programs() {
             id: "problem-solvers",
             title: "Problem Solvers (9–11)",
             topics: ["Fractions", "Decimals", "Percentages", "Intro to geometry"],
+            formUrl: "https://forms.gle/txh4xWL3PuJpJpTr6",
             modal: {
               heading: "Mathematics (Ages 9–11)",
               subtitle: "Fractions, decimals, percentages",
@@ -107,6 +109,7 @@ export default function Programs() {
             id: "writers-workshop",
             title: "Writer’s Workshop (9–11)",
             topics: ["Paragraph writing", "Comprehension", "Creative writing"],
+            formUrl: "https://forms.gle/TVbemtprDtK9Zixw9",
             modal: {
               heading: "Language & Art (Ages 9–11)",
               subtitle: "Paragraph structure, comprehension, strong voice",
@@ -161,6 +164,7 @@ export default function Programs() {
             id: "project-coders",
             title: "Project Coders (9–11)",
             topics: ["Intro JavaScript", "Mini apps", "Debugging habits"],
+            formUrl: "https://forms.gle/AdkicVongWKAfSdt5",
             modal: {
               heading: "Computer Science (Ages 9–11)",
               subtitle: "Beginner JavaScript + project thinking",
@@ -572,8 +576,8 @@ export default function Programs() {
             </div>
 
             <div className="modal-footer">
-              <button className="modal-btn primary" onClick={handleOpenIntakeForm} type="button">
-                Parent Intake Form
+              <button className="modal-btn primary" onClick={() => handleOpenIntakeForm(activeLevel.formUrl)} type="button">
+                {activeLevel.formUrl ? "Complete Registration Form" : "Parent Intake Form"}
               </button>
             </div>
           </div>
